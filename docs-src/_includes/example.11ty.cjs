@@ -17,22 +17,21 @@ const renderExample = ({name, content, collections, page}) => {
     <section class="examples">
       <nav class="collection">
         <ul>
-          ${
-            collections.example === undefined
-              ? ''
-              : collections.example
-                  .map(
-                    (post) => `
+          ${collections.example === undefined
+      ? ''
+      : collections.example
+        .map(
+          (post) => `
                   <li class=${post.url === page.url ? 'selected' : ''}>
                     <a href="${relative(
-                      page.url,
-                      post.url
-                    )}">${post.data.description.replace('<', '&lt;')}</a>
+            page.url,
+            post.url
+          )}">${post.data.description.replace('<', '&lt;')}</a>
                   </li>
                 `
-                  )
-                  .join('')
-          }
+        )
+        .join('')
+    }
         </ul>
       </nav>
       <div>

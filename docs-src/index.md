@@ -6,18 +6,17 @@ title: Jenkins.io Components ⌲ Home
 # Jenkins.io Web Components
 
 
-So many web components for jenkins.io to use
+So many web components for jenkins.io to use. All of these are just HTML elements.
+You can it anywhere you can use HTML!
 
 ## &lt;jio-improve-this-page>
 
-`<jio-improve-this-page>` is an awesome element. It's a great introduction to building web components with LitElement, with nice documentation site as well.
+`<jio-improve-this-page>` links to github's edit file screen
 
-### As easy as HTML
+### HTML
 
 <section class="columns">
   <div>
-
-`<jio-improve-this-page>` is just an HTML element. You can it anywhere you can use HTML!
 
 ```html
 <jio-improve-this-page sourcePath="docs-src/index.md" githubRepo="halkeye/jenkins-io-components"></jio-improve-this-page>
@@ -31,33 +30,24 @@ So many web components for jenkins.io to use
   </div>
 </section>
 
-### Declarative rendering
+## &lt;jio-report-a-problem>
+
+`<jio-report-a-problem>` links to github's edit file screen
+
+### HTML
 
 <section class="columns">
   <div>
 
-`<jio-improve-this-page>` can be used with declarative rendering libraries like Angular, React, Vue, and lit-html
-
-```js
-import {html, render} from 'lit-html';
-
-const githubRepo = 'halkeye/jenkins-io-components';
-const sourcePath = 'docs-src/index.md';
-
-render(
-  html`
-    <h2>This is a &lt;jio-improve-this-page&gt;</h2>
-    <jio-improve-this-page .sourcePath="${sourcePath}" .githubRepo="${githubRepo}"></jio-improve-this-page>
-  `,
-  document.body
-);
+```html
+<jio-report-a-problem sourcePath="docs-src/index.md" githubRepo="halkeye/jenkins-io-components"></jio-report-a-problem>
 ```
 
   </div>
   <div>
 
-<h2>This is a &lt;jio-improve-this-page&gt;</h2>
-<jio-improve-this-page sourcePath="docs-src/index.md" githubRepo="halkeye/jenkins-io-components"></jio-improve-this-page>
+<jio-report-a-problem sourcePath="docs-src/index.md" githubRepo="halkeye/jenkins-io-components"></jio-report-a-problem>
 
   </div>
 </section>
+

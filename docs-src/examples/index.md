@@ -7,28 +7,23 @@ description: A basic example
 ---
 
 <style>
-  my-element p {
-    border: solid 1px blue;
-    padding: 8px;
+  jio-improve-this-page {
+    --jio-a-color: gray;
   }
 </style>
-<my-element>
-  <p>This is child content</p>
-</my-element>
+
+<jio-improve-this-page sourcePath="docs-src/index.md" githubRepo="halkeye/jenkins-io-components"></jio-improve-this-page>
 
 <h3>CSS</h3>
 
 ```css
-p {
-  border: solid 1px blue;
-  padding: 8px;
+jio-improve-this-page {
+  --jio-a-color: gray;
 }
 ```
 
 <h3>HTML</h3>
 
 ```html
-<my-element>
-  <p>This is child content</p>
-</my-element>
+<jio-improve-this-page sourcePath="docs-src/index.md" githubRepo="halkeye/jenkins-io-components"></jio-improve-this-page>
 ```
