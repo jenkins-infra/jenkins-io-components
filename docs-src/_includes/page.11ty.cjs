@@ -21,16 +21,21 @@ module.exports = function (data) {
     <script type="module" src="${relative(page.url, '/jio-components.bundled.js')}"></script>
     <script data='ionicons' src='https://cdnjs.cloudflare.com/ajax/libs/ionicons/5.5.2/ionicons/ionicons.esm.js' type='module'></script>
     <script data='ionicons' nomodule='' src='https://cdnjs.cloudflare.com/ajax/libs/ionicons/5.5.2/ionicons/ionicons.js'></script>
+    <style>
+      footer jio-report-a-problem {
+        --jio-a-color: white;
+      }
+    </style>
   </head>
   <body>
-    ${header()}
+    ${header(data)}
     ${nav(data)}
     <div id="main-wrapper">
       <main>
         ${content}
       </main>
     </div>
-    ${footer()}
+    ${footer(data)}
   </body>
 </html>`;
 };
