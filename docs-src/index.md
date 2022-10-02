@@ -1,30 +1,18 @@
 ---
 layout: page.11ty.cjs
-title: <my-element> ⌲ Home
+title: Jenkins.io Components ⌲ Home
 ---
 
-# &lt;my-element>
+# Jenkins.io Web Components
 
-`<my-element>` is an awesome element. It's a great introduction to building web components with LitElement, with nice documentation site as well.
 
-## As easy as HTML
+So many web components for jenkins.io to use
 
-<section class="columns">
-  <div>
+## &lt;jio-improve-this-page>
 
-`<my-element>` is just an HTML element. You can it anywhere you can use HTML!
+`<jio-improve-this-page>` is an awesome element. It's a great introduction to building web components with LitElement, with nice documentation site as well.
 
-```html
-<my-element></my-element>
-```
-
-  </div>
-  <div>
-
-<my-element></my-element>
-
-  </div>
-</section>
+### As easy as HTML
 
 <section class="columns">
   <div>
@@ -32,52 +20,34 @@ title: <my-element> ⌲ Home
 `<jio-improve-this-page>` is just an HTML element. You can it anywhere you can use HTML!
 
 ```html
-<jio-improve-this-page></jio-improve-this-page>
+<jio-improve-this-page sourcePath="docs-src/index.md" githubRepo="halkeye/jenkins-io-components"></jio-improve-this-page>
 ```
 
   </div>
   <div>
 
-<jio-improve-this-page></jio-improve-this-page>
+<jio-improve-this-page sourcePath="docs-src/index.md" githubRepo="halkeye/jenkins-io-components"></jio-improve-this-page>
 
   </div>
 </section>
 
-## Configure with attributes
+### Declarative rendering
 
 <section class="columns">
   <div>
 
-`<my-element>` can be configured with attributed in plain HTML.
-
-```html
-<my-element name="HTML"></my-element>
-```
-
-  </div>
-  <div>
-
-<my-element name="HTML"></my-element>
-
-  </div>
-</section>
-
-## Declarative rendering
-
-<section class="columns">
-  <div>
-
-`<my-element>` can be used with declarative rendering libraries like Angular, React, Vue, and lit-html
+`<jio-improve-this-page>` can be used with declarative rendering libraries like Angular, React, Vue, and lit-html
 
 ```js
 import {html, render} from 'lit-html';
 
-const name = 'lit-html';
+const githubRepo = 'halkeye/jenkins-io-components';
+const sourcePath = 'docs-src/index.md';
 
 render(
   html`
-    <h2>This is a &lt;my-element&gt;</h2>
-    <my-element .name=${name}></my-element>
+    <h2>This is a &lt;jio-improve-this-page&gt;</h2>
+    <jio-improve-this-page .sourcePath="${sourcePath}" .githubRepo="${githubRepo}"></jio-improve-this-page>
   `,
   document.body
 );
@@ -86,8 +56,8 @@ render(
   </div>
   <div>
 
-<h2>This is a &lt;my-element&gt;</h2>
-<my-element name="lit-html"></my-element>
+<h2>This is a &lt;jio-improve-this-page&gt;</h2>
+<jio-improve-this-page sourcePath="docs-src/index.md" githubRepo="halkeye/jenkins-io-components"></jio-improve-this-page>
 
   </div>
 </section>

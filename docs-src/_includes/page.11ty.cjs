@@ -18,10 +18,7 @@ module.exports = function (data) {
     <link href="${relative(page.url, '/prism-okaidia.css')}" rel="stylesheet" />
     <script src="/node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
     <script src="/node_modules/lit/polyfill-support.js"></script>
-    <script type="module" src="${relative(
-      page.url,
-      '/my-element.bundled.js'
-    )}"></script>
+    <script type="module" src="${relative(page.url, '/jio-components.bundled.js')}"></script>
   </head>
   <body>
     ${header()}

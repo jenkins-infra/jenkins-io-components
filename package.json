@@ -1,7 +1,6 @@
 {
   "name": "@halkeye/jenkins-io-components",
-  "private": true,
-  "version": "1.0.4",
+  "version": "0.0.1",
   "description": "Random parts shared between jenkins.io",
   "publishConfig": {
     "access": "public"

@@ -1,12 +1,11 @@
-name: Storybook
+name: Docs
 on:
   workflow_dispatch: {}
   push:
     branches:
       - main
     paths:
-      - "src/stories/**"
-      - "src/components/**"
+      - "src/**"
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
@@ -21,7 +20,7 @@ concurrency:
 
 jobs:
   storybook:
-    name: Storybook
+    name: Docs
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -39,13 +38,13 @@ jobs:
           node-version: 'lts/*'
       - name: Install dependencies
         run: npm ci
-      - name: Build storybook
-        run: npm run build-storybook
+      - name: Build docs
+        run: npm run docs
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
           # Upload entire repository
-          path: 'storybook-static'
+          path: 'docs'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1

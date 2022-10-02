@@ -1,6 +1,6 @@
 ---
 layout: example.11ty.cjs
-title: <my-element> ⌲ Examples ⌲ Name Property
+title: Jenkins.io Components ⌲ Examples ⌲ Name Property
 tags: example
 name: Name Property
 description: Setting the name property

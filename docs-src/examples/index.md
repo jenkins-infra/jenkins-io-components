@@ -1,6 +1,6 @@
 ---
 layout: example.11ty.cjs
-title: <my-element> ⌲ Examples ⌲ Basic
+title: Jenkins.io Components ⌲ Examples ⌲ Basic
 tags: example
 name: Basic
 description: A basic example

@@ -6,7 +6,7 @@ module.exports = class Docs {
   data() {
     return {
       layout: 'page.11ty.cjs',
-      title: '<my-element> ⌲ Docs',
+      title: 'Jenkins.io Components ⌲ Docs',
     };
   }
 
@@ -22,55 +22,55 @@ module.exports = class Docs {
     return `
      <h1>API</h1>
      ${elements
-       .map(
-         (element) => `
+        .map(
+          (element) => `
        <h2>&lt;${element.tagName}></h2>
        <div>
          ${element.description}
        </div>
        ${renderTable(
-         'Attributes',
-         ['name', 'description', 'type.text', 'default'],
-         element.attributes
-       )}
+            'Attributes',
+            ['name', 'description', 'type.text', 'default'],
+            element.attributes
+          )}
        ${renderTable(
-         'Properties',
-         ['name', 'attribute', 'description', 'type.text', 'default'],
-         element.members.filter((m) => m.kind === 'field')
-       )}  
+            'Properties',
+            ['name', 'attribute', 'description', 'type.text', 'default'],
+            element.members.filter((m) => m.kind === 'field')
+          )}  
        ${renderTable(
-         'Methods',
-         ['name', 'parameters', 'description', 'return.type.text'],
-         element.members
-           .filter((m) => m.kind === 'method' && m.privacy !== 'private')
-           .map((m) => ({
-             ...m,
-             parameters: renderTable(
-               '',
-               ['name', 'description', 'type.text'],
-               m.parameters
-             ),
-           }))
-       )}
+            'Methods',
+            ['name', 'parameters', 'description', 'return.type.text'],
+            element.members
+              .filter((m) => m.kind === 'method' && m.privacy !== 'private')
+              .map((m) => ({
+                ...m,
+                parameters: renderTable(
+                  '',
+                  ['name', 'description', 'type.text'],
+                  m.parameters
+                ),
+              }))
+          )}
        ${renderTable('Events', ['name', 'description'], element.events)}    
        ${renderTable(
-         'Slots',
-         [['name', '(default)'], 'description'],
-         element.slots
-       )}  
+            'Slots',
+            [['name', '(default)'], 'description'],
+            element.slots
+          )}  
        ${renderTable(
-         'CSS Shadow Parts',
-         ['name', 'description'],
-         element.cssParts
-       )}
+            'CSS Shadow Parts',
+            ['name', 'description'],
+            element.cssParts
+          )}
        ${renderTable(
-         'CSS Custom Properties',
-         ['name', 'description'],
-         element.cssProperties
-       )}
+            'CSS Custom Properties',
+            ['name', 'description'],
+            element.cssProperties
+          )}
        `
-       )
-       .join('')}
+        )
+        .join('')}
    `;
   }
 };
@@ -103,23 +103,23 @@ const renderTable = (name, properties, data) => {
    <table>
      <tr>
        ${properties
-         .map(
-           (p) =>
-             `<th>${capitalize(
-               (Array.isArray(p) ? p[0] : p).split('.')[0]
-             )}</th>`
-         )
-         .join('')}
+      .map(
+        (p) =>
+          `<th>${capitalize(
+            (Array.isArray(p) ? p[0] : p).split('.')[0]
+          )}</th>`
+      )
+      .join('')}
      </tr>
      ${data
-       .map(
-         (i) => `
+      .map(
+        (i) => `
        <tr>
          ${properties.map((p) => `<td>${get(i, p)}</td>`).join('')}
        </tr>
      `
-       )
-       .join('')}
+      )
+      .join('')}
    </table>
  `;
 };
