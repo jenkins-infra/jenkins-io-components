@@ -12,13 +12,13 @@ export class ImproveThisPage extends LitElement {
   ];
 
   /**
-   * What is the filename inside the repo
+   * Github source path relative to $githubRepo
    */
   @property()
   sourcePath = '';
 
   /**
-   * What is the github repo
+   * Github repo
    */
   @property()
   githubRepo = '';

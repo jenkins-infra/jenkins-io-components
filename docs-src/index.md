@@ -19,7 +19,10 @@ You can it anywhere you can use HTML!
   <div>
 
 ```html
-<jio-improve-this-page sourcePath="docs-src/index.md" githubRepo="halkeye/jenkins-io-components"></jio-improve-this-page>
+<jio-improve-this-page
+  sourcePath="docs-src/index.md"
+  githubRepo="halkeye/jenkins-io-components"
+></jio-improve-this-page>
 ```
 
   </div>
@@ -40,7 +43,10 @@ You can it anywhere you can use HTML!
   <div>
 
 ```html
-<jio-report-a-problem sourcePath="docs-src/index.md" githubRepo="halkeye/jenkins-io-components"></jio-report-a-problem>
+<jio-report-a-problem
+  sourcePath="docs-src/index.md"
+  githubRepo="halkeye/jenkins-io-components"
+></jio-report-a-problem>
 ```
 
   </div>

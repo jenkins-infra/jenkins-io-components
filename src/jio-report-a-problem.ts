@@ -13,15 +13,27 @@ export class ReportAProblem extends LitElement {
     `
   ];
 
+  /**
+   * Overrides the page title. Defaults to page title
+   */
   @property()
   pageTitle = '';
 
+  /**
+   * Overrides the page title. Defaults to page url
+   */
   @property()
   url = '';
 
+  /**
+   * Github source path relative to $githubRepo
+   */
   @property()
   sourcePath = '';
 
+  /**
+   * Github repo
+   */
   @property()
   githubRepo = '';
 
