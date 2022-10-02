@@ -27,7 +27,12 @@ jobs:
     - name: Check spelling of file.txt
       uses: crate-ci/typos@master
 
-    - run: npm ci
+
+    - name: Install dependencies
+      run: |
+        npm ci
+        npx playwright install-deps
+        npx playwright install
 
     - run: npm run build --if-present
 
