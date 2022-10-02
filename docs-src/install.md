@@ -28,5 +28,5 @@ For this element to work from unpkg.com specifically, you need to include the `?
 ### JavaScript
 
 ```html
-import {MyElement} from 'https://unpkg.com/@halkeye/jenkins-io-components?module';
+import {ReportAProblem, ImproveThisPage} from 'https://unpkg.com/@halkeye/jenkins-io-components?module';
 ```
