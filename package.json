@@ -80,7 +80,15 @@
   },
   "customElements": "custom-elements.json",
   "files": [
-    "lib/**/*",
+    "jio-*.d.ts",
+    "jio-*.d.ts.map",
+    "jio-*.js",
+    "jio-*.js.map",
+    "shared-*.d.ts",
+    "shared-*.d.ts.map",
+    "shared-*.js",
+    "shared-*.js.map",
+    "custom-elements.json",
     "makeLayout.js"
   ],
   "lint-staged": {
