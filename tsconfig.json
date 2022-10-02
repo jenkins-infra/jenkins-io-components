@@ -2,7 +2,11 @@
   "compilerOptions": {
     "target": "es2019",
     "module": "es2020",
-    "lib": ["es2020", "DOM", "DOM.Iterable"],
+    "lib": [
+      "es2020",
+      "DOM",
+      "DOM.Iterable"
+    ],
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,
@@ -24,10 +28,18 @@
     "plugins": [
       {
         "name": "ts-lit-plugin",
-        "strict": true
+        "strict": true,
+        "globalTags": [
+          "ion-icon"
+        ],
+        "globalAttributes": [
+          "name"
+        ]
       }
     ]
   },
-  "include": ["src/**/*.ts"],
+  "include": [
+    "src/**/*.ts"
+  ],
   "exclude": []
 }

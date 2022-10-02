@@ -7,8 +7,6 @@ export class ImproveThisPage extends LitElement {
   static override styles = [
     ionIconText,
     css`
-      :host { }
-
       ion-icon { color: black; }
     `
   ];

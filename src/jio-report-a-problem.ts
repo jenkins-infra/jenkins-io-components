@@ -9,8 +9,6 @@ export class ReportAProblem extends LitElement {
   static override styles = [
     ionIconText,
     css`
-      :host { }
-
       ion-icon { color: #FFA91B; }
     `
   ];
@@ -59,7 +57,7 @@ export class ReportAProblem extends LitElement {
     return html`
       <a href=${pluginSiteReportUrl} title=${`Report a problem with ${this.sourcePath}`}>
         <ion-icon class="report" name="warning"></ion-icon>
-        <span class="text">Report a problem</a>
+        <span class="text">Report a problem</span>
       </a>
     `;
   }
