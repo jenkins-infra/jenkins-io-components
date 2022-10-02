@@ -26,6 +26,23 @@ title: <my-element> ⌲ Home
   </div>
 </section>
 
+<section class="columns">
+  <div>
+
+`<jio-improve-this-page>` is just an HTML element. You can it anywhere you can use HTML!
+
+```html
+<jio-improve-this-page></jio-improve-this-page>
+```
+
+  </div>
+  <div>
+
+<jio-improve-this-page></jio-improve-this-page>
+
+  </div>
+</section>
+
 ## Configure with attributes
 
 <section class="columns">

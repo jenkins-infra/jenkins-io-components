@@ -3,20 +3,36 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>&lt;my-element> Demo</title>
+    <title>Jenkins.io Components Demo</title>
     <script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
     <script src="../node_modules/lit/polyfill-support.js"></script>
-    <script type="module" src="../my-element.js"></script>
+    <script type="module" src="../jio-components.js"></script>
     <style>
-      p {
-        border: solid 1px blue;
-        padding: 8px;
+      .container {
+        border: solid 1px gray;
+        padding: 16px;
+        max-width: 800px;
+        margin-top: 16px;
+      }
+      jio-improve-this-page {
+        --jio-a-color: gray;
       }
     </style>
   </head>
   <body>
-    <my-element>
-      <p>This is child content</p>
-    </my-element>
+    <div class="container">
+      <h3>Improve This Page</h3>
+      <br />
+      <jio-improve-this-page sourcePath="foo" githubRepo="bar" />
+    </div>
+
+    <div class="container">
+      <h3>Report a problem</h3>
+      <br />
+      <jio-report-a-problem sourcePath="foo" githubRepo="bar" />
+    </h3>
+
+    <script data='ionicons' src='https://cdnjs.cloudflare.com/ajax/libs/ionicons/5.5.2/ionicons/ionicons.esm.js' type='module'></script>
+    <script data='ionicons' nomodule='' src='https://cdnjs.cloudflare.com/ajax/libs/ionicons/5.5.2/ionicons/ionicons.js'></script>
   </body>
 </html>
