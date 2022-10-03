@@ -1,6 +1,7 @@
 node_modules/
 docs/node_modules/
 docs/
+coverage/
 /lib/
 /test/
 custom-elements.json

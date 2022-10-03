@@ -88,6 +88,7 @@ export default {
   files: ['./test/**/*_test.js'],
   nodeResolve: {exportConditions: mode === 'dev' ? ['development'] : []},
   preserveSymlinks: true,
+  coverage: true,
   browsers: commandLineBrowsers ?? Object.values(browsers),
   testFramework: {
     // https://mochajs.org/api/mocha
