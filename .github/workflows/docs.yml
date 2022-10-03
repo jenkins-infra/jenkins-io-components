@@ -1,12 +1,11 @@
 name: Docs
 on:
   workflow_dispatch: {}
-  push:
-    branches:
-      - main
-    paths:
-      - "src/**"
-      - "docs-src/**"
+  workflow_run:
+    workflows: ['Release']
+    branches: [main]
+    types:
+      - completed
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
