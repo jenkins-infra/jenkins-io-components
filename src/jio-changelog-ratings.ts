@@ -5,7 +5,6 @@ import './jio-changelog-weather-icon.js';
 @customElement('jio-changelog-ratings')
 export class ChangelogRatings extends LitElement {
   static override styles = css`
-  .rate-offset { padding-left: 2em; margin-bottom: 5px; }
   .related-issues { display: block; }
   jio-changelog-weather-icon {
     vertical-align: middle;
@@ -49,13 +48,11 @@ export class ChangelogRatings extends LitElement {
     }
 
     return html`
-    <div class="rate-outer">
-      <div class="rate-offset">
-        <span tabindex="0" role="button" data-direction="good" @click=${this._rate}><jio-changelog-weather-icon count=${this.good} mode='sunny'></jio-changelog-weather-icon></span>
-        <span tabindex="0" role="button" data-direction="nolike" @click=${this._rate}><jio-changelog-weather-icon count=${this.nolike} mode='cloudy'></jio-changelog-weather-icon></span>
-        <span tabindex="0" role="button" data-direction="rollback" @click=${this._rate}><jio-changelog-weather-icon count=${this.rollback} mode='storm'> </jio-changelog-weather-icon></span>
-        ${relatedIssues}
-      </div>
+    <div>
+      <span tabindex="0" role="button" data-direction="good" @click=${this._rate}><jio-changelog-weather-icon count=${this.good} mode='sunny'></jio-changelog-weather-icon></span>
+      <span tabindex="0" role="button" data-direction="nolike" @click=${this._rate}><jio-changelog-weather-icon count=${this.nolike} mode='cloudy'></jio-changelog-weather-icon></span>
+      <span tabindex="0" role="button" data-direction="rollback" @click=${this._rate}><jio-changelog-weather-icon count=${this.rollback} mode='storm'> </jio-changelog-weather-icon></span>
+      ${relatedIssues}
     </div>
     `;
   }
