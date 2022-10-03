@@ -131,3 +131,24 @@ You can it anywhere you can use HTML!
 
   </div>
 </section>
+
+## &lt;jio-socialmedia-buttons>
+
+`<jio-socialmedia-buttons>` shows social media icons and links to them
+
+### HTML
+
+<section class="columns">
+  <div>
+
+```html
+<jio-socialmedia-buttons github="halkeye" linkedin="halkeye" twitter="halkeye" blog='https://g4v.dev'></jio-socialmedia-buttons>
+```
+
+  </div>
+  <div>
+
+<jio-socialmedia-buttons github="halkeye" linkedin="halkeye" twitter="halkeye" blog='https://g4v.dev'></jio-socialmedia-buttons>
+
+  </div>
+</section>
