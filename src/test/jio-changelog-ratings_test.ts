@@ -10,8 +10,7 @@ suite('jio-changelog-ratings', () => {
     assert.instanceOf(el, ChangelogRatings);
     assert.shadowDom.equal(el,
       `
-      <div class="rate-outer">
-  <div class="rate-offset">
+  <div>
     <span
       data-direction="good"
       role="button"
@@ -46,7 +45,6 @@ suite('jio-changelog-ratings', () => {
       </jio-changelog-weather-icon>
     </span>
   </div>
-</div>
     `);
   });
   test('renders properly with counts', async () => {
@@ -54,8 +52,7 @@ suite('jio-changelog-ratings', () => {
     assert.instanceOf(el, ChangelogRatings);
     assert.shadowDom.equal(el,
       `
-      <div class="rate-outer">
-  <div class="rate-offset">
+  <div>
     <span
       data-direction="good"
       role="button"
@@ -90,7 +87,6 @@ suite('jio-changelog-ratings', () => {
       </jio-changelog-weather-icon>
     </span>
   </div>
-</div>
     `);
   });
   test('renders highlighted issues', async () => {
@@ -98,8 +94,7 @@ suite('jio-changelog-ratings', () => {
     assert.instanceOf(el, ChangelogRatings);
     assert.shadowDom.equal(el,
       `
-      <div class="rate-outer">
-  <div class="rate-offset">
+  <div>
     <span
       data-direction="good"
       role="button"
@@ -155,7 +150,6 @@ suite('jio-changelog-ratings', () => {
       </span>
     </span>
   </div>
-</div>
     `);
   });
   test('is accessible', async () => {
