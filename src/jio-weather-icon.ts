@@ -37,11 +37,14 @@ export class WeatherIcon extends LitElement {
 </svg>`,
 
     } as Record<EnumWeatherIcons, TemplateResult>;
+    const altTitles = {
+      sunny: "Sunny Weather Icon",
+      storm: "Stormy Weather Icon",
+      cloudy: "Cloudy Weather Icon",
+    } as Record<EnumWeatherIcons, string>;
 
     return html`
-      <span>
-        <span title=${this.title || this.weather}>${icons[this.weather]}</span>
-      </span>
+      <span title=${this.title || altTitles[this.weather] || this.weather}>${icons[this.weather]}</span>
     `;
   }
 }
