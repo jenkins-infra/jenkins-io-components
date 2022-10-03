@@ -72,20 +72,28 @@ export class ChangelogRatings extends LitElement {
 
     let issue;
     if (['nolike', 'rollback'].includes(rating)) {
-      issue = prompt('Please provide issue number from our JIRA causing trouble:', '');
+      issue = this._prompt('Please provide issue number from our JIRA causing trouble:', '');
       if (issue === null) {
+        this.dispatchEvent(new CustomEvent('changelog-ratings-canceled', {bubbles: true, composed: true}));
         return; // Cancelled
       }
       if (!issue) {
-        issue = prompt('Are you sure you do not want to provide an issue reference? It really helps us improve Jenkins.\nEnter issue number, or leave empty to skip:', '');
+        issue = this._prompt('Are you sure you do not want to provide an issue reference? It really helps us improve Jenkins.\nEnter issue number, or leave empty to skip:', '');
       }
       if (issue === null) {
+        this.dispatchEvent(new CustomEvent('changelog-ratings-canceled', {bubbles: true, composed: true}));
         return; // Cancelled
       }
     }
 
+    const ratingEnum = {
+      'good': 1,
+      'nolike': 0,
+      'rollback': -1,
+    } as Record<string, number>;
+
     this.dispatchEvent(new CustomEvent('changelog-ratings-rated', {
-      detail: {version: this.version, rating: rating, issue: issue as string},
+      detail: {version: this.version, rating: ratingEnum[rating], issue: issue as string},
       bubbles: true,
       composed: true
     }));
@@ -96,6 +104,10 @@ export class ChangelogRatings extends LitElement {
 
     this.dispatchEvent(new CustomEvent('changelog-ratings-changed', {bubbles: true, composed: true}));
     */
+  }
+
+  private _prompt(message?: string, _default?: string): string | null {
+    return window.prompt(message, _default);
   }
 
 }

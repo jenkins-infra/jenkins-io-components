@@ -1,6 +1,7 @@
 import {ChangelogRatings} from '../jio-changelog-ratings.js';
 
-import {fixture, assert} from '@open-wc/testing';
+import sinon from 'sinon';
+import {fixture, assert, oneEvent} from '@open-wc/testing';
 import {html} from 'lit/static-html.js';
 
 suite('jio-changelog-ratings', () => {
@@ -160,5 +161,134 @@ suite('jio-changelog-ratings', () => {
   test('is accessible', async () => {
     const el = (await fixture(html`<jio-changelog-ratings good="100" nolike="5" rollback="7" .ratings=${["63232", 1, "63506", 1, "61990", 5]} ></jio-changelog-ratings>`)) as ChangelogRatings;
     return assert.isAccessible(el);
+  });
+  test('triggers event when good without asking for issue ', async () => {
+    const promptFake = sinon.stub();
+
+    const el = (await fixture(html`<jio-changelog-ratings version="0.1.2" good="101" nolike="5" rollback="7" .ratings=${["63232", 1, "63506", 1, "61990", 5]} ></jio-changelog-ratings>`)) as ChangelogRatings;
+    assert.instanceOf(el, ChangelogRatings);
+
+    el.addEventListener('changelog-ratings-canceled', () => {throw new Error('canceled');});
+    el['_prompt'] = promptFake; // ugly hack to not block waiting for browser to prompt. Override the private wrapper function
+
+    const listener = oneEvent(el, 'changelog-ratings-rated');
+    (el.shadowRoot?.querySelector('[data-direction="good"]') as HTMLElement).click();
+
+    const {detail} = await listener;
+
+    assert.isFalse(promptFake.called);
+    assert.deepEqual(detail, {version: "0.1.2", rating: 1, issue: undefined});
+  });
+
+  suite('clicked nolike', async () => {
+    test('events event with no issue ', async () => {
+      const promptFake = sinon.stub();
+      promptFake.onCall(0).returns('');
+      promptFake.onCall(1).returns('');
+
+      const el = (await fixture(html`<jio-changelog-ratings version="0.1.2" good="101" nolike="5" rollback="7" .ratings=${["63232", 1, "63506", 1, "61990", 5]} ></jio-changelog-ratings>`)) as ChangelogRatings;
+      assert.instanceOf(el, ChangelogRatings);
+
+      el.addEventListener('changelog-ratings-canceled', () => {throw new Error('canceled');});
+      el['_prompt'] = promptFake; // ugly hack to not block waiting for browser to prompt. Override the private wrapper function
+
+      const listener = oneEvent(el, 'changelog-ratings-rated');
+      (el.shadowRoot?.querySelector('[data-direction="nolike"]') as HTMLElement).click();
+
+      const {detail} = await listener;
+      assert.deepEqual(detail, {version: "0.1.2", rating: 0, issue: ''});
+    });
+
+    test('events event is selected with confirm no issue, then issue ', async () => {
+      const promptFake = sinon.stub();
+      promptFake.onCall(0).returns('');
+      promptFake.onCall(1).returns('JENKINS-123');
+
+      const el = (await fixture(html`<jio-changelog-ratings version="0.1.2" good="101" nolike="5" rollback="7" .ratings=${["63232", 1, "63506", 1, "61990", 5]} ></jio-changelog-ratings>`)) as ChangelogRatings;
+      assert.instanceOf(el, ChangelogRatings);
+
+      el.addEventListener('changelog-ratings-canceled', () => {throw new Error('canceled');});
+      el['_prompt'] = promptFake; // ugly hack to not block waiting for browser to prompt. Override the private wrapper function
+
+      const listener = oneEvent(el, 'changelog-ratings-rated');
+      (el.shadowRoot?.querySelector('[data-direction="nolike"]') as HTMLElement).click();
+
+      const {detail} = await listener;
+      assert.deepEqual(detail, {version: "0.1.2", rating: 0, issue: 'JENKINS-123'});
+    });
+
+    test('events event is selected with issue right away ', async () => {
+      const promptFake = sinon.stub();
+      promptFake.onCall(0).returns('JENKINS-123');
+
+      const el = (await fixture(html`<jio-changelog-ratings version="0.1.2" good="101" nolike="5" rollback="7" .ratings=${["63232", 1, "63506", 1, "61990", 5]} ></jio-changelog-ratings>`)) as ChangelogRatings;
+      assert.instanceOf(el, ChangelogRatings);
+
+      el.addEventListener('changelog-ratings-canceled', () => {throw new Error('canceled');});
+      el['_prompt'] = promptFake; // ugly hack to not block waiting for browser to prompt. Override the private wrapper function
+
+      const listener = oneEvent(el, 'changelog-ratings-rated');
+      (el.shadowRoot?.querySelector('[data-direction="nolike"]') as HTMLElement).click();
+
+      const {detail} = await listener;
+      assert.isTrue(promptFake.called);
+      assert.deepEqual(detail, {version: "0.1.2", rating: 0, issue: 'JENKINS-123'});
+    });
+  });
+
+  suite('clicked rollback', async () => {
+    test('events event with no issue ', async () => {
+      const promptFake = sinon.stub();
+      promptFake.onCall(0).returns('');
+      promptFake.onCall(1).returns('');
+
+      const el = (await fixture(html`<jio-changelog-ratings version="0.1.2" good="101" rollback="5" rollback="7" .ratings=${["63232", 1, "63506", 1, "61990", 5]} ></jio-changelog-ratings>`)) as ChangelogRatings;
+      assert.instanceOf(el, ChangelogRatings);
+
+      el.addEventListener('changelog-ratings-canceled', () => {throw new Error('canceled');});
+      el['_prompt'] = promptFake; // ugly hack to not block waiting for browser to prompt. Override the private wrapper function
+
+      const listener = oneEvent(el, 'changelog-ratings-rated');
+      (el.shadowRoot?.querySelector('[data-direction="rollback"]') as HTMLElement).click();
+
+      const {detail} = await listener;
+      assert.deepEqual(detail, {version: "0.1.2", rating: -1, issue: ''});
+    });
+
+    test('events event is selected with confirm no issue, then issue ', async () => {
+      const promptFake = sinon.stub();
+      promptFake.onCall(0).returns('');
+      promptFake.onCall(1).returns('JENKINS-123');
+
+      const el = (await fixture(html`<jio-changelog-ratings version="0.1.2" good="101" rollback="5" rollback="7" .ratings=${["63232", 1, "63506", 1, "61990", 5]} ></jio-changelog-ratings>`)) as ChangelogRatings;
+      assert.instanceOf(el, ChangelogRatings);
+
+      el.addEventListener('changelog-ratings-canceled', () => {throw new Error('canceled');});
+      el['_prompt'] = promptFake; // ugly hack to not block waiting for browser to prompt. Override the private wrapper function
+
+      const listener = oneEvent(el, 'changelog-ratings-rated');
+      (el.shadowRoot?.querySelector('[data-direction="rollback"]') as HTMLElement).click();
+
+      const {detail} = await listener;
+      assert.deepEqual(detail, {version: "0.1.2", rating: -1, issue: 'JENKINS-123'});
+    });
+
+    test('events event is selected with issue right away ', async () => {
+      const promptFake = sinon.stub();
+      promptFake.onCall(0).returns('JENKINS-123');
+
+      const el = (await fixture(html`<jio-changelog-ratings version="0.1.2" good="101" rollback="5" rollback="7" .ratings=${["63232", 1, "63506", 1, "61990", 5]} ></jio-changelog-ratings>`)) as ChangelogRatings;
+      assert.instanceOf(el, ChangelogRatings);
+
+      el.addEventListener('changelog-ratings-canceled', () => {throw new Error('canceled');});
+      el['_prompt'] = promptFake; // ugly hack to not block waiting for browser to prompt. Override the private wrapper function
+
+      const listener = oneEvent(el, 'changelog-ratings-rated');
+      (el.shadowRoot?.querySelector('[data-direction="rollback"]') as HTMLElement).click();
+
+      const {detail} = await listener;
+      assert.isTrue(promptFake.called);
+      assert.deepEqual(detail, {version: "0.1.2", rating: -1, issue: 'JENKINS-123'});
+    });
   });
 });
