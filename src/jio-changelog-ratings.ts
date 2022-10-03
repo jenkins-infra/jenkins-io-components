@@ -61,12 +61,12 @@ export class ChangelogRatings extends LitElement {
   }
 
   private async _rate(e: Event) {
-    e.preventDefault();
-    e.stopPropagation();
-
-    const dataset = (e.target as HTMLElement).dataset;
+    const dataset = (e.currentTarget as HTMLElement).dataset;
     if (!dataset) {return;}
     if (!("direction" in dataset)) {return;}
+
+    e.preventDefault();
+    e.stopPropagation();
 
     const rating = dataset.direction as string;
 
