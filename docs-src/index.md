@@ -57,3 +57,77 @@ You can it anywhere you can use HTML!
   </div>
 </section>
 
+## &lt;jio-changelog-ratings>
+
+`<jio-changelog-ratings>` shows the community feeling about a given release
+
+### HTML
+
+<section class="columns">
+  <div>
+
+```html
+<jio-changelog-ratings
+  good="100"
+  nolike="5"
+  rollback="7"
+  ratings='["63232",1,"63506",1,"61990",5]'
+></jio-changelog-ratings>
+```
+
+  </div>
+  <div>
+
+<jio-changelog-ratings good="100" nolike="5" rollback="7" ratings='["63232",1,"63506",1,"61990",5]'></jio-changelog-ratings>
+
+  </div>
+</section>
+
+## &lt;jio-changelog-weather-icon>
+
+`<jio-changelog-weather-icon>` shows a count, icon, and title based on if the release was liked or not
+
+### HTML
+
+<section class="columns">
+  <div>
+
+```html
+<jio-changelog-weather-icon
+  mode='sunny'
+  count="10"
+></jio-report-a-problem>
+```
+
+  </div>
+  <div>
+
+<jio-changelog-weather-icon mode='sunny' count="10" ></jio-report-a-problem>
+
+  </div>
+</section>
+
+## &lt;jio-weather-icon>
+
+`<jio-weather-icon>` shows one of the weather icons
+
+### HTML
+
+<section class="columns">
+  <div>
+
+```html
+<jio-weather-icon weather="sunny"></jio-weather-icon>
+<jio-weather-icon weather="cloudy"></jio-weather-icon>
+<jio-weather-icon weather="storm"></jio-weather-icon>
+```
+
+  </div>
+  <div>
+
+<jio-weather-icon weather="sunny"></jio-weather-icon>
+<jio-weather-icon weather="cloudy"></jio-weather-icon>
+<jio-weather-icon weather="storm"></jio-weather-icon>
+
+  </div>
+</section>

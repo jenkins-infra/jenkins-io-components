@@ -18,8 +18,38 @@
         --jio-a-color: gray;
       }
     </style>
+    <script>
+      let ratings = {
+        "2.235.5":[204,5,7,"63232",1,"63506",1,"61990",5],
+        "1.0":[5,10,0,"13",69],
+      }
+      // fetch('https://rating.jenkins.io/rate/result.php?json=1', { cors: true }).then(r => r.json()).then(r => ratings = r);
+    </script>
   </head>
   <body>
+    <div class="container">
+      <h3>Weather Icons</h3>
+      <h4>Sunny</h4>
+      <jio-changelog-weather-icon mode="sunny"></jio-changelog-weather-icon>
+      <jio-changelog-weather-icon mode="sunny" count="1"></jio-changelog-weather-icon>
+      <h4>Cloudy</h4>
+      <jio-changelog-weather-icon mode="cloudy"></jio-changelog-weather-icon>
+      <jio-changelog-weather-icon mode="cloudy" count="2"></jio-changelog-weather-icon>
+      <h4>Storm</h4>
+      <jio-changelog-weather-icon mode="storm"></jio-changelog-weather-icon>
+      <jio-changelog-weather-icon mode="storm" count="3"></jio-changelog-weather-icon>
+    </div>
+
+    <div class="container">
+      <h3>Changelog Ratings</h3>
+      <jio-changelog-ratings good="100" nolike="5" rollback="7" ratings='["63232",1,"63506",1,"61990",5]' ></jio-changelog-ratings>
+      <script>
+        Object.keys(ratings).forEach(version=> {
+          document.write(`<jio-changelog-ratings good="${ratings[version][0]}" nolike="${ratings[version][1]}" rollback="${ratings[version][2]}" ratings='${JSON.stringify(ratings[version].slice(3))}' ></jio-changelog-ratings>`);
+        });
+      </script>
+    </div>
+
     <div class="container">
       <h3>Improve This Page</h3>
       <br />
