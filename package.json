@@ -11,7 +11,7 @@
   "scripts": {
     "build": "tsc",
     "build:watch": "tsc --watch",
-    "clean": "rimraf jio-components.{d.ts,d.ts.map,js,js.map} test/jio-components.{d.ts,d.ts.map,js,js.map} test/jio-components_test.{d.ts,d.ts.map,js,js.map}",
+    "clean": "rimraf jio-*.{d.ts,d.ts.map,js,js.map} test/jio-*.{d.ts,d.ts.map,js,js.map} test/jio-*_test.{d.ts,d.ts.map,js,js.map}",
     "lint": "npm run lint:lit-analyzer && npm run lint:eslint",
     "lint:eslint": "eslint 'src/**/*.ts'",
     "lint:lit-analyzer": "lit-analyzer",

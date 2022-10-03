@@ -5,21 +5,11 @@ docs/
 /test/
 custom-elements.json
 # top level source
-jio-components.d.ts
-jio-components.d.ts.map
-jio-components.js
-jio-components.js.map
-jio-improve-this-page.d.ts
-jio-improve-this-page.d.ts.map
-jio-improve-this-page.js
-jio-improve-this-page.js.map
-jio-report-a-problem.d.ts
-jio-report-a-problem.d.ts.map
-jio-report-a-problem.js
-jio-report-a-problem.js.map
-shared-styles.d.ts
-shared-styles.d.ts.map
-shared-styles.js
-shared-styles.js.map
-# only generated for size check
-my-element.bundled.js
+jio-*.d.ts
+jio-*.d.ts.map
+jio-*.js
+jio-*.js.map
+shared-*.d.ts
+shared-*.d.ts.map
+shared-*.js
+shared-*.js.map
