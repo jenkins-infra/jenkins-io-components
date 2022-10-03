@@ -14,7 +14,7 @@ suite('jio-changelog-ratings', () => {
     <span
       data-direction="good"
       role="button"
-      tabindex="1"
+      tabindex="0"
     >
       <jio-changelog-weather-icon
         count="0"
@@ -25,7 +25,7 @@ suite('jio-changelog-ratings', () => {
     <span
       data-direction="nolike"
       role="button"
-      tabindex="2"
+      tabindex="0"
     >
       <jio-changelog-weather-icon
         count="0"
@@ -36,7 +36,7 @@ suite('jio-changelog-ratings', () => {
     <span
       data-direction="rollback"
       role="button"
-      tabindex="3"
+      tabindex="0"
     >
       <jio-changelog-weather-icon
         count="0"
@@ -58,7 +58,7 @@ suite('jio-changelog-ratings', () => {
     <span
       data-direction="good"
       role="button"
-      tabindex="1"
+      tabindex="0"
     >
       <jio-changelog-weather-icon
         count="100"
@@ -69,7 +69,7 @@ suite('jio-changelog-ratings', () => {
     <span
       data-direction="nolike"
       role="button"
-      tabindex="2"
+      tabindex="0"
     >
       <jio-changelog-weather-icon
         count="5"
@@ -80,7 +80,7 @@ suite('jio-changelog-ratings', () => {
     <span
       data-direction="rollback"
       role="button"
-      tabindex="3"
+      tabindex="0"
     >
       <jio-changelog-weather-icon
         count="7"
@@ -102,7 +102,7 @@ suite('jio-changelog-ratings', () => {
     <span
       data-direction="good"
       role="button"
-      tabindex="1"
+      tabindex="0"
     >
       <jio-changelog-weather-icon
         count="100"
@@ -113,7 +113,7 @@ suite('jio-changelog-ratings', () => {
     <span
       data-direction="nolike"
       role="button"
-      tabindex="2"
+      tabindex="0"
     >
       <jio-changelog-weather-icon
         count="5"
@@ -124,7 +124,7 @@ suite('jio-changelog-ratings', () => {
     <span
       data-direction="rollback"
       role="button"
-      tabindex="3"
+      tabindex="0"
     >
       <jio-changelog-weather-icon
         count="7"
@@ -156,5 +156,9 @@ suite('jio-changelog-ratings', () => {
   </div>
 </div>
     `);
+  });
+  test('is accessible', async () => {
+    const el = (await fixture(html`<jio-changelog-ratings good="100" nolike="5" rollback="7" .ratings=${["63232", 1, "63506", 1, "61990", 5]} ></jio-changelog-ratings>`)) as ChangelogRatings;
+    return assert.isAccessible(el);
   });
 });

@@ -51,9 +51,9 @@ export class ChangelogRatings extends LitElement {
     return html`
     <div class="rate-outer">
       <div class="rate-offset">
-        <span tabindex="1" role="button" data-direction="good" @click=${this._rate}><jio-changelog-weather-icon count=${this.good} mode='sunny'></jio-changelog-weather-icon></span>
-        <span tabindex="2" role="button" data-direction="nolike" @click=${this._rate}><jio-changelog-weather-icon count=${this.nolike} mode='cloudy'></jio-changelog-weather-icon></span>
-        <span tabindex="3" role="button" data-direction="rollback" @click=${this._rate}><jio-changelog-weather-icon count=${this.rollback} mode='storm'> </jio-changelog-weather-icon></span>
+        <span tabindex="0" role="button" data-direction="good" @click=${this._rate}><jio-changelog-weather-icon count=${this.good} mode='sunny'></jio-changelog-weather-icon></span>
+        <span tabindex="0" role="button" data-direction="nolike" @click=${this._rate}><jio-changelog-weather-icon count=${this.nolike} mode='cloudy'></jio-changelog-weather-icon></span>
+        <span tabindex="0" role="button" data-direction="rollback" @click=${this._rate}><jio-changelog-weather-icon count=${this.rollback} mode='storm'> </jio-changelog-weather-icon></span>
         ${relatedIssues}
       </div>
     </div>
@@ -65,7 +65,6 @@ export class ChangelogRatings extends LitElement {
     e.stopPropagation();
 
     const dataset = (e.target as HTMLElement).dataset;
-    console.log('dataset', dataset);
     if (!dataset) {return;}
     if (!("direction" in dataset)) {return;}
 
