@@ -70,13 +70,13 @@ export class DatetimeBox extends LitElement {
     reflect: true,
     converter: dateConverter,
   })
-  date: Date | string | undefined;
+  date: Date | undefined;
 
   @property({
     reflect: true,
     converter: dateConverter,
   })
-  endDate: Date | string | undefined;
+  endDate: Date | undefined;
 
   override render() {
     if (!this.date) {return;}
