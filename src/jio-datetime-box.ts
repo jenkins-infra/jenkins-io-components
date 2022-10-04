@@ -43,19 +43,18 @@ export class DatetimeBox extends LitElement {
 
   .date {
     background: rgba(180,40,40,.85);
+    border: 1px solid rgba(180,40,40,.85);
     border-top-left-radius: 0.5em;
     border-top-right-radius: 0.5em;
-    border: 1px solid rgba(180,40,40,.85);
     box-shadow: 0 1px 5px rgb(0 0 0 / 15%);
     font-size: .75em;
     font-weight: normal;
     height: 2em;
-    text-align: center;
-    margin-top: -0.75em;
+    line-height: 2em;
     margin-left: -0.75em;
     margin-right: -0.75em;
-    height: 2em;
-    line-height: 2em;
+    margin-top: -0.75em;
+    text-align: center;
   }
 
   .time{
