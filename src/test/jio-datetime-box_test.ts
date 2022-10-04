@@ -29,7 +29,6 @@ suite('jio-datetime-box', () => {
             </time>
           </div>
           <div class="time">01:01 AM</div>
-          <div class="dow">Sun</div>
         </div>
         `
       );
@@ -57,7 +56,6 @@ suite('jio-datetime-box', () => {
             </time>
           </div>
           <div class="time">01:01 AM</div>
-          <div class="dow">Sun</div>
         </div>
         `
       );

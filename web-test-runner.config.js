@@ -47,9 +47,24 @@ if (!['dev', 'prod'].includes(mode)) {
 const browsers = {
   // Local browser testing via playwright
   // ===========
-  chromium: playwrightLauncher({product: 'chromium'}),
-  firefox: playwrightLauncher({product: 'firefox'}),
-  webkit: playwrightLauncher({product: 'webkit'}),
+  chromium: playwrightLauncher({
+    product: 'chromium',
+    createBrowserContext({browser}) {
+      return browser.newContext({timezoneId: 'UTC'});
+    }
+  }),
+  firefox: playwrightLauncher({
+    product: 'firefox',
+    createBrowserContext({browser}) {
+      return browser.newContext({timezoneId: 'UTC'});
+    }
+  }),
+  webkit: playwrightLauncher({
+    product: 'webkit',
+    createBrowserContext({browser}) {
+      return browser.newContext({timezoneId: 'UTC'});
+    }
+  }),
 
   // Uncomment example launchers for running on Sauce Labs
   // ===========

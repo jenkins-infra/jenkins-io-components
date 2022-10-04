@@ -6,15 +6,22 @@ const SHORT_MONTH_NAMES = Object.freeze([
   'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec',
 ]);
 
-const DAYS_OF_WEEK = Object.freeze([
-  'Monday',
-  'Tuesday',
-  'Wednesday',
-  'Thursday',
-  'Friday',
-  'Saturday',
-  'Sunday',
-]);
+//const DAYS_OF_WEEK = Object.freeze([
+//  null,
+//  'Monday',
+//  'Tuesday',
+//  'Wednesday',
+//  'Thursday',
+//  'Friday',
+//  'Saturday',
+//  'Sunday',
+//]);
+
+const dateConverter = (value: string | null): Date | undefined => {
+  if (!value) {return;}
+  return new Date(value);
+};
+
 
 @customElement('jio-datetime-box')
 export class DatetimeBox extends LitElement {
@@ -23,7 +30,6 @@ export class DatetimeBox extends LitElement {
     background: #157ea7;
     border-radius:.5em;
     color: #fff;
-    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
     display: inline-block;
     font-size: 1rem;
     font-size: .75rem;
@@ -52,41 +58,25 @@ export class DatetimeBox extends LitElement {
     line-height: 2em;
   }
 
-  .dow {
-    display: block;
-    font-family: 'arial narrow', Arial, sans-serif;
-    font-size: 2.5em;
-    font-weight: bolder;
-    text-align: center;
-  }
-
   .time{
     font-size: 1.1em;
     white-space: nowrap;
+    line-height: 3em;
+    height: 3em;
   }
   `;
 
   @property({
     reflect: true,
-    converter: {
-      fromAttribute: (value): Date | undefined => {
-        if (!value) {return;}
-        return new Date(value);
-      },
-    }
+    converter: dateConverter,
   })
-  date: Date | undefined;
+  date: Date | string | undefined;
 
   @property({
     reflect: true,
-    converter: {
-      fromAttribute: (value): Date | undefined => {
-        if (!value) {return;}
-        return new Date(value);
-      },
-    }
+    converter: dateConverter,
   })
-  endDate: Date | undefined;
+  endDate: Date | string | undefined;
 
   override render() {
     if (!this.date) {return;}
@@ -113,9 +103,6 @@ export class DatetimeBox extends LitElement {
           </div>
           <div class="time">
             ${`${(this.date.getUTCHours() + 1).toString().padStart(2, '0')}:${(this.date.getUTCMinutes() + 1).toString().padStart(2, '0')} ${this.date.getUTCHours() + 1 <= 12 ? 'AM' : 'PM'}`}
-          </div>
-          <div class="dow">
-            ${DAYS_OF_WEEK[this.date.getUTCDay()].substring(0, 3)}
           </div>
         </div>
       </div>
