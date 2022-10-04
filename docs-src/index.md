@@ -142,13 +142,42 @@ You can it anywhere you can use HTML!
   <div>
 
 ```html
-<jio-socialmedia-buttons github="halkeye" linkedin="halkeye" twitter="halkeye" blog='https://g4v.dev'></jio-socialmedia-buttons>
+<jio-socialmedia-buttons
+  github="halkeye"
+  linkedin="halkeye"
+  twitter="halkeye"
+  blog='https://g4v.dev'
+></jio-socialmedia-buttons>
 ```
 
   </div>
   <div>
 
 <jio-socialmedia-buttons github="halkeye" linkedin="halkeye" twitter="halkeye" blog='https://g4v.dev'></jio-socialmedia-buttons>
+
+  </div>
+</section>
+
+## &lt;jio-datetime-box>
+
+`<jio-datetime-box>` shows a box with a start and optional end time
+
+### HTML
+
+<section class="columns">
+  <div>
+
+```html
+<jio-datetime-box
+  date="2022-10-01T00:00:00"
+  endDate="2022-10-31T00:00:00"
+></jio-datetime-box>
+```
+
+  </div>
+  <div>
+
+<jio-datetime-box date="2022-10-01T00:00:00" endDate="2022-10-31T00:00:00"></jio-datetime-box>
 
   </div>
 </section>

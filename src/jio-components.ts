@@ -4,3 +4,5 @@ export {ChangelogWeatherIcon} from './jio-changelog-weather-icon.js';
 export {ChangelogRatings} from './jio-changelog-ratings.js';
 export {WeatherIcon} from './jio-weather-icon.js';
 export {SocialMediaButtons} from './jio-socialmedia-buttons.js';
+export {EventBox} from './jio-eventbox.js';
+export {DatetimeBox} from './jio-datetime-box.js';
