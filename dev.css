@@ -1,0 +1,19 @@
+:root {
+  --background: white;
+  --color: hsl(212, 100%, 5%);
+  --color--secondary: hsl(212, 30%, 40%);
+  --accent-color: hsl(212, 100%, 42%);
+
+  --link-color: var(--accent-color);
+  --link-color--hover: hsl(212, 100%, 35%);
+  --link-color--active: hsl(212, 100%, 30%);
+}
+.container {
+  border: solid 1px gray;
+  padding: 16px;
+  max-width: 800px;
+  margin-top: 16px;
+}
+jio-improve-this-page {
+  --jio-a-color: gray;
+}

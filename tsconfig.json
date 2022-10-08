@@ -7,11 +7,14 @@
       "DOM",
       "DOM.Iterable"
     ],
+    "types": [
+      "vite/client"
+    ],
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,
     "inlineSources": true,
-    "outDir": "./",
+    "outDir": "./build",
     "rootDir": "./src",
     "strict": true,
     "noUnusedLocals": true,
@@ -25,6 +28,7 @@
     "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
     "noImplicitOverride": true,
+    "useDefineForClassFields": false,
     "plugins": [
       {
         "name": "ts-lit-plugin",
@@ -39,7 +43,8 @@
     ]
   },
   "include": [
-    "src/**/*.ts"
+    "src/*.ts",
+    "typings/*.d.ts"
   ],
   "exclude": []
 }

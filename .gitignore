@@ -4,6 +4,8 @@ docs/
 coverage/
 /lib/
 /test/
+build/
+dist/
 custom-elements.json
 # top level source
 jio-*.d.ts
