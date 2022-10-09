@@ -1,0 +1,222 @@
+.navbar-toggler {
+  display: none;
+
+  color: rgba(255,255,255,.5);
+  border-color: rgba(255,255,255,.1);
+  font-size: 1.25rem;
+  line-height: 1;
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+}
+
+.nav {
+  flex-wrap: wrap
+}
+
+[type=button]:not(:disabled), [type=reset]:not(:disabled), [type=submit]:not(:disabled), button:not(:disabled) {
+  cursor: pointer;
+}
+
+.navbar {
+  align-items: center;
+  background: #212529;
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 0.875rem;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  padding: 0.5rem 1rem;
+  position: relative;
+}
+
+.navbar-brand {
+  color: #fff;
+  display: inline-block;
+  font-family: Georgia,Times,Times New Roman,serif; // FIXME
+  font-size: 1.25rem;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: inherit;
+  margin-right: 1rem;
+  padding: 2px 0;
+  padding-bottom: 0.3125rem;
+  padding-top: 0.3125rem;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.collapse {
+  text-align: center;
+  line-height: 1.5;
+  display: flex;
+  flex-direction: row;
+  flex-basis: auto;
+  flex-grow: 1;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-item {
+  cursor: pointer;
+}
+
+.dropdown {
+  position: relative;
+}
+
+.navbar-nav {
+  display: flex;
+  padding-left: 0;
+  margin-bottom: 0;
+  margin-top: 0;
+  list-style: none;
+  justify-content: space-between;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.nav-link.dropdown-toggle {
+  border: 0;
+  background-color: transparent;
+  font-size: inherit;
+  line-height: inherit;
+  font-family: inherit;
+  margin: 0 auto;
+  cursor: pointer;
+}
+
+button.nav-link {
+  background: #f9f9f9;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  box-shadow: 0 2px 4px -3px rgb(0 0 0 / 25%);
+}
+
+.nav-link {
+  display: block;
+  padding: 0.5em 0em;
+  color: rgba(255, 255, 255, 0.55);
+  text-decoration: none;
+  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out;
+  padding-right: 0.5rem;
+  padding-left: 0.5rem;
+}
+
+.dropdown-toggle {
+  white-space: nowrap;
+}
+
+.dropdown-menu {
+  position: absolute;
+  z-index: 1000;
+  display: none;
+  min-width: 10rem;
+  padding: 0.5em 0;
+  margin: 0;
+  color: #212529;
+  text-align: left;
+  list-style: none;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid rgba(0, 0, 0, 0.175);
+  border-radius: 0.375em;
+}
+
+.dropdown-menu.show {
+  display: block;
+}
+
+.navbar.dropdown-menu {
+  font-size: 0.875rem;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.download-btn {
+  font-size: 0.875rem;
+  margin-left: 8px;
+  margin-top: 1px;
+}
+
+.download-btn a {
+  line-height: 1.5em;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  user-select: none;
+  border: 1px solid #6c757d;
+  border-radius: 0.375;
+  background-color: transparent;
+}
+
+.dropdown-toggle::after {
+  display: inline-block;
+  margin-left: .255em;
+  vertical-align: .255em;
+  content: "";
+  border-top: .3em solid;
+  border-right: .3em solid transparent;
+  border-bottom: 0;
+  border-left: .3em solid transparent;
+}
+
+.dropdown-item {
+  display: block;
+  width: 100%;
+  padding: 0.25em 1rem;
+  clear: both;
+  font-weight: 400;
+  color: #212529;
+  text-align: inherit;
+  text-decoration: none;
+  white-space: nowrap;
+  background-color: transparent;
+  border: 0;
+}
+
+.searchbox {
+  display: inline-block;
+  position: relative;
+  width: 200px;
+  height: 32px!important;
+  white-space: nowrap;
+  box-sizing: border-box;
+  visibility: visible!important;
+}
+
+@media (min-width: 992px) {
+  .mr-auto {
+    margin-right: auto;
+  }
+
+  .ml-auto {
+    margin-left: auto;
+  }
+}
+
+@media (max-width: 992px) {
+  .collapse:not(.show) {
+    display: none;
+  }
+
+  .navbar-toggler {
+    display: block;
+  }
+  .navbar {
+    align-items: normal;
+  }
+  .collapse {
+    flex-direction: column;
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+    flex-basis: 100%;
+  }
+  .collapse .navbar-nav {
+    flex-direction: column;
+  }
+  .navbar-nav .dropdown-menu {
+    position: absolute;
+  }
+}

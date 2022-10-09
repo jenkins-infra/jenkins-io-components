@@ -6,7 +6,7 @@
     <title>Jenkins.io Components Demo</title>
     <script src="./node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
     <script src="./node_modules/lit/polyfill-support.js"></script>
-    <script type="module" src="./src/jio-components.ts"></script>
+    <script type="module" src="./build/jio-components.ejs.js"></script>
     <link rel="stylesheet" href="/dev.css" />
     <script>
       let ratings = {
@@ -17,9 +17,10 @@
     </script>
   </head>
   <body>
-    <jio-nav-bar></jio-nav-bar>
     <div class="container">
       <h3>Nav Bar</h3>
+      <jio-navbar class="fixed-top" showSearchBox="true"></jio-navbar>
+      <jio-navbar></jio-navbar>
     </div>
     <div class="container">
       <h3>Datetime Box</h3>
