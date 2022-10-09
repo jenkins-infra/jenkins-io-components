@@ -78,6 +78,7 @@
     "@web/test-runner-playwright": "^0.8.10",
     "@webcomponents/webcomponentsjs": "^2.6.0",
     "autoprefixer": "^10.4.12",
+    "esbuild-sass-plugin": "^2.3.3",
     "eslint": "^8.25.0",
     "lint-staged": "^13.0.3",
     "lit-analyzer": "^1.2.1",

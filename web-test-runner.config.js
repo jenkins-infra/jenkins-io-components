@@ -1,6 +1,7 @@
 import {legacyPlugin} from '@web/dev-server-legacy';
 import {playwrightLauncher} from '@web/test-runner-playwright';
 import {esbuildPlugin} from '@web/dev-server-esbuild';
+import {sassPlugin} from "esbuild-sass-plugin";
 
 const mode = process.env.MODE || 'dev';
 if (!['dev', 'prod'].includes(mode)) {
@@ -117,7 +118,15 @@ export default {
     },
   },
   plugins: [
-    esbuildPlugin({ts: true, json: true, target: 'auto', sourceMap: true, tsconfig: './tsconfig.json'}),
+    esbuildPlugin({
+      ts: true,
+      json: true,
+      target: 'auto',
+      sourceMap: true,
+      tsconfig: './tsconfig.json',
+      loaders: {'.scss': 'text'},
+      plugins: [sassPlugin({type: "lit-css"})]
+    }),
     // Detect browsers without modules (e.g. IE11) and transform to SystemJS
     // (https://modern-web.dev/docs/dev-server/plugins/legacy/).
     legacyPlugin({
