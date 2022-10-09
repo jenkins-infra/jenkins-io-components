@@ -1,5 +1,6 @@
 import {legacyPlugin} from '@web/dev-server-legacy';
 import {playwrightLauncher} from '@web/test-runner-playwright';
+import {esbuildPlugin} from '@web/dev-server-esbuild';
 
 const mode = process.env.MODE || 'dev';
 if (!['dev', 'prod'].includes(mode)) {
@@ -100,11 +101,14 @@ try {
 // https://modern-web.dev/docs/test-runner/cli-and-configuration/
 export default {
   rootDir: '.',
-  files: ['./test/**/*_test.js'],
+  files: ['./src/test/**/*_test.ts'],
   nodeResolve: {exportConditions: mode === 'dev' ? ['development'] : []},
   preserveSymlinks: true,
   coverage: true,
   browsers: commandLineBrowsers ?? Object.values(browsers),
+  mimeTypes: {
+    "scss": "text/css",
+  },
   testFramework: {
     // https://mochajs.org/api/mocha
     config: {
@@ -113,6 +117,7 @@ export default {
     },
   },
   plugins: [
+    esbuildPlugin({ts: true, json: true, target: 'auto', sourceMap: true, tsconfig: './tsconfig.json'}),
     // Detect browsers without modules (e.g. IE11) and transform to SystemJS
     // (https://modern-web.dev/docs/dev-server/plugins/legacy/).
     legacyPlugin({
