@@ -1,16 +1,13 @@
 // Import rollup plugins
 import html from '@web/rollup-plugin-html';
 import polyfillsLoader from '@web/rollup-plugin-polyfills-loader';
-//import {copy} from '@web/rollup-plugin-copy';
 import postcss from 'rollup-plugin-postcss';
-import postcssLit from 'rollup-plugin-postcss-lit';
 import resolve from '@rollup/plugin-node-resolve';
 import {getBabelOutputPlugin} from '@rollup/plugin-babel';
 import {terser} from 'rollup-plugin-terser';
 import minifyHTML from 'rollup-plugin-minify-html-literals';
 import summary from 'rollup-plugin-summary';
 import typescript from '@rollup/plugin-typescript';
-import {litScss} from 'rollup-plugin-scss-lit'
 
 // Configure an instance of @web/rollup-plugin-html
 const htmlPlugin = html({
@@ -21,15 +18,17 @@ const htmlPlugin = html({
 export default {
   // Entry point for application build; can specify a glob to build multiple
   // HTML files for non-SPA app
-  input: 'index.html',
+  input: 'src/jio-components.ts',
   plugins: [
-    htmlPlugin,
-    typescript({}),
+    // htmlPlugin,
+    typescript({
+      sourceMap: process.env.NODE_ENV === 'production',
+    }),
     postcss({
-      sourceMap: true,
+      sourceMap: process.env.NODE_ENV === 'production',
       inject: false,
     }),
-    litScss({minify: process.env.NODE_ENV === 'production'}),
+    //    litScss({minify: }),
     // Resolve bare module specifiers to relative paths
     resolve(),
     // Minify HTML template literals
@@ -39,6 +38,7 @@ export default {
       module: true,
       warnings: true,
     }),
+    /*
     // Inject polyfills into HTML (core-js, regnerator-runtime, webcoponents,
     // lit/polyfill-support) and dynamically loads modern vs. legacy builds
     polyfillsLoader({
@@ -71,6 +71,7 @@ export default {
         ],
       },
     }),
+    */
     // Print bundle summary
     summary(),
     // Optional: copy any static assets to build directory
@@ -88,7 +89,8 @@ export default {
       chunkFileNames: '[name]-[hash].ejs.js',
       entryFileNames: '[name].ejs.js',
       dir: 'build',
-      plugins: [htmlPlugin.api.addOutput('modern')],
+      // plugins: [htmlPlugin.api.addOutput('modern')],
+      sourcemap: process.env.NODE_ENV === 'production',
     },
     {
       // Legacy JS bundles (ES5 compilation and SystemJS module output)
@@ -96,8 +98,9 @@ export default {
       chunkFileNames: '[name]-[hash].cjs.js',
       entryFileNames: '[name].cjs.js',
       dir: 'build',
+      sourcemap: process.env.NODE_ENV === 'production',
       plugins: [
-        htmlPlugin.api.addOutput('legacy'),
+        //htmlPlugin.api.addOutput('legacy'),
         // Uses babel to compile JS to ES5 and modules to SystemJS
         getBabelOutputPlugin({
           compact: true,
@@ -105,9 +108,6 @@ export default {
             [
               '@babel/preset-env',
               {
-                targets: {
-                  ie: '11',
-                },
                 modules: 'systemjs',
               },
             ],
