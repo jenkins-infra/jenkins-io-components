@@ -2,6 +2,7 @@
 import html from '@web/rollup-plugin-html';
 import polyfillsLoader from '@web/rollup-plugin-polyfills-loader';
 import postcss from 'rollup-plugin-postcss';
+import postcssLit from 'rollup-plugin-postcss-lit';
 import resolve from '@rollup/plugin-node-resolve';
 import {getBabelOutputPlugin} from '@rollup/plugin-babel';
 import {terser} from 'rollup-plugin-terser';
@@ -27,6 +28,9 @@ export default {
     postcss({
       sourceMap: process.env.NODE_ENV === 'production',
       inject: false,
+    }),
+    postcssLit({
+      importPackage: 'lit',
     }),
     //    litScss({minify: }),
     // Resolve bare module specifiers to relative paths

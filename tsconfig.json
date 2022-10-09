@@ -7,9 +7,6 @@
       "DOM",
       "DOM.Iterable"
     ],
-    "types": [
-      "vite/client"
-    ],
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,
