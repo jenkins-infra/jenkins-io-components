@@ -43,5 +43,9 @@
     "src/*.ts",
     "typings/*.d.ts"
   ],
-  "exclude": []
+  "exclude": [
+    "node_modules/@types/storybook__addon-backgrounds/index.d.ts",
+    "node_modules/@types/storybook__addon-knobs/index.d.ts",
+    "node_modules/@types/storybook__addon-notes/index.d.ts"
+  ]
 }

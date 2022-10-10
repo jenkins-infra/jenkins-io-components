@@ -1,0 +1,30 @@
+{
+  "presets": [
+    [
+      "@babel/preset-react",
+      {
+        "development": true
+      }
+    ],
+    [
+      "@babel/preset-typescript"
+    ],
+    [
+      "@babel/env",
+      {
+        "modules": false
+      }
+    ]
+  ],
+  "plugins": [
+    [
+      "@babel/plugin-proposal-decorators",
+      {
+        "decoratorsBeforeExport": true,
+        "legacy": false
+      }
+    ],
+    "@babel/proposal-class-properties",
+    "@babel/proposal-object-rest-spread"
+  ]
+}

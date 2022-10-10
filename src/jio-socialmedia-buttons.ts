@@ -1,10 +1,10 @@
 import {LitElement, html, unsafeCSS} from 'lit';
 import {customElement, property} from 'lit/decorators.js';
-import styles from './jio-socialmedia-buttons.scss';
+import styles from './jio-socialmedia-buttons.css';
 
 @customElement('jio-socialmedia-buttons')
 export class SocialMediaButtons extends LitElement {
-  static override styles = unsafeCSS(styles);
+  static override styles = [styles];
 
   @property({type: String})
   twitter = "";

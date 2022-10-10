@@ -1,6 +1,6 @@
 const autoprefixer = require('autoprefixer');
 module.exports = {
-    syntax: 'postcss-scss',
+    syntax: 'postcss-lit',
     plugins: [
         autoprefixer()
     ],
