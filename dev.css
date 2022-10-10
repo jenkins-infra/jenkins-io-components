@@ -8,12 +8,30 @@
   --link-color--hover: hsl(212, 100%, 35%);
   --link-color--active: hsl(212, 100%, 30%);
 }
+
+body {
+  font-family: system-ui, "Segoe UI", roboto, "Noto Sans", oxygen, ubuntu, cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: 1rem;
+  line-height: 1.66;
+  margin: 0;
+  box-sizing: border-box;
+}
+
 .container {
   border: solid 1px gray;
   padding: 16px;
   max-width: 800px;
   margin-top: 16px;
 }
+
 jio-improve-this-page {
   --jio-a-color: gray;
+}
+
+.fixed-top {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1030;
 }

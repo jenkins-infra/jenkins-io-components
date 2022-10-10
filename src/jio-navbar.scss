@@ -1,0 +1,230 @@
+.navbar-toggler {
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-color: rgba(255, 255, 255, 0.1);
+  border-radius: 0.25rem;
+
+  color: rgba(255, 255, 255, 0.5);
+  display: none;
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.nav {
+  flex-wrap: wrap;
+}
+
+[type='button']:not(:disabled),
+[type='reset']:not(:disabled),
+[type='submit']:not(:disabled),
+button:not(:disabled) {
+  cursor: pointer;
+}
+
+.navbar {
+  align-items: center;
+  background: #212529;
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 0.875rem;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  padding: 0.5rem 1rem;
+  position: relative;
+}
+
+.navbar-brand {
+  color: #fff;
+  display: inline-block;
+  font-family: Georgia, Times, Times New Roman, serif; // FIXME
+  font-size: 1.25rem;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: inherit;
+  margin-right: 1rem;
+  padding: 2px 0;
+  padding-bottom: 0.3125rem;
+  padding-top: 0.3125rem;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.collapse {
+  align-items: center;
+  display: flex;
+  flex-basis: auto;
+  flex-direction: row;
+  flex-grow: 1;
+  justify-content: space-between;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.nav-item {
+  cursor: pointer;
+}
+
+.dropdown {
+  position: relative;
+}
+
+.navbar-nav {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  list-style: none;
+  margin-bottom: 0;
+  margin-top: 0;
+  padding-left: 0;
+}
+
+.nav-link.dropdown-toggle {
+  background-color: transparent;
+  border: 0;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  margin: 0 auto;
+}
+
+button.nav-link {
+  background: #f9f9f9;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  box-shadow: 0 2px 4px -3px rgb(0 0 0 / 25%);
+}
+
+.nav-link {
+  color: rgba(255, 255, 255, 0.55);
+  display: block;
+  padding: 0.5em 0;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  text-decoration: none;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out;
+}
+
+.dropdown-toggle {
+  white-space: nowrap;
+}
+
+.dropdown-menu {
+  background-clip: padding-box;
+  background-color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.175);
+  border-radius: 0.375em;
+  color: #212529;
+  display: none;
+  list-style: none;
+  margin: 0;
+  min-width: 10rem;
+  padding: 0.5em 0;
+  position: absolute;
+  text-align: left;
+  z-index: 1000;
+}
+
+.dropdown-menu.show {
+  display: block;
+}
+
+.navbar.dropdown-menu {
+  font-size: 0.875rem;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.download-btn {
+  font-size: 0.875rem;
+  margin-left: 8px;
+  margin-top: 1px;
+}
+
+.download-btn a {
+  background-color: transparent;
+  border: 1px solid #6c757d;
+  border-radius: 0.375;
+  cursor: pointer;
+  line-height: 1.5em;
+  text-align: center;
+  user-select: none;
+  vertical-align: middle;
+}
+
+.dropdown-toggle::after {
+  border-bottom: 0;
+  border-left: 0.3em solid transparent;
+  border-right: 0.3em solid transparent;
+  border-top: 0.3em solid;
+  content: '';
+  display: inline-block;
+  margin-left: 0.255em;
+  vertical-align: 0.255em;
+}
+
+.dropdown-item {
+  background-color: transparent;
+  border: 0;
+  clear: both;
+  color: #212529;
+  display: block;
+  font-weight: 400;
+  padding: 0.25em 1rem;
+  text-align: inherit;
+  text-decoration: none;
+  white-space: nowrap;
+  width: 100%;
+}
+
+.searchbox {
+  box-sizing: border-box;
+  display: inline-block;
+  height: 32px !important;
+  position: relative;
+  visibility: visible !important;
+  white-space: nowrap;
+  width: 200px;
+}
+
+@media (min-width: 992px) {
+  .mr-auto {
+    margin-right: auto;
+  }
+
+  .ml-auto {
+    margin-left: auto;
+  }
+}
+
+@media (max-width: 992px) {
+  .navbar-toggler {
+    display: block;
+  }
+
+  .navbar {
+    align-items: normal;
+  }
+
+  .collapse {
+    flex-basis: 100%;
+    flex-direction: column;
+    list-style: none;
+    margin-bottom: 0;
+    padding-left: 0;
+  }
+
+  .collapse:not(.show) {
+    display: none;
+  }
+
+  .collapse .navbar-nav {
+    flex-direction: column;
+  }
+
+  .navbar-nav .dropdown-menu {
+    position: absolute;
+  }
+}

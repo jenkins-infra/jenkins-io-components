@@ -7,7 +7,7 @@ if (!['dev', 'prod'].includes(mode)) {
 
 export default {
   nodeResolve: {exportConditions: mode === 'dev' ? ['development'] : []},
-  rootDir: 'build/',
+  rootDir: './',
   preserveSymlinks: true,
   plugins: [
     legacyPlugin({

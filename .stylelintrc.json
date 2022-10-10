@@ -2,6 +2,11 @@
   "customSyntax": "postcss-scss",
   "extends": [
     "stylelint-config-recommended",
-    "stylelint-config-styled-components"
-  ]
+    "stylelint-config-styled-components",
+    "stylelint-config-sass-guidelines",
+    "stylelint-prettier/recommended"
+  ],
+  "rules": {
+    "selector-no-qualifying-type": null
+  }
 }
