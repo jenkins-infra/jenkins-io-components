@@ -6,9 +6,9 @@ import './jio-cdf-logo.js';
 
 import styles from './jio-navbar.scss';
 
-type NavbarDropdownItem = {
-  label: string;
-  href: string;
+type NavbarItemLink = {
+  label: TemplateResult | string;
+  link: string | Array<NavbarItemLink>;
   header?: boolean;
   title?: string;
 };
@@ -18,16 +18,10 @@ export class Navbar extends LitElement {
   static override styles = unsafeCSS(styles);
 
   /**
-   * Eg www.jenkins.io
-   */
-  @property()
-  rootUrl: String = '';
-
-  /**
    * Eg plugins.jenkins.io
    */
   @property()
-  selfUrl: String = '';
+  propertyUrl = 'https://www.jenkins.io';
 
   /**
    * Show search box
@@ -62,104 +56,111 @@ export class Navbar extends LitElement {
 
   override render() {
     const cdfMenuItems = [
-      {label: "What is CDF?", href: "https://cd.foundation/"},
-      {label: "Jenkins X", href: "https://jenkins-x.io/"},
-      {label: "Tekton", href: "https://cloud.google.com/tekton/"},
-      {label: "Spinnaker", href: "https://www.spinnaker.io/"},
+      {label: "What is CDF?", link: "https://cd.foundation/"},
+      {label: "Jenkins X", link: "https://jenkins-x.io/"},
+      {label: "Tekton", link: "https://cloud.google.com/tekton/"},
+      {label: "Spinnaker", link: "https://www.spinnaker.io/"},
     ];
     const menuItems = [
-      ["Blog", "/node"],
-      ["Documentation", [
-        {
-          label: "User Guide", href: "/doc/book", header: true
-        },
-        {label: "- Installing Jenkins", href: "/doc/book/installing/"}, // FIXME - nest again
-        {label: "- Jenkins Pipeline", href: "/doc/book/pipeline/"},
-        {label: "- Managing Jenkins", href: "/doc/book/managing/"},
-        {label: "- Securing Jenkins", href: "/doc/book/security/"},
-        {label: "- System Administration", href: "/doc/book/system - administration/"},
-        {label: "- Troubleshooting Jenkins", href: "/doc/book/troubleshooting/"},
-        {label: "- Terms and Definitions", href: "/doc/book/glossary/"},
-        {label: "Solution Pages", href: "/solutions", header: true},
-        {
-          label: "Tutorials", href: "/doc/tutorials", header: true
-        },
-        {label: "- Guided Tour", href: "/doc/pipeline/tour/getting - started/"},
-        {label: "- More Tutorials", href: "/doc/tutorials/"},
-        {
-          label: "Developer Guide", href: "/doc/developer", header: true
-        },
-        {label: "Contributor Guide", href: "/participate", header: true},
-      ]],
-      ["Plugins", "https://plugins.jenkins.io/"],
-      ["Community", [
-        {
-          label: "Overview", href: "/participate/"
-        },
-        {
-          label: "Chat", href: "/chat/", title: "Chat with the rest of the Jenkins community on IRC"
-        },
-        {label: "Meet", href: "/projects/jam/"},
-        {
-          label: "Events", href: "/events/"
-        },
-        {label: "Forum", href: "https://community.jenkins.io/"},
-        {label: "Issue Tracker", href: "https://issues.jenkins.io/"},
-        {label: "Mailing Lists", href: "/mailing-lists/", title: "Browse Jenkins mailing list archives and/ or subscribe to lists"},
-        {label: "Roadmap", href: "/project/roadmap/"},
-        {label: "Account Management", href: "https://accounts.jenkins.io/", title: "Create/manage your account for accessing wiki, issue tracker, etc"},
-        {
-          label: "Special Interest Groups", href: "/sigs/", header: true
-        },
-        {label: "- Advocacy and Outreach", href: "/sigs/advocacy - and - outreach/"},
-        {label: "- Chinese Localization", href: "/sigs/chinese - localization/"},
-        {label: "- Cloud Native", href: "/sigs/cloud - native/"},
-        {label: "- Documentation", href: "/sigs/docs/"},
-        {label: "- Google Summer of Code", href: "/sigs/gsoc/"},
-        {label: "- Hardware and EDA", href: "/sigs/hw - and - eda/"},
-        {label: "- Pipeline Authoring", href: "/sigs/pipeline - authoring/"},
-        {label: "- Platform", href: "/sigs/platform/"},
-        {label: "- User Experience", href: "/sigs/ux/"},
-      ]],
-      ["Subprojects", [
-        {
-          label: "Overview", href: "/projects/"
-        },
-        {label: "Google Summer of Code in Jenkins", href: "/projects/gsoc/"},
-        {label: "Infrastructure", href: "/projects/infrastructure/"},
-        {label: "CI/CD and Jenkins Area Meetups", href: "/projects/jam/"},
-        {label: "Jenkins Configuration as Code", href: "/projects/jcasc/"},
-        {label: "Jenkins Operator", href: "/projects/jenkins - operator/"},
-        {label: "Jenkins Remoting", href: "/projects/remoting/"},
-        {label: "Document Jenkins on Kubernetes", href: "/sigs/docs/gsod/2020/projects/document - jenkins - on - kubernetes/"},
-      ]],
-      ["About", [
-        {label: "Roadmap", href: "/project/roadmap/"},
-        {
-          label: "Security", href: "/security/"
-        },
-        {
-          label: "Press", href: "/press/"
-        },
-        {
-          label: "Awards", href: "/awards/"
-        },
-        {label: "Conduct", href: "/project/conduct/"},
-        {label: "Artwork", href: "/artwork/"},
-      ]],
-      ["English", [
-        {label: "中文 Chinese", href: "/zh/"},
-      ]]
-    ] as Array<[string, string | Array<NavbarDropdownItem>]>;
-    const menuItemsHtml = menuItems.map((topLevelMenuItem, idx) => {
-      const [key, links] = topLevelMenuItem;
+      {label: "Blog", link: "/node"},
+      {
+        label: "Documentation", link: [
+          {
+            label: "User Guide", link: "/doc/book", header: true
+          },
+          {label: "- Installing Jenkins", link: "/doc/book/installing/"}, // FIXME - nest again
+          {label: "- Jenkins Pipeline", link: "/doc/book/pipeline/"},
+          {label: "- Managing Jenkins", link: "/doc/book/managing/"},
+          {label: "- Securing Jenkins", link: "/doc/book/security/"},
+          {label: "- System Administration", link: "/doc/book/system - administration/"},
+          {label: "- Troubleshooting Jenkins", link: "/doc/book/troubleshooting/"},
+          {label: "- Terms and Definitions", link: "/doc/book/glossary/"},
+          {label: "Solution Pages", link: "/solutions", header: true},
+          {
+            label: "Tutorials", link: "/doc/tutorials", header: true
+          },
+          {label: "- Guided Tour", link: "/doc/pipeline/tour/getting - started/"},
+          {label: "- More Tutorials", link: "/doc/tutorials/"},
+          {
+            label: "Developer Guide", link: "/doc/developer", header: true
+          },
+          {label: "Contributor Guide", link: "/participate", header: true},
+        ]
+      },
+      {label: "Plugins", link: "https://plugins.jenkins.io/"},
+      {
+        label: "Community", link: [
+          {
+            label: "Overview", link: "/participate/"
+          },
+          {
+            label: "Chat", link: "/chat/", title: "Chat with the rest of the Jenkins community on IRC"
+          },
+          {label: "Meet", link: "/projects/jam/"},
+          {
+            label: "Events", link: "/events/"
+          },
+          {label: "Forum", link: "https://community.jenkins.io/"},
+          {label: "Issue Tracker", link: "https://issues.jenkins.io/"},
+          {label: "Mailing Lists", link: "/mailing-lists/", title: "Browse Jenkins mailing list archives and/ or subscribe to lists"},
+          {label: "Roadmap", link: "/project/roadmap/"},
+          {label: "Account Management", link: "https://accounts.jenkins.io/", title: "Create/manage your account for accessing wiki, issue tracker, etc"},
+          {
+            label: "Special Interest Groups", link: "/sigs/", header: true
+          },
+          {label: "- Advocacy and Outreach", link: "/sigs/advocacy - and - outreach/"},
+          {label: "- Chinese Localization", link: "/sigs/chinese - localization/"},
+          {label: "- Cloud Native", link: "/sigs/cloud - native/"},
+          {label: "- Documentation", link: "/sigs/docs/"},
+          {label: "- Google Summer of Code", link: "/sigs/gsoc/"},
+          {label: "- Hardware and EDA", link: "/sigs/hw - and - eda/"},
+          {label: "- Pipeline Authoring", link: "/sigs/pipeline - authoring/"},
+          {label: "- Platform", link: "/sigs/platform/"},
+          {label: "- User Experience", link: "/sigs/ux/"},
+        ]
+      },
+      {
+        label: "Subprojects", link: [
+          {
+            label: "Overview", link: "/projects/"
+          },
+          {label: "Google Summer of Code in Jenkins", link: "/projects/gsoc/"},
+          {label: "Infrastructure", link: "/projects/infrastructure/"},
+          {label: "CI/CD and Jenkins Area Meetups", link: "/projects/jam/"},
+          {label: "Jenkins Configuration as Code", link: "/projects/jcasc/"},
+          {label: "Jenkins Operator", link: "/projects/jenkins - operator/"},
+          {label: "Jenkins Remoting", link: "/projects/remoting/"},
+          {label: "Document Jenkins on Kubernetes", link: "/sigs/docs/gsod/2020/projects/document - jenkins - on - kubernetes/"},
+        ]
+      },
+      {
+        label: "About", link: [
+          {label: "Roadmap", link: "/project/roadmap/"},
+          {
+            label: "Security", link: "/security/"
+          },
+          {
+            label: "Press", link: "/press/"
+          },
+          {
+            label: "Awards", link: "/awards/"
+          },
+          {label: "Conduct", link: "/project/conduct/"},
+          {label: "Artwork", link: "/artwork/"},
+        ]
+      },
+      {
+        label: "English", link: [
+          {label: "中文 Chinese", link: "/zh/"},
+        ]
+      }
+    ] as Array<NavbarItemLink>;
+    const menuItemsHtml = menuItems.map((menuItem, idx) => {
       let body;
-      if (!links) {
-        body = html`UNKNOWN-${key}-UNKNOWN`;
-      } else if (Array.isArray(links)) {
-        body = this.renderNavItemDropdown(key, idx, this.visibleMenu === idx, links);
+      if (menuItem.link && Array.isArray(menuItem.link)) {
+        body = this.renderNavItemDropdown(menuItem, idx, this.visibleMenu === idx);
       } else {
-        body = html`<li class="nav-item"><a class="nav-link" href=${links}>${key}</a></li>`;
+        body = html`<li class="nav-item">${this.renderNavItemLink(menuItem)}</li>`;
       }
       return body;
     });
@@ -173,30 +174,31 @@ export class Navbar extends LitElement {
     }
     return html`
       <nav class="navbar">
-        <a class="navbar-brand" href="/">Jenkins</a>
+        <a class="navbar-brand" href="https://www.jenkins.io">Jenkins</a>
         <button class="navbar-toggler collapsed btn" type="button" @click=${this._clickCollapseButton}>
           <ion-icon name="menu-outline" title="Toggle Menu Visible"></ion-icon>
         </button>
         <div class="collapse ${this.menuToggled ? "show" : ""}">
           <ul class="nav navbar-nav mr-auto">
-            ${this.renderNavItemDropdown(html`<jio-cdf-logo></jio-cdf-logo>`, 99, this.visibleMenu === 99, cdfMenuItems)}
+            ${this.renderNavItemDropdown({label: html`<jio-cdf-logo></jio-cdf-logo>`, link: cdfMenuItems}, 99, this.visibleMenu === 99)}
           </ul>
           <ul class="nav navbar-nav ml-auto">
             ${menuItemsHtml}
             ${searchboxHtml}
-            <li class="nav-item download-btn"><a class="nav-link btn btn-outline-secondary" href="/download/">Download</a>
+            <li class="nav-item download-btn">
+              ${this.renderNavItemLink({link: '/download/', label: 'Download', }, ['btn btn-outline-secondary'])}
+            </li>
           </ul>
         </div>
       </nav>
     `;
   }
 
-  renderNavItemDropdown(label: TemplateResult | string, idx: number, visible: Boolean, links: Array<NavbarDropdownItem>) {
-    const linksHtml = links.map(link => {
-      return html`<a class="dropdown-item feature" title=${ifDefined(link.title)} href=${link.href}>
-        ${link.header ? html`<strong>${link.label}</strong>` : link.label}
-      </a>`;
-    });
+  renderNavItemDropdown(menuItem: NavbarItemLink, idx: number, visible: Boolean) {
+    if (!Array.isArray(menuItem.link)) {
+      return this.renderNavItemLink(menuItem);
+    }
+    const linksHtml = menuItem.link.map(menuItem => this.renderNavItemLink(menuItem, ['dropdown-item feature']));
     return html`
       <li class="nav-item dropdown">
         <button
@@ -205,12 +207,35 @@ export class Navbar extends LitElement {
           aria-expanded=${visible ? "true" : "false"}
           aria-haspopup="true"
           class="nav-link dropdown-toggle ${visible ? "show" : ""}"
-        >${label}</button>
+        >${menuItem.label}</button>
         <div class="dropdown-menu ${visible ? "show" : ""}">
           ${linksHtml}
         </div>
       </li>
     `;
+  }
+
+  renderNavItemLink(menuItem: NavbarItemLink, extraClasses: Array<string> = []) {
+    if (Array.isArray(menuItem.link)) {
+      throw new Error('dropdown passed into render item');
+      return null;
+    }
+
+    const parsedMenuItem = new URL(menuItem.link, 'https://www.jenkins.io');
+    const parsedPropertyUrl = new URL(menuItem.link, this.propertyUrl);
+    let href = menuItem.link;
+    // if the property is not the same as the url (eg /downloads), then full link
+    if (parsedPropertyUrl.host !== parsedMenuItem.host) {
+      href = parsedMenuItem.toString();
+    } else {
+      href = parsedMenuItem.toString().substring(parsedMenuItem.toString().split('/').slice(0, 3).join('/').length);
+    }
+    return html`<a
+      class=${['nav-link'].concat(extraClasses).join(' ')}
+      title=${ifDefined(menuItem.title)}
+      href=${href}>
+        ${menuItem.header ? html`<strong>${menuItem.label}</strong>` : menuItem.label}
+      </a>`;
   }
 
   private _clickCollapseButton(e: Event) {
