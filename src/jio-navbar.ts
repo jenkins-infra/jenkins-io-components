@@ -1,4 +1,4 @@
-import {LitElement, html, unsafeCSS} from 'lit';
+import {LitElement, html, TemplateResult, unsafeCSS} from 'lit';
 import {ifDefined} from 'lit-html/directives/if-defined.js';
 import {customElement, state, property} from 'lit/decorators.js';
 
@@ -13,51 +13,6 @@ type NavbarDropdownItem = {
   title?: string;
 };
 
-@customElement('jio-navbar-dropdown')
-export class NavbarDropdown extends LitElement {
-  static override styles = unsafeCSS(styles);
-  /**
-   * Show search box
-   */
-  @property({type: Boolean})
-  visible: Boolean = false;
-
-  /**
-   * Show search box
-   */
-  @property({type: Array})
-  links: Array<NavbarDropdownItem> = [];
-
-  override render() {
-    return html`
-      <li class="nav-item dropdown">
-        <button
-          @click=${this._toggleDropdown}
-          aria-expanded="${this.visible ? "true" : "false"}"
-          aria-haspopup="true" class="nav-link dropdown-toggle ${this.visible ? "show" : ""}"
-        ><slot></slot></button>
-        <div class="dropdown-menu ${this.visible ? "show" : ""}">
-          ${this.links.map(link => {
-      return html`<a class="dropdown-item feature" title=${ifDefined(link.title)} href="${link.href}">
-              ${link.header ? html`<strong>${link.label}</strong>` : link.label}
-            </a>`;
-    })}
-        </div>
-      </li>
-    `;
-  }
-  private _toggleDropdown(e: Event) {
-    e.preventDefault();
-    e.stopPropagation();
-
-    this.dispatchEvent(new CustomEvent('jio-toggle-menu', {
-      bubbles: true,
-      composed: true
-    }));
-  }
-
-
-}
 @customElement('jio-navbar')
 export class Navbar extends LitElement {
   static override styles = unsafeCSS(styles);
@@ -202,11 +157,7 @@ export class Navbar extends LitElement {
       if (!links) {
         body = html`UNKNOWN-${key}-UNKNOWN`;
       } else if (Array.isArray(links)) {
-        body = html`
-          <jio-navbar-dropdown data-idx=${idx} .visible=${this.visibleMenu === idx} .links=${links} @jio-toggle-menu=${this._toggleDropdown}>
-            ${key}
-          </jio-navbar-dropdown>
-        `;
+        body = this.renderNavItemDropdown(key, idx, this.visibleMenu === idx, links);
       } else {
         body = html`<li class="nav-item"><a class="nav-link" href="${links}">${key}</a></li>`;
       }
@@ -224,13 +175,11 @@ export class Navbar extends LitElement {
       <nav class="navbar">
         <a class="navbar-brand" href="/">Jenkins</a>
         <button class="navbar-toggler collapsed btn" type="button" @click=${this._clickCollapseButton}>
-          <ion-icon name="menu-outline"></ion-icon>
+          <ion-icon name="menu-outline" title="Toggle Menu Visible"></ion-icon>
         </button>
         <div class="collapse ${this.menuToggled ? "show" : ""}">
           <ul class="nav navbar-nav mr-auto">
-            <jio-navbar-dropdown data-idx="15" .visible=${this.visibleMenu === 15} .links=${cdfMenuItems} @jio-toggle-menu=${this._toggleDropdown}>
-              <jio-cdf-logo></jio-cdf-logo>
-            </jio-navbar-dropdown>
+            ${this.renderNavItemDropdown(html`<jio-cdf-logo></jio-cdf-logo>`, 99, this.visibleMenu === 99, cdfMenuItems)}
           </ul>
           <ul class="nav navbar-nav ml-auto">
             ${menuItemsHtml}
@@ -239,6 +188,26 @@ export class Navbar extends LitElement {
           </ul>
         </div>
       </nav>
+    `;
+  }
+
+  renderNavItemDropdown(label: TemplateResult | string, idx: number, visible: Boolean, links: Array<NavbarDropdownItem>) {
+    return html`
+      <li class="nav-item dropdown">
+        <button
+          @click=${this._toggleDropdown}
+          data-idx="${idx}"
+          aria-expanded="${visible ? "true" : "false"}"
+          aria-haspopup="true" class="nav-link dropdown-toggle ${visible ? "show" : ""}"
+        >${label}</button>
+        <div class="dropdown-menu ${visible ? "show" : ""}">
+          ${links.map(link => {
+      return html`<a class="dropdown-item feature" title=${ifDefined(link.title)} href="${link.href}">
+              ${link.header ? html`<strong>${link.label}</strong>` : link.label}
+            </a>`;
+    })}
+        </div>
+      </li>
     `;
   }
 
@@ -262,7 +231,6 @@ export class Navbar extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     'jio-navbar': Navbar;
-    'jio-navbar-dropdown': NavbarDropdown;
   }
 }
 
