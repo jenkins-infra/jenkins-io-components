@@ -39,10 +39,11 @@ export class ChangelogRatings extends LitElement {
     };
 
     if (Object.keys(issues).length > 0) {
+      const body = Object.keys(issues).map(relatedIssueHtml);
       relatedIssues = html`
         <span class="related-issues">
           Community reported issues:
-          ${Object.keys(issues).map(relatedIssueHtml)}
+          ${body}
         </span>
   `;
     }

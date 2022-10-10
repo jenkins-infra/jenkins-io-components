@@ -236,7 +236,7 @@ suite('jio-changelog-ratings', () => {
       promptFake.onCall(0).returns('');
       promptFake.onCall(1).returns('');
 
-      const el = (await fixture(html`<jio-changelog-ratings version="0.1.2" good="101" rollback="5" rollback="7" .ratings=${["63232", 1, "63506", 1, "61990", 5]} ></jio-changelog-ratings>`)) as ChangelogRatings;
+      const el = (await fixture(html`<jio-changelog-ratings version="0.1.2" good="101" rollback="5" nolink="7" .ratings=${["63232", 1, "63506", 1, "61990", 5]} ></jio-changelog-ratings>`)) as ChangelogRatings;
       assert.instanceOf(el, ChangelogRatings);
 
       el.addEventListener('changelog-ratings-canceled', () => {throw new Error('canceled');});
@@ -254,7 +254,7 @@ suite('jio-changelog-ratings', () => {
       promptFake.onCall(0).returns('');
       promptFake.onCall(1).returns('JENKINS-123');
 
-      const el = (await fixture(html`<jio-changelog-ratings version="0.1.2" good="101" rollback="5" rollback="7" .ratings=${["63232", 1, "63506", 1, "61990", 5]} ></jio-changelog-ratings>`)) as ChangelogRatings;
+      const el = (await fixture(html`<jio-changelog-ratings version="0.1.2" good="101" nolink="5" rollback="7" .ratings=${["63232", 1, "63506", 1, "61990", 5]} ></jio-changelog-ratings>`)) as ChangelogRatings;
       assert.instanceOf(el, ChangelogRatings);
 
       el.addEventListener('changelog-ratings-canceled', () => {throw new Error('canceled');});
@@ -271,7 +271,7 @@ suite('jio-changelog-ratings', () => {
       const promptFake = sinon.stub();
       promptFake.onCall(0).returns('JENKINS-123');
 
-      const el = (await fixture(html`<jio-changelog-ratings version="0.1.2" good="101" rollback="5" rollback="7" .ratings=${["63232", 1, "63506", 1, "61990", 5]} ></jio-changelog-ratings>`)) as ChangelogRatings;
+      const el = (await fixture(html`<jio-changelog-ratings version="0.1.2" good="101" rollback="5" nolink="7" .ratings=${["63232", 1, "63506", 1, "61990", 5]} ></jio-changelog-ratings>`)) as ChangelogRatings;
       assert.instanceOf(el, ChangelogRatings);
 
       el.addEventListener('changelog-ratings-canceled', () => {throw new Error('canceled');});

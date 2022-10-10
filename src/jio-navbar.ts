@@ -1,5 +1,5 @@
 import {LitElement, html, TemplateResult, unsafeCSS} from 'lit';
-import {ifDefined} from 'lit-html/directives/if-defined.js';
+import {ifDefined} from 'lit/directives/if-defined.js';
 import {customElement, state, property} from 'lit/decorators.js';
 
 import './jio-cdf-logo.js';
@@ -159,7 +159,7 @@ export class Navbar extends LitElement {
       } else if (Array.isArray(links)) {
         body = this.renderNavItemDropdown(key, idx, this.visibleMenu === idx, links);
       } else {
-        body = html`<li class="nav-item"><a class="nav-link" href="${links}">${key}</a></li>`;
+        body = html`<li class="nav-item"><a class="nav-link" href=${links}>${key}</a></li>`;
       }
       return body;
     });
@@ -192,20 +192,22 @@ export class Navbar extends LitElement {
   }
 
   renderNavItemDropdown(label: TemplateResult | string, idx: number, visible: Boolean, links: Array<NavbarDropdownItem>) {
+    const linksHtml = links.map(link => {
+      return html`<a class="dropdown-item feature" title=${ifDefined(link.title)} href=${link.href}>
+        ${link.header ? html`<strong>${link.label}</strong>` : link.label}
+      </a>`;
+    });
     return html`
       <li class="nav-item dropdown">
         <button
           @click=${this._toggleDropdown}
-          data-idx="${idx}"
-          aria-expanded="${visible ? "true" : "false"}"
-          aria-haspopup="true" class="nav-link dropdown-toggle ${visible ? "show" : ""}"
+          data-idx=${idx}
+          aria-expanded=${visible ? "true" : "false"}
+          aria-haspopup="true"
+          class="nav-link dropdown-toggle ${visible ? "show" : ""}"
         >${label}</button>
         <div class="dropdown-menu ${visible ? "show" : ""}">
-          ${links.map(link => {
-      return html`<a class="dropdown-item feature" title=${ifDefined(link.title)} href="${link.href}">
-              ${link.header ? html`<strong>${link.label}</strong>` : link.label}
-            </a>`;
-    })}
+          ${linksHtml}
         </div>
       </li>
     `;
