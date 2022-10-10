@@ -181,3 +181,33 @@ You can it anywhere you can use HTML!
 
   </div>
 </section>
+
+### HTML
+
+<section>
+
+* Note should really be fixed to the top of the page, or at least the width of the page
+
+  <div>
+
+```html
+<style>
+.fixed-top {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1030;
+}
+</style>
+
+<jio-navbar class="fixed-top"></jio-navbar>
+```
+
+  </div>
+  <div>
+
+<jio-navbar></jio-navbar>
+
+  </div>
+</section>
