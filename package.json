@@ -5,8 +5,8 @@
   "publishConfig": {
     "access": "public"
   },
-  "main": "build/jio-components.js",
-  "module": "build/jio-components.js",
+  "main": "build/jio-components.cjs.js",
+  "module": "build/jio-components.ejs.js",
   "type": "module",
   "browserslist": [
     "last 2 versions",
