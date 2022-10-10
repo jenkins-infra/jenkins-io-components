@@ -182,11 +182,15 @@ You can it anywhere you can use HTML!
   </div>
 </section>
 
+## &lt;jio-datetime-box>
+
+`<jio-navbar>` shows the standard jenkins navbar
+
+* Note should really be fixed to the top of the page, or at least the width of the page
+
 ### HTML
 
 <section>
-
-* Note should really be fixed to the top of the page, or at least the width of the page
 
   <div>
 
