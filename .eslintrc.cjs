@@ -1,4 +1,4 @@
-{
+module.exports = {
   "root": true,
   "extends": [
     "eslint:recommended",
@@ -10,7 +10,8 @@
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion": 2020,
-    "sourceType": "module"
+    "sourceType": "module",
+    "project": ["./tsconfig.json"]
   },
   "plugins": [
     "@typescript-eslint"
