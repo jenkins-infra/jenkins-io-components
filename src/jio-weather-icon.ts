@@ -1,16 +1,20 @@
 import {LitElement, html, TemplateResult} from 'lit';
 import {customElement, property} from 'lit/decorators.js';
 
-export enum EnumWeatherIcons {
-  Sunny = 'sunny',
-  Cloudy = 'cloudy',
-  Storm = 'storm',
-}
+export type EnumWeatherIcons = 'sunny' | 'cloudy' | 'storm';
 
+/**
+ * Shows one of the standard weather icons
+ *
+ * @prop {sunny|cloudy|storm} weather - Which icon to show
+ */
 @customElement('jio-weather-icon')
 export class WeatherIcon extends LitElement {
-  @property({type: String})
-  weather: EnumWeatherIcons = EnumWeatherIcons.Sunny;
+  /**
+   * Which icon to show
+   */
+  @property({type: 'sunny | cloudy | storm'})
+  weather: EnumWeatherIcons = 'sunny';
 
   override render() {
     const icons = {

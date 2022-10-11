@@ -19,7 +19,11 @@ const SHORT_MONTH_NAMES = Object.freeze([
 
 const dateConverter = (value: string | null): Date | undefined => {
   if (!value) {return;}
-  return new Date(value);
+  if (/^\d+$/.test(value)) {
+    return new Date(parseInt(value, 10));
+  } else {
+    return new Date(value);
+  }
 };
 
 
@@ -65,20 +69,21 @@ export class DatetimeBox extends LitElement {
   }
   `;
 
-  @property({
-    reflect: true,
-    converter: dateConverter,
-  })
+  /**
+   * Whats the start time of this date
+  */
+  @property({converter: dateConverter})
   date: Date | undefined;
 
-  @property({
-    reflect: true,
-    converter: dateConverter,
-  })
+  /**
+   * Whats the end time of this date
+   * Optional
+  */
+  @property({converter: dateConverter})
   endDate: Date | undefined;
 
   override render() {
-    if (!this.date) {return;}
+    const date = this.date ?? new Date();
 
     let endDateHtml = html``;
     if (this.endDate) {
@@ -91,17 +96,16 @@ export class DatetimeBox extends LitElement {
       `;
     }
     return html`
-        <!-- jio-datetime START -->
         <div class="date-time">
           <div class="date">
-            <time datetime=${this.date.toISOString()} title="Start Time">
-              <span class="month">${SHORT_MONTH_NAMES[this.date.getUTCMonth()]}</span>
-              <span class="day">${this.date.getUTCDate().toString().padStart(2, '0')}</span>
+            <time datetime=${date.toISOString()} title="Start Time">
+              <span class="month">${SHORT_MONTH_NAMES[date.getUTCMonth()]}</span>
+              <span class="day">${date.getUTCDate().toString().padStart(2, '0')}</span>
             </time>
             ${endDateHtml}
           </div>
           <div class="time">
-            ${`${(this.date.getUTCHours() + 1).toString().padStart(2, '0')}:${(this.date.getUTCMinutes() + 1).toString().padStart(2, '0')} ${this.date.getUTCHours() + 1 <= 12 ? 'AM' : 'PM'}`}
+            ${`${(date.getUTCHours() + 1).toString().padStart(2, '0')}:${(date.getUTCMinutes()).toString().padStart(2, '0')} ${date.getUTCHours() + 1 <= 12 ? 'AM' : 'PM'}`}
           </div>
         </div>
       </div>

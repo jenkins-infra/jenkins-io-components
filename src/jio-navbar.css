@@ -40,7 +40,8 @@ button:not(:disabled) {
 .navbar-brand {
   color: #fff;
   display: inline-block;
-  font-family: Georgia, Times, Times New Roman, serif; // FIXME
+  /* FIXME - should this stay generic fonts? */
+  font-family: Georgia, Times, Times New Roman, serif;
   font-size: 1.25rem;
   font-size: 20px;
   font-weight: 600;

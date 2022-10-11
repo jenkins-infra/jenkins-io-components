@@ -1,7 +1,13 @@
 import {legacyPlugin} from '@web/dev-server-legacy';
 import {playwrightLauncher} from '@web/test-runner-playwright';
+import {fileURLToPath} from 'url';
 import {esbuildPlugin} from '@web/dev-server-esbuild';
-import {sassPlugin} from "esbuild-sass-plugin";
+import {transform} from "@pwrs/lit-css";
+import postcss from 'postcss';
+import {createRequire} from 'module';
+
+const require = createRequire(import.meta.url);
+const processor = postcss(require('./postcss.config.cjs'));
 
 const mode = process.env.MODE || 'dev';
 if (!['dev', 'prod'].includes(mode)) {
@@ -108,7 +114,7 @@ export default {
   coverage: true,
   browsers: commandLineBrowsers ?? Object.values(browsers),
   mimeTypes: {
-    "scss": "text/css",
+    '**/*.css': 'js',
   },
   testFramework: {
     // https://mochajs.org/api/mocha
@@ -123,10 +129,20 @@ export default {
       json: true,
       target: 'auto',
       sourceMap: true,
-      tsconfig: './tsconfig.json',
-      loaders: {'.scss': 'text'},
-      plugins: [sassPlugin({type: "lit-css"})]
+      tsconfig: fileURLToPath(new URL('./tsconfig.json', import.meta.url)),
     }),
+    {
+      name: 'transform-css-modules',
+      async transform(context) {
+        if (context.originalUrl.match(/\.css$/)) {
+          const contents = await transform({
+            css: processor.process(context.body, {from: context.originalUrl}).css,
+            filePath: context.originalUrl
+          });
+          return {body: contents}
+        }
+      }
+    },
     // Detect browsers without modules (e.g. IE11) and transform to SystemJS
     // (https://modern-web.dev/docs/dev-server/plugins/legacy/).
     legacyPlugin({

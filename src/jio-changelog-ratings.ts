@@ -1,6 +1,6 @@
 import {LitElement, html, css} from 'lit';
 import {customElement, property} from 'lit/decorators.js';
-import './jio-changelog-weather-icon.js';
+import './jio-changelog-weather-icon';
 
 @customElement('jio-changelog-ratings')
 export class ChangelogRatings extends LitElement {
@@ -113,6 +113,5 @@ export class ChangelogRatings extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     'jio-changelog-ratings': ChangelogRatings;
-    'jio-changelog-weather-icons': ChangelogRatings;
   }
 }

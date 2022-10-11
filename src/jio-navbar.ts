@@ -1,10 +1,10 @@
-import {LitElement, html, TemplateResult, unsafeCSS} from 'lit';
+import {LitElement, html, TemplateResult} from 'lit';
 import {ifDefined} from 'lit/directives/if-defined.js';
 import {customElement, state, property} from 'lit/decorators.js';
 
-import './jio-cdf-logo.js';
+import './jio-cdf-logo';
 
-import styles from './jio-navbar.scss';
+import styles from './jio-navbar.css';
 
 type NavbarItemLink = {
   label: TemplateResult | string;
@@ -15,25 +15,38 @@ type NavbarItemLink = {
 
 @customElement('jio-navbar')
 export class Navbar extends LitElement {
-  static override styles = unsafeCSS(styles);
+  static override styles = [styles];
 
   /**
    * Eg plugins.jenkins.io
    */
   @property()
-  propertyUrl = 'https://www.jenkins.io';
+  property = 'https://www.jenkins.io';
 
   /**
    * Show search box
+   * (doesnt yet work)
    */
   @property({type: Boolean})
   showSearchBox: Boolean = false;
 
+  /**
+   * Keeps track of what menu is opened. 
+   *
+   * Never to be set externally, though storybook shows it.
+   * @private
+   */
   @state()
-  visibleMenu = -1;
+  private visibleMenu = -1;
 
+  /**
+   * Keeps track if the collapsed (mobile) menu is shown or not
+   *
+   * Never to be set externally, though storybook shows it.
+   * @private
+   */
   @state()
-  menuToggled = false;
+  private menuToggled = false;
 
   constructor() {
     super();
@@ -222,7 +235,7 @@ export class Navbar extends LitElement {
     }
 
     const parsedMenuItem = new URL(menuItem.link, 'https://www.jenkins.io');
-    const parsedPropertyUrl = new URL(menuItem.link, this.propertyUrl);
+    const parsedPropertyUrl = new URL(menuItem.link, this.property);
     let href = menuItem.link;
     // if the property is not the same as the url (eg /downloads), then full link
     if (parsedPropertyUrl.host !== parsedMenuItem.host) {

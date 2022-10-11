@@ -11,12 +11,14 @@ export class ChangelogWeatherIcon extends LitElement {
   `;
 
   @property({type: String})
-  mode: EnumWeatherIcons = EnumWeatherIcons.Sunny;
+  mode: EnumWeatherIcons = 'sunny';
 
   @property({type: Number})
   count = 0;
 
   override render() {
+    const mode = this.mode || 'sunny';
+
     const titles = {
       sunny: 'No major issues with this release',
       cloudy: 'I experienced notable issues',
@@ -26,7 +28,7 @@ export class ChangelogWeatherIcon extends LitElement {
     return html`
       <span>
         ${this.count}
-        <span class=${this.count === 0 ? 'light' : ''}><jio-weather-icon weather=${this.mode} title=${titles[this.mode]}></jio-weather-icon></span>
+        <span class=${this.count === 0 ? 'light' : ''}><jio-weather-icon weather=${mode} title=${titles[mode]}></jio-weather-icon></span>
       </span>
     `;
   }

@@ -1,20 +1,25 @@
 // Import rollup plugins
-import html from '@web/rollup-plugin-html';
-import polyfillsLoader from '@web/rollup-plugin-polyfills-loader';
-import postcss from 'rollup-plugin-postcss';
-import postcssLit from 'rollup-plugin-postcss-lit';
+//import html from '@web/rollup-plugin-html';
+//import polyfillsLoader from '@web/rollup-plugin-polyfills-loader';
 import resolve from '@rollup/plugin-node-resolve';
 import {getBabelOutputPlugin} from '@rollup/plugin-babel';
 import {terser} from 'rollup-plugin-terser';
 import minifyHTML from 'rollup-plugin-minify-html-literals';
 import summary from 'rollup-plugin-summary';
 import typescript from '@rollup/plugin-typescript';
+import execute from 'rollup-plugin-execute'
+import litcss from 'rollup-plugin-lit-css';
+import postcss from 'postcss';
+
+import {createRequire} from 'module';
+const require = createRequire(import.meta.url);
+const processor = postcss(require('./postcss.config.cjs'));
 
 // Configure an instance of @web/rollup-plugin-html
-const htmlPlugin = html({
-  rootDir: './',
-  flattenOutput: false,
-});
+//const htmlPlugin = html({
+//  rootDir: './',
+//  flattenOutput: false,
+//});
 
 export default {
   // Entry point for application build; can specify a glob to build multiple
@@ -22,17 +27,22 @@ export default {
   input: 'src/jio-components.ts',
   plugins: [
     // htmlPlugin,
+    litcss({
+      include: '/**/*.css',
+      transform: (css, {filePath}) =>
+        processor.process(css, {from: filePath})
+          .css,
+    }),
     typescript({
       sourceMap: process.env.NODE_ENV === 'production',
     }),
-    postcss({
-      sourceMap: process.env.NODE_ENV === 'production',
-      inject: false,
-    }),
-    postcssLit({
-      importPackage: 'lit',
-    }),
-    //    litScss({minify: }),
+    //postcss({
+    //  sourceMap: process.env.NODE_ENV === 'production',
+    //  inject: false,
+    //}),
+    //postcssLit({
+    //  importPackage: 'lit',
+    //}),
     // Resolve bare module specifiers to relative paths
     resolve(),
     // Minify HTML template literals
@@ -42,6 +52,7 @@ export default {
       module: true,
       warnings: true,
     }),
+    execute('npm run analyze'),
     /*
     // Inject polyfills into HTML (core-js, regnerator-runtime, webcoponents,
     // lit/polyfill-support) and dynamically loads modern vs. legacy builds

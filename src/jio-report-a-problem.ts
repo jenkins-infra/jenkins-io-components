@@ -1,6 +1,6 @@
 import {LitElement, html, css} from 'lit';
 import {customElement, property} from 'lit/decorators.js';
-import {ionIconText} from './shared-styles.js';
+import {ionIconText} from './shared-styles';
 
 import outdent from 'outdent';
 

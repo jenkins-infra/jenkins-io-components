@@ -1,0 +1,55 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Example/Introduction" />
+
+# Welcome to Jenkins.io Web Components
+
+This is an attempt to build web components that can be used across various jenkins.io based projects
+
+Some examples:
+
+* https://www.jenkins.io
+* https://stories.jenkins.io
+* https://plugins.jenkins.io
+
+## Installation
+
+@halkeye/jenkins-io-components is distributed on npm, so you can install it locally or use it via npm CDNs like unpkg.com.
+
+### Local Installation
+
+```bash
+npm i @halkeye/jenkins-io-components
+```
+
+### CDN
+
+npm CDNs like [unpkg.com]() can directly serve files that have been published to npm. This works great for standard JavaScript modules that the browser can load natively.
+
+For this element to work from unpkg.com specifically, you need to include the `?module` query parameter, which tells unpkg.com to rewrite "bare" module specifiers to full URLs.
+
+#### Modern Browsers 
+
+```html
+<script type="module" src="https://unpkg.com/@halkeye/jenkins-io-components?module"></script>
+```
+
+#### Mix of modern and legacy
+
+```html
+
+<!-- to polyfill things needed by older browsers -->
+<script src="https://unpkg.com/@webcomponents/webcomponentsjs@2.6.0/webcomponents-loader.js"></script>
+<script src="https://unpkg.com/lit@2.4.0/polyfill-support.js"></script>
+<!-- load the components (module for modern, cjs for legacy) -->
+<script data="jio" src="https://unpkg.com/@halkeye/jenkins-io-components?module" type="module"></script>
+<script data="jio" nomodule="" src="https://unpkg.com/@halkeye/jenkins-io-components"></script>
+````
+
+## Usage
+
+Once loaded (above), add as regular html tags
+
+```html
+<jio-navbar></jio-navbar>
+```
