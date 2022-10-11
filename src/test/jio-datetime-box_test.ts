@@ -8,7 +8,7 @@ suite('jio-datetime-box', () => {
     test('renders properly by default', async () => {
       const el = (await fixture(html`<jio-datetime-box></jio-datetime-box>`)) as DatetimeBox;
       assert.instanceOf(el, DatetimeBox);
-      assert.shadowDom.equal(el, ``);
+      assert.shadowDom.notEqual(el, ``);
     });
     test('is accessible', async () => {
       const el = (await fixture(html`<jio-datetime-box></jio-datetime-box>`)) as DatetimeBox;
@@ -28,7 +28,7 @@ suite('jio-datetime-box', () => {
               <span class="month">Oct</span><span class="day">01</span>
             </time>
           </div>
-          <div class="time">01:01 AM</div>
+          <div class="time">01:00 AM</div>
         </div>
         `
       );
@@ -55,7 +55,7 @@ suite('jio-datetime-box', () => {
               <span class="month">Oct</span><span class="day">31</span>
             </time>
           </div>
-          <div class="time">01:01 AM</div>
+          <div class="time">01:00 AM</div>
         </div>
         `
       );

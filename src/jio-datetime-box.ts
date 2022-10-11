@@ -19,9 +19,8 @@ const SHORT_MONTH_NAMES = Object.freeze([
 
 const dateConverter = (value: string | null): Date | undefined => {
   if (!value) {return;}
-  const valNum = parseInt(value, 10);
-  if (!isNaN(valNum)) {
-    return new Date(valNum);
+  if (/^\d+$/.test(value)) {
+    return new Date(parseInt(value, 10));
   } else {
     return new Date(value);
   }
