@@ -1,4 +1,4 @@
-import {LitElement, html, TemplateResult, unsafeCSS} from 'lit';
+import {LitElement, html, TemplateResult} from 'lit';
 import {ifDefined} from 'lit/directives/if-defined.js';
 import {customElement, state, property} from 'lit/decorators.js';
 
@@ -15,7 +15,7 @@ type NavbarItemLink = {
 
 @customElement('jio-navbar')
 export class Navbar extends LitElement {
-  static override styles = unsafeCSS(styles);
+  static override styles = [styles];
 
   /**
    * Eg plugins.jenkins.io
