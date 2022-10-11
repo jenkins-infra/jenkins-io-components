@@ -39,7 +39,7 @@
     "test:prod:watch": "MODE=prod wtr --watch",
     "semantic-release": "semantic-release",
     "storybook": "npx storybook dev -p 6006",
-    "build-storybook": "npx storybook build"
+    "build-storybook": "npm run analyze && npx storybook build"
   },
   "keywords": [
     "jenkins-infra",
