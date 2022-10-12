@@ -17,12 +17,12 @@ const SHORT_MONTH_NAMES = Object.freeze([
 //  'Sunday',
 //]);
 
-const dateConverter = (value: string | null): Date | undefined => {
-  if (!value) {return;}
-  if (/^\d+$/.test(value)) {
-    return new Date(parseInt(value, 10));
+const dateConverter = (value: string | number | undefined): Date | undefined => {
+  if (!value) {return undefined;}
+  if (/^\d+$/.test(value.toString())) {
+    return new Date(parseInt(value.toString(), 10));
   } else {
-    return new Date(value);
+    return new Date(Date.parse(value.toString()));
   }
 };
 
@@ -72,26 +72,27 @@ export class DatetimeBox extends LitElement {
   /**
    * Whats the start time of this date
   */
-  @property({converter: dateConverter})
-  date: Date | undefined;
+  @property()
+  date: string | number | undefined;
 
   /**
    * Whats the end time of this date
-   * Optional
+   * @optional
   */
-  @property({converter: dateConverter})
-  endDate: Date | undefined;
+  @property()
+  endDate: string | number | undefined;
 
   override render() {
-    const date = this.date ?? new Date();
+    const date = dateConverter(this.date) || new Date();
+    const endDate = dateConverter(this.endDate);
 
     let endDateHtml = html``;
-    if (this.endDate) {
+    if (endDate) {
       endDateHtml = html`
       -
-        <time datetime=${this.endDate.toISOString()} title="End Time">
-          <span class="month">${SHORT_MONTH_NAMES[this.endDate.getUTCMonth()]}</span>
-          <span class="day">${this.endDate.getUTCDate().toString().padStart(2, '0')}</span>
+        <time datetime=${endDate.toISOString()} title="End Time">
+          <span class="month">${SHORT_MONTH_NAMES[endDate.getUTCMonth()]}</span>
+          <span class="day">${endDate.getUTCDate().toString().padStart(2, '0')}</span>
         </time>
       `;
     }
