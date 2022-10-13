@@ -1,4 +1,4 @@
-import {Story, Meta} from '@storybook/web-components';
+import {StoryFn, Meta} from '@storybook/web-components';
 import {html} from 'lit';
 import {ifDefined} from 'lit/directives/if-defined.js';
 
@@ -14,11 +14,13 @@ export default {
   argTypes: {
     showSearchBox: {
       control: {type: 'boolean'},
-    }
+    },
+    visibleMenu: {table: {disable: true}},
+    menuToggled: {table: {disable: true}},
   }
 } as Meta;
 
-const Template: Story<Partial<Navbar>> = ({property, showSearchBox}) => html`<jio-navbar
+const Template: StoryFn<Partial<Navbar>> = ({property, showSearchBox}) => html`<jio-navbar
   property=${ifDefined(property)}
   ?showSearchBox=${showSearchBox}
 ></jio-navbar>`;
