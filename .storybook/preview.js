@@ -3,9 +3,9 @@ import customElements from '../custom-elements.json';
 setCustomElementsManifest(customElements);
 
 export const parameters = {
-  // docs: {inlineStories: false, },
   actions: {argTypesRegex: "^on[A-Z].*"},
   controls: {
+    expanded: true,
     matchers: {
       color: /(background|color)$/i,
       date: /(^date$|Date$)/,

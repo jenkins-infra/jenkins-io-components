@@ -1,6 +1,14 @@
 module.exports = {
   "root": true,
-  "extends": ["eslint:recommended", "plugin:@typescript-eslint/eslint-recommended", "plugin:@typescript-eslint/recommended", "plugin:wc/recommended", "plugin:lit/all", "plugin:storybook/recommended", "prettier"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:wc/recommended",
+    "plugin:lit/all",
+    "plugin:storybook/recommended",
+    "prettier"
+  ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion": 2020,
@@ -23,7 +31,10 @@ module.exports = {
     }]
   },
   "overrides": [{
-    "files": ["rollup.config.js", "web-test-runner.config.js", ".eslintrc.cjs", "*.cjs"],
+    "files": ["rollup.config.js", "web-test-runner.config.js", ".eslintrc.cjs", "*.cjs", ".storybook/*.cjs"],
+    "rules": {
+      "@typescript-eslint/no-var-requires": "off"
+    },
     "env": {
       "node": true
     }
