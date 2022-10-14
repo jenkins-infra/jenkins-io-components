@@ -1,4 +1,3 @@
-const path = require('path');
 const postcss = require('postcss');
 
 const processor = postcss(require('../postcss.config.cjs'));
@@ -22,7 +21,7 @@ module.exports = {
     "name": "@storybook/web-components-webpack5",
     "options": {}
   },
-  webpackFinal: async (config, {}) => {
+  webpackFinal: async (config/*, {}*/) => {
     // `configType` has a value of 'DEVELOPMENT' or 'PRODUCTION'
     // You can change the configuration based on that.
     // 'PRODUCTION' is used when building the static version of storybook.
