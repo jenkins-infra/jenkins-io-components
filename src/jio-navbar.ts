@@ -2,6 +2,7 @@ import {LitElement, html, css, TemplateResult} from 'lit';
 import {customElement, state, property} from 'lit/decorators.js';
 
 import './jio-cdf-logo';
+import './jio-navbar-link';
 
 import styles from './jio-navbar.css';
 
