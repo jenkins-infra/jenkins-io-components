@@ -19,7 +19,7 @@ module.exports = {
   ],
   "framework": {
     "name": "@storybook/web-components-webpack5",
-    // "options": {}
+    "options": {}
   },
   webpackFinal: async (config/*, {}*/) => {
     // `configType` has a value of 'DEVELOPMENT' or 'PRODUCTION'

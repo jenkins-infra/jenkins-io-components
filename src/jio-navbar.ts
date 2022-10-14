@@ -1,12 +1,11 @@
-import {LitElement, html, TemplateResult} from 'lit';
-import {ifDefined} from 'lit/directives/if-defined.js';
+import {LitElement, html, css, TemplateResult} from 'lit';
 import {customElement, state, property} from 'lit/decorators.js';
 
 import './jio-cdf-logo';
 
 import styles from './jio-navbar.css';
 
-type NavbarItemLink = {
+export type NavbarItemLink = {
   label: TemplateResult | string;
   link: string | Array<NavbarItemLink>;
   header?: boolean;
@@ -231,24 +230,9 @@ export class Navbar extends LitElement {
   renderNavItemLink(menuItem: NavbarItemLink, extraClasses: Array<string> = []) {
     if (Array.isArray(menuItem.link)) {
       throw new Error('dropdown passed into render item');
-      return null;
     }
 
-    const parsedMenuItem = new URL(menuItem.link, 'https://www.jenkins.io');
-    const parsedPropertyUrl = new URL(menuItem.link, this.property);
-    let href = menuItem.link;
-    // if the property is not the same as the url (eg /downloads), then full link
-    if (parsedPropertyUrl.host !== parsedMenuItem.host) {
-      href = parsedMenuItem.toString();
-    } else {
-      href = parsedMenuItem.toString().substring(parsedMenuItem.toString().split('/').slice(0, 3).join('/').length);
-    }
-    return html`<a
-      class=${['nav-link'].concat(extraClasses).join(' ')}
-      title=${ifDefined(menuItem.title)}
-      href=${href}>
-        ${menuItem.header ? html`<strong>${menuItem.label}</strong>` : menuItem.label}
-      </a>`;
+    return html`<jio-navbar-link class=${extraClasses.join(" ")} .property=${this.property} .menuItem=${menuItem}></jio-navbar-link>`;
   }
 
   private _clickCollapseButton(e: Event) {
@@ -271,6 +255,7 @@ export class Navbar extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     'jio-navbar': Navbar;
+    'jio-navbar-link': NavbarLink;
   }
 }
 

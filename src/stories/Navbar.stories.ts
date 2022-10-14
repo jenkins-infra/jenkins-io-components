@@ -12,9 +12,7 @@ export default {
     expanded: true
   },
   argTypes: {
-    showSearchBox: {
-      control: {type: 'boolean'},
-    },
+    showSearchBox: {control: {type: 'boolean'}, },
     visibleMenu: {table: {disable: true}},
     menuToggled: {table: {disable: true}},
   }
