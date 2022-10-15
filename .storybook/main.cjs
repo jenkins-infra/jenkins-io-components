@@ -13,6 +13,7 @@ module.exports = {
   ],
   "addons": [
     "storybook-dark-mode",
+    "@storybook/addon-interactions",
     "@storybook/addon-a11y",
     "@storybook/addon-links",
     "@storybook/addon-essentials"

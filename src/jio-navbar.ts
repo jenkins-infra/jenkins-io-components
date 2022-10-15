@@ -1,5 +1,6 @@
 import {LitElement, html, css, TemplateResult} from 'lit';
 import {customElement, state, property} from 'lit/decorators.js';
+import {ifDefined} from 'lit/directives/if-defined.js';
 
 import './jio-cdf-logo';
 import './jio-navbar-link';
@@ -29,6 +30,9 @@ export class Navbar extends LitElement {
    */
   @property({type: Boolean})
   showSearchBox: Boolean = false;
+
+  @property()
+  locationHref: string = location.href;
 
   /**
    * Keeps track of what menu is opened. 
@@ -233,7 +237,12 @@ export class Navbar extends LitElement {
       throw new Error('dropdown passed into render item');
     }
 
-    return html`<jio-navbar-link class=${extraClasses.join(" ")} .property=${this.property} .menuItem=${menuItem}></jio-navbar-link>`;
+    return html`<jio-navbar-link
+      class=${extraClasses.join(" ")}
+      locationHref=${ifDefined(this.locationHref)}
+      .property=${this.property}
+      .menuItem=${menuItem}
+      ></jio-navbar-link>`;
   }
 
   private _clickCollapseButton(e: Event) {
