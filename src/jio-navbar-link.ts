@@ -37,6 +37,13 @@ export class NavbarLink extends LitElement {
   text-decoration: none;
 }
 
+.active {
+	color: #fff;
+	text-decoration: none;
+	background-color: #007bff;
+}
+
+
 .dropdown-item.active,
 .dropdown-item:active {
   background-color: #007bff;
@@ -58,6 +65,9 @@ export class NavbarLink extends LitElement {
   @property()
   class = "";
 
+  @property()
+  locationHref = location.href;
+
   override render() {
     if (!this.menuItem) {return;}
     if (Array.isArray(this.menuItem.link)) {return;}
@@ -65,17 +75,21 @@ export class NavbarLink extends LitElement {
 
     const parsedMenuItem = new URL(this.menuItem.link, 'https://www.jenkins.io');
     const parsedPropertyUrl = new URL(this.property);
+    let isActive = false;
 
-    // if its one of my properties, then its a relative link
     if (parsedPropertyUrl.host === parsedMenuItem.host) {
+      // if its one of my properties, then its a relative link
       href = parsedMenuItem.toString().substring(parsedMenuItem.toString().split('/').slice(0, 3).join('/').length);
-      // if its a different property, then full url
+      if (this.locationHref && this.locationHref.startsWith(parsedMenuItem.pathname)) {
+        isActive = true;
+      }
     } else if (parsedPropertyUrl.host !== parsedMenuItem.host) {
+      // if its a different property, then full url
       href = parsedMenuItem.toString();
     } else {
       throw new Error(this.menuItem.toString());
     }
-    return html`<a class=${`nav-link ${this.class}`} title=${ifDefined(this.menuItem.title)} href=${href}>
+    return html`<a class=${`nav-link ${this.class} ${isActive ? "active" : ""}`} title=${ifDefined(this.menuItem.title)} href=${href}>
         ${this.menuItem.header ? html`<strong>${this.menuItem.label}</strong>` : this.menuItem.label}
       </a>`;
   }
