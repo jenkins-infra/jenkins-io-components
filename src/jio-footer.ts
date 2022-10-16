@@ -1,4 +1,4 @@
-import {LitElement, html, css, TemplateResult} from 'lit';
+import {LitElement, html, TemplateResult} from 'lit';
 import {customElement, property} from 'lit/decorators.js';
 
 import {relOrAbsoluteLink} from './jio-navbar-link';
