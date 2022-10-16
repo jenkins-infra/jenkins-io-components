@@ -191,7 +191,7 @@ export class Navbar extends LitElement {
     }
     return html`
       <nav class="navbar">
-        <a class="navbar-brand" href="https://www.jenkins.io">Jenkins</a>
+        <a class="navbar-brand" href="/">Jenkins</a>
         <button class="navbar-toggler collapsed btn" type="button" @click=${this._clickCollapseButton}>
           <ion-icon name="menu-outline" title="Toggle Menu Visible"></ion-icon>
         </button>
