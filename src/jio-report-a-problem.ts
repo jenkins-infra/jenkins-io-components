@@ -38,7 +38,7 @@ export class ReportAProblem extends LitElement {
   githubRepo = '';
 
   override render() {
-    if (!this.sourcePath || !this.githubRepo) {return null;}
+    if (!this.githubRepo) {return null;}
 
     const _document = typeof document !== 'undefined' ? document : {title: 'Unknown'};
     const _location = typeof location !== 'undefined' ? location : {href: 'http://unknown'};
@@ -51,8 +51,10 @@ export class ReportAProblem extends LitElement {
     queryParams.append('template', '4-bug.md');
     queryParams.append('title', `${title} page - TODO: Put a summary here`);
     queryParams.append('body', outdent`
-        Problem with the [${title}](${url}) page,
-        [source file](https://github.com/${this.githubRepo}/tree/master/src/${this.sourcePath})
+        ${[
+        `Problem with the [${title}](${url}) page`,
+        this.sourcePath ?? `[source file](https://github.com/${this.githubRepo}/tree/master/src/${this.sourcePath})`
+      ].filter(Boolean).join(', ')}
 
         TODO: Describe the expected and actual behavior here
 
@@ -67,7 +69,7 @@ export class ReportAProblem extends LitElement {
         N/A`);
     const pluginSiteReportUrl = `https://github.com/${this.githubRepo}/issues/new?${queryParams.toString()}`;
     return html`
-      <a href=${pluginSiteReportUrl} title=${`Report a problem with ${this.sourcePath}`}>
+      <a href=${pluginSiteReportUrl} title=${`Report a problem with ${this.sourcePath || url}`}>
         <ion-icon class="report" name="warning"></ion-icon>
         <span class="text">Report a problem</span>
       </a>
