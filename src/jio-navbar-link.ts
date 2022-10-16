@@ -71,29 +71,32 @@ export class NavbarLink extends LitElement {
   override render() {
     if (!this.menuItem) {return;}
     if (Array.isArray(this.menuItem.link)) {return;}
-    let href = this.menuItem.link;
-
-    const parsedMenuItem = new URL(this.menuItem.link, 'https://www.jenkins.io');
-    const parsedPropertyUrl = new URL(this.property);
-    let isActive = false;
-
-    if (parsedPropertyUrl.host === parsedMenuItem.host) {
-      // if its one of my properties, then its a relative link
-      href = parsedMenuItem.toString().substring(parsedMenuItem.toString().split('/').slice(0, 3).join('/').length);
-      if (this.locationHref && this.locationHref.startsWith(parsedMenuItem.pathname)) {
-        isActive = true;
-      }
-    } else if (parsedPropertyUrl.host !== parsedMenuItem.host) {
-      // if its a different property, then full url
-      href = parsedMenuItem.toString();
-    } else {
-      throw new Error(this.menuItem.toString());
-    }
+    const {isActive, href} = relOrAbsoluteLink(this.menuItem.link, this.property, this.locationHref);
     return html`<a class=${`nav-link ${this.class} ${isActive ? "active" : ""}`} title=${ifDefined(this.menuItem.title)} href=${href}>
         ${this.menuItem.header ? html`<strong>${this.menuItem.label}</strong>` : this.menuItem.label}
       </a>`;
   }
 }
+
+export const relOrAbsoluteLink = (href: string, property: string, locationHref = "") => {
+  const parsedMenuItem = new URL(href, 'https://www.jenkins.io');
+  const parsedPropertyUrl = new URL(property);
+  let isActive = false;
+
+  if (parsedPropertyUrl.host === parsedMenuItem.host) {
+    // if its one of my properties, then its a relative link
+    href = parsedMenuItem.toString().substring(parsedMenuItem.toString().split('/').slice(0, 3).join('/').length);
+    if (locationHref && locationHref.startsWith(parsedMenuItem.pathname)) {
+      isActive = true;
+    }
+  } else if (parsedPropertyUrl.host !== parsedMenuItem.host) {
+    // if its a different property, then full url
+    href = parsedMenuItem.toString();
+  } else {
+    throw new Error(href);
+  }
+  return {isActive, href};
+};
 
 declare global {
   interface HTMLElementTagNameMap {

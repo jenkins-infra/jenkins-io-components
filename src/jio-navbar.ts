@@ -5,6 +5,7 @@ import {ifDefined} from 'lit/directives/if-defined.js';
 import './jio-cdf-logo';
 import './jio-navbar-link';
 
+import globalStyles from './global.css';
 import styles from './jio-navbar.css';
 
 export type NavbarItemLink = {
@@ -16,7 +17,7 @@ export type NavbarItemLink = {
 
 @customElement('jio-navbar')
 export class Navbar extends LitElement {
-  static override styles = [styles];
+  static override styles = [globalStyles, styles];
 
   /**
    * Eg plugins.jenkins.io
