@@ -7,3 +7,4 @@ export {SocialMediaButtons} from './jio-socialmedia-buttons';
 export {DatetimeBox} from './jio-datetime-box';
 export {Navbar} from './jio-navbar';
 export {NavbarLink} from './jio-navbar-link';
+export {Footer} from './jio-footer';
