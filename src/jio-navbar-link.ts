@@ -2,9 +2,6 @@ import {LitElement, html, css} from 'lit';
 import {ifDefined} from 'lit/directives/if-defined.js';
 import {customElement, property} from 'lit/decorators.js';
 
-import {NavbarItemLink} from './jio-navbar';
-import './jio-cdf-logo';
-
 @customElement('jio-navbar-link')
 export class NavbarLink extends LitElement {
   static override styles = css`
@@ -54,7 +51,7 @@ export class NavbarLink extends LitElement {
   `;
 
   @property()
-  menuItem: NavbarItemLink | undefined;
+  href = "";
 
   /**
    * Eg plugins.jenkins.io
@@ -69,11 +66,14 @@ export class NavbarLink extends LitElement {
   locationHref = location.href;
 
   override render() {
-    if (!this.menuItem) {return;}
-    if (Array.isArray(this.menuItem.link)) {return;}
-    const {isActive, href} = relOrAbsoluteLink(this.menuItem.link, this.property, this.locationHref);
-    return html`<a class=${`nav-link ${this.class} ${isActive ? "active" : ""}`} title=${ifDefined(this.menuItem.title)} href=${href}>
-        ${this.menuItem.header ? html`<strong>${this.menuItem.label}</strong>` : this.menuItem.label}
+    let title;
+    // ifDefined only checks defined, not empty
+    if (this.title) {
+      title = this.title;
+    }
+    const {isActive, href} = relOrAbsoluteLink(this.href, this.property, this.locationHref);
+    return html`<a class=${`nav-link ${this.class} ${isActive ? "active" : ""}`} title=${ifDefined(title)} href=${href}>
+        <slot></slot>
       </a>`;
   }
 }

@@ -1,4 +1,4 @@
-import {StoryObj, StoryFn, Meta} from '@storybook/web-components';
+import {StoryObj, Meta} from '@storybook/web-components';
 import {within, waitFor, userEvent} from '@storybook/testing-library';
 
 import {html} from 'lit';
@@ -26,17 +26,11 @@ const render = ({property, showSearchBox, locationHref}) => html`<jio-navbar
   ?showSearchBox=${showSearchBox}
 ></jio-navbar>`;
 
-
-const Template: StoryFn<Partial<Navbar>> = ({property, showSearchBox}) => html`<jio-navbar
-  property=${ifDefined(property)}
-  ?showSearchBox=${showSearchBox}
-></jio-navbar>`;
-
-export const AllLinksExternal = Template.bind({});
-AllLinksExternal.args = {
-  property: 'https://webcomponents.jenkins.io'
-};
-AllLinksExternal.play = async ({canvasElement}) => {
+export const AllLinksExternal: StoryObj<Navbar> = {
+  render,
+  args: {
+    property: 'https://webcomponents.jenkins.io'
+  }
 };
 
 export const SamePropertyActiveLink: StoryObj<Navbar> = {
@@ -67,6 +61,27 @@ export const SamePropertyActiveToplevelLink: StoryObj<Navbar> = {
   args: {
     property: 'https://www.jenkins.io',
     locationHref: '/node/'
+  }
+};
+
+export const ChangeBrand: StoryObj<Navbar> = {
+  render: ({property}) => html`<jio-navbar property=${ifDefined(property)}>
+    <a slot="brand" href="/" style="color: red">BRAND</a>
+  </jio-navbar>`,
+  args: {
+    property: 'https://webcomponents.jenkins.io'
+  }
+};
+
+export const ExtraRightSlot: StoryObj<Navbar> = {
+  render: ({property}) => html`<jio-navbar property=${ifDefined(property)}>
+    <div slot="rightMenuItems">
+      <jio-navbar-link property=${ifDefined(property)} href="/myself">Profile</jio-navbar-link>
+      <jio-navbar-link property=${ifDefined(property)} href="/logout">Logout</jio-navbar-link>
+    </div>
+  </jio-navbar>`,
+  args: {
+    property: 'https://webcomponents.jenkins.io'
   }
 };
 

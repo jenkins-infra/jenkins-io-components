@@ -1,4 +1,4 @@
-import {LitElement, html, css, TemplateResult} from 'lit';
+import {LitElement, html, TemplateResult} from 'lit';
 import {customElement, state, property} from 'lit/decorators.js';
 import {ifDefined} from 'lit/directives/if-defined.js';
 
@@ -192,7 +192,11 @@ export class Navbar extends LitElement {
     }
     return html`
       <nav class="navbar">
-        <a class="navbar-brand" href="/">Jenkins</a>
+        <span class="navbar-brand">
+          <slot name="brand">
+            <a href="/">Jenkins</a>
+          </slot>
+        </span>
         <button class="navbar-toggler collapsed btn" type="button" @click=${this._clickCollapseButton}>
           <ion-icon name="menu-outline" title="Toggle Menu Visible"></ion-icon>
         </button>
@@ -206,10 +210,30 @@ export class Navbar extends LitElement {
             <li class="nav-item download-btn">
               ${this.renderNavItemLink({link: '/download/', label: 'Download', }, ['btn btn-outline-secondary'])}
             </li>
+            <slot name="rightMenuItems" @slotchange=${this.handleSlotchange}></slot>
           </ul>
         </div>
       </nav>
     `;
+  }
+
+  handleSlotchange(e: Event) {
+    const slotElement = (e.target as HTMLSlotElement);
+    const assignedElements = slotElement.assignedElements();
+    const container = slotElement.parentNode as HTMLElement;
+    for (const element of assignedElements) {
+      //if (element.slot === "rightMenuItems") {
+      //  const divider = document.createElement('li');
+      //  divider.className = "divider";
+      //  container.appendChild(divider);
+      //}
+      for (const link of element.querySelectorAll('jio-navbar-link')) {
+        const wrapper = document.createElement('li');
+        wrapper.className = "nav-item";
+        wrapper.appendChild(link);
+        container.appendChild(wrapper);
+      }
+    }
   }
 
   renderNavItemDropdown(menuItem: NavbarItemLink, idx: number, visible: Boolean) {
@@ -239,11 +263,12 @@ export class Navbar extends LitElement {
     }
 
     return html`<jio-navbar-link
-      class=${extraClasses.join(" ")}
-      locationHref=${ifDefined(this.locationHref)}
+      .class=${ifDefined(extraClasses.join(" "))}
+      .locationHref=${ifDefined(this.locationHref)}
       .property=${this.property}
-      .menuItem=${menuItem}
-      ></jio-navbar-link>`;
+      href=${menuItem.link}
+      title=${ifDefined(menuItem.title)}
+      >${menuItem.header ? html`<strong>${menuItem.label}</strong>` : menuItem.label}</jio-navbar-link>`;
   }
 
   private _clickCollapseButton(e: Event) {
@@ -266,7 +291,6 @@ export class Navbar extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     'jio-navbar': Navbar;
-    'jio-navbar-link': NavbarLink;
   }
 }
 
