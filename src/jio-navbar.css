@@ -37,7 +37,8 @@ button:not(:disabled) {
   position: relative;
 }
 
-.navbar-brand {
+.navbar-brand a,
+.navbar-brand ::slotted(a) {
   color: #fff;
   display: inline-block;
   /* FIXME - should this stay generic fonts? */
@@ -146,7 +147,6 @@ button.nav-link {
 .download-btn {
   font-size: 0.875rem;
   margin-left: 8px;
-  margin-top: 1px;
 }
 
 .download-btn a {
@@ -219,4 +219,8 @@ button.nav-link {
   .navbar-nav .dropdown-menu {
     position: absolute;
   }
+}
+
+.divider {
+  border-left: 1px solid #fff;
 }

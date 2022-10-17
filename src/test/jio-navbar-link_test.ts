@@ -6,66 +6,60 @@ import {html} from 'lit/static-html.js';
 suite('jio-navbar-link', () => {
   suite('default variables', async () => {
     test('renders properly by default', async () => {
-      const el = (await fixture(html`<jio-navbar-link></jio-navbar-link>`)) as NavbarLink;
+      const el = (await fixture(html`<jio-navbar-link>Link Title</jio-navbar-link>`)) as NavbarLink;
       assert.instanceOf(el, NavbarLink);
-      assert.shadowDom.equal(el, ``);
+      assert.shadowDom.equal(el, `<a class="nav-link" href="/"><slot></slot></a>`);
+      assert.lightDom.equal(el, `Link Title`);
     });
     test('is accessible', async () => {
-      const el = (await fixture(html`<jio-navbar-link></jio-navbar-link>`)) as NavbarLink;
+      const el = (await fixture(html`<jio-navbar-link>Link Title</jio-navbar-link>`)) as NavbarLink;
       assert.instanceOf(el, NavbarLink);
       return assert.isAccessible(el);
     });
   });
   suite('populated variables', async () => {
     test('is accessible', async () => {
-      const menuItem = {label: "someLabel", link: "/path/to"};
       const property = "https://webcomponents.jenkins.io";
 
-      const el = (await fixture(html`<jio-navbar-link
-                                .menuItem=${menuItem}
-                                .property=${property}></jio-navbar-link>`)) as NavbarLink;
+      const el = (await fixture(html`<jio-navbar-link href="/path/to" .property=${property}>someLabel</jio-navbar-link>`)) as NavbarLink;
       assert.instanceOf(el, NavbarLink);
       return assert.isAccessible(el);
     });
     test('relative link with non matching property should render full url', async () => {
-      const menuItem = {label: "someLabel", link: "/path/to"};
       const property = "https://webcomponents.jenkins.io";
 
-      const el = (await fixture(html`<jio-navbar-link
-                                .menuItem=${menuItem}
-                                .property=${property}></jio-navbar-link>`)) as NavbarLink;
+      const el = (await fixture(html`<jio-navbar-link href="/path/to" .property=${property}>someLabel</jio-navbar-link>`)) as NavbarLink;
       assert.instanceOf(el, NavbarLink);
-      assert.shadowDom.equal(el, `<a class="nav-link" href="https://www.jenkins.io/path/to">someLabel</a>`);
+      assert.shadowDom.equal(el, `<a class="nav-link" href="https://www.jenkins.io/path/to"><slot></slot></a>`);
+      assert.lightDom.equal(el, `someLabel`);
     });
     test('relative link with matching property should render full url', async () => {
-      const menuItem = {label: "someLabel", link: "/path/to"};
       const property = "https://www.jenkins.io";
 
-      const el = (await fixture(html`<jio-navbar-link
-                                .menuItem=${menuItem}
-                                .property=${property}></jio-navbar-link>`)) as NavbarLink;
+      const el = (await fixture(html`<jio-navbar-link href="/path/to" .property=${property}>someLabel</jio-navbar-link>`)) as NavbarLink;
       assert.instanceOf(el, NavbarLink);
-      assert.shadowDom.equal(el, `<a class="nav-link" href="/path/to">someLabel</a>`);
+      assert.shadowDom.equal(el, `<a class="nav-link" href="/path/to"><slot></slot></a>`);
+      assert.lightDom.equal(el, `someLabel`);
     });
     test('absolute link with non matching property should render full url', async () => {
-      const menuItem = {label: "someLabel", link: "https://plugins.jenkins.io/path/to"};
       const property = "https://webcomponents.jenkins.io";
 
       const el = (await fixture(html`<jio-navbar-link
-                                .menuItem=${menuItem}
-                                .property=${property}></jio-navbar-link>`)) as NavbarLink;
+                                href="https://plugins.jenkins.io/path/to"
+                                .property=${property}>someLabel</jio-navbar-link>`)) as NavbarLink;
       assert.instanceOf(el, NavbarLink);
-      assert.shadowDom.equal(el, `<a class="nav-link" href="https://plugins.jenkins.io/path/to">someLabel</a>`);
+      assert.shadowDom.equal(el, `<a class="nav-link" href="https://plugins.jenkins.io/path/to"><slot></slot></a>`);
+      assert.lightDom.equal(el, `someLabel`);
     });
     test('absolute link with matching property should render full url', async () => {
-      const menuItem = {label: "someLabel", link: "https://plugins.jenkins.io/path/to"};
       const property = "https://plugins.jenkins.io";
 
       const el = (await fixture(html`<jio-navbar-link
-                                .menuItem=${menuItem}
-                                .property=${property}></jio-navbar-link>`)) as NavbarLink;
+                                href="https://plugins.jenkins.io/path/to"
+                                .property=${property}>someLabel</jio-navbar-link>`)) as NavbarLink;
       assert.instanceOf(el, NavbarLink);
-      assert.shadowDom.equal(el, `<a class="nav-link" href="/path/to">someLabel</a>`);
+      assert.shadowDom.equal(el, `<a class="nav-link" href="/path/to"><slot></slot></a>`);
+      assert.lightDom.equal(el, `someLabel`);
     });
   });
 
@@ -73,45 +67,45 @@ suite('jio-navbar-link', () => {
     suite('active link', async () => {
       test('exact match', async () => {
         const locationHref = '/active/url';
-        const menuItem = {label: "someLabel", link: "/active/url"};
         const property = "https://www.jenkins.io";
 
         const el = (await fixture(html`<jio-navbar-link
-                                  .menuItem=${menuItem}
+                                  href="/active/url"
                                   .property=${property}
                                   .locationHref=${locationHref}
-                                  ></jio-navbar-link>`)) as NavbarLink;
+                                  >someLabel</jio-navbar-link>`)) as NavbarLink;
         assert.instanceOf(el, NavbarLink);
         assert.isAccessible(el);
-        assert.shadowDom.equal(el, `<a class="nav-link active" href="/active/url">someLabel</a>`);
+        assert.shadowDom.equal(el, `<a class="nav-link active" href="/active/url"><slot></slot></a>`);
+        assert.lightDom.equal(el, `someLabel`);
       });
       test('partial match', async () => {
         const locationHref = '/blog/1234';
-        const menuItem = {label: "someLabel", link: "/blog"};
         const property = "https://www.jenkins.io";
 
         const el = (await fixture(html`<jio-navbar-link
-                                  .menuItem=${menuItem}
+                                  href="/blog"
                                   .property=${property}
                                   .locationHref=${locationHref}
-                                  ></jio-navbar-link>`)) as NavbarLink;
+                                  >someLabel</jio-navbar-link>`)) as NavbarLink;
         assert.instanceOf(el, NavbarLink);
         assert.isAccessible(el);
-        assert.shadowDom.equal(el, `<a class="nav-link active" href="/blog">someLabel</a>`);
+        assert.shadowDom.equal(el, `<a class="nav-link active" href="/blog"><slot></slot></a>`);
+        assert.lightDom.equal(el, `someLabel`);
       });
       test('partial match shouldnt match different word', async () => {
         const locationHref = '/blog/1234';
-        const menuItem = {label: "someLabel", link: "/blogging"};
         const property = "https://www.jenkins.io";
 
         const el = (await fixture(html`<jio-navbar-link
-                                  .menuItem=${menuItem}
+                                  href="/blogging"
                                   .property=${property}
                                   .locationHref=${locationHref}
-                                  ></jio-navbar-link>`)) as NavbarLink;
+                                  >someLabel</jio-navbar-link>`)) as NavbarLink;
         assert.instanceOf(el, NavbarLink);
         assert.isAccessible(el);
-        assert.shadowDom.equal(el, `<a class="nav-link" href="/blogging">someLabel</a>`);
+        assert.shadowDom.equal(el, `<a class="nav-link" href="/blogging"><slot></slot></a>`);
+        assert.lightDom.equal(el, `someLabel`);
       });
     });
   });
