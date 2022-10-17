@@ -1,0 +1,81 @@
+jio-improve-this-page,
+jio-report-a-problem {
+  --jio-a-color: #fff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+p {
+  margin-bottom: 1rem;
+  margin-top: 0;
+}
+
+footer {
+  background: #1077ad;
+  clear: both;
+  color: #fff;
+  display: block;
+  float: left;
+  line-height: 1.66;
+  margin: 0;
+  padding: 2rem;
+  position: relative;
+  width: 100%;
+  z-index: 2;
+}
+
+.license-box {
+  float: left;
+  font-size: 0.85rem;
+  padding-left: 0;
+}
+
+a {
+  background-color: transparent;
+  color: #fff;
+  text-decoration: none;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 2px;
+}
+
+.area {
+  display: inline-block;
+  font-size: 0.85rem;
+  padding: 1rem 0;
+  vertical-align: top;
+}
+
+li,
+ul {
+  display: block;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.links {
+  padding: 0;
+}
+
+.links li {
+  text-align: left;
+}
+
+.links h5 {
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+  margin-top: 0;
+  text-align: left;
+}
+
+.div-mar {
+  border-top: solid 2px #fff;
+  margin-right: 2rem;
+  padding: 1rem 0;
+}

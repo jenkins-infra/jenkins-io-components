@@ -12,7 +12,8 @@ export default {
 
 const render = ({endDate, date}) => html`<jio-datetime-box endDate=${ifDefined(endDate)} date=${ifDefined(date)} ></jio-datetime-box>`;
 
-export const WithNoProperties: StoryObj<DatetimeBox> = {render};
+// while having no time could potentially be useful, it makes storybook output something different each time
+// export const WithNoProperties: StoryObj<DatetimeBox> = {render};
 
 export const WithStartTimeISO: StoryObj<DatetimeBox> = {
   render,
