@@ -9,8 +9,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    container:
-      image: mcr.microsoft.com/playwright:v1.27.1-focal
+    #container:
+    #  image: mcr.microsoft.com/playwright:v1.27.1-focal
     services:
       nginx:
         image: nginx
@@ -34,17 +34,20 @@ jobs:
     - name: Install dependencies
       run: npm ci
 
-    - run: npm run build --if-present
+    #- run: npm run build --if-present
 
-    - run: npm run lint
+    #- run: npm run lint
 
-    - run: npm test
+    #- run: npm test
 
     - run: npm run build-storybook
 
+    - name: Setup tmate session
+      uses: mxschmitt/action-tmate@v3
+
     - run: npx test-storybook --maxWorkers=2 --coverage
       env:
-        TARGET_URL: http://nginx
+        TARGET_URL: http://localhost
 
     - uses: codecov/codecov-action@v3
       with:
