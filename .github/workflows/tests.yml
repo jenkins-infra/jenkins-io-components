@@ -9,6 +9,14 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    services:
+      nginx:
+        image: nginx
+        ports:
+          - 80:80
+        volumes:
+          - "/home/runner/work/nginx:/usr/share/nginx/html"
+
     steps:
     - uses: actions/checkout@v3
 
@@ -21,10 +29,11 @@ jobs:
     - name: Check spelling of file.txt
       uses: crate-ci/typos@master
 
-
     - name: Install dependencies
+      run: npm ci
+
+    - name: Install playwright deps
       run: |
-        npm ci
         npx playwright install-deps
         npx playwright install
 
@@ -33,3 +42,16 @@ jobs:
     - run: npm run lint
 
     - run: npm test
+
+    - run: npm run build-storybook
+
+    - run: sudo cp -r storybook-static/. /home/runner/work/nginx/
+
+    - run: npx test-storybook --maxWorkers=2 --coverage
+      env:
+        TARGET_URL: http://localhost
+
+    - uses: codecov/codecov-action@v3
+      with:
+        fail_ci_if_error: true
+        verbose: true

@@ -16,7 +16,8 @@ module.exports = {
     "@storybook/addon-interactions",
     "@storybook/addon-a11y",
     "@storybook/addon-links",
-    "@storybook/addon-essentials"
+    "@storybook/addon-essentials",
+    "@storybook/addon-coverage",
   ],
   "framework": {
     "name": "@storybook/web-components-webpack5",
