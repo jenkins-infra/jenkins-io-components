@@ -17,7 +17,7 @@ jobs:
         ports:
           - 80:80
         volumes:
-          - "/github/workspace/storybook-static:/usr/share/nginx/html"
+          - "/home/runner/work/storybook-static:/usr/share/nginx/html"
 
     steps:
     - uses: actions/checkout@v3
