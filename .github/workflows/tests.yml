@@ -9,9 +9,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    container: 
-      image: ubuntu
-      options: --user root
     services:
       nginx:
         image: nginx
@@ -48,7 +45,7 @@ jobs:
 
     - run: npx test-storybook --maxWorkers=2 --coverage
       env:
-        TARGET_URL: http://nginx:6006
+        TARGET_URL: http://localhost:6006
 
     - uses: codecov/codecov-action@v3
       with:
