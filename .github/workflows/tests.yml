@@ -17,7 +17,7 @@ jobs:
         ports:
           - 80:80
         volumes:
-          - "/home/runner/work/jenkins-io-components/jenkins-io-components/storybook-static:/usr/share/nginx/html"
+          - "/home/runner/work/nginx:/usr/share/nginx/html"
 
     steps:
     - uses: actions/checkout@v3
@@ -42,8 +42,10 @@ jobs:
 
     - run: npm run build-storybook
 
-    - name: Setup tmate session
-      uses: mxschmitt/action-tmate@v3
+    #- name: Setup tmate session
+    #  uses: mxschmitt/action-tmate@v3
+
+    - run: cp -r storybook-static/. /home/runner/work/nginx/
 
     - run: npx test-storybook --maxWorkers=2 --coverage
       env:
