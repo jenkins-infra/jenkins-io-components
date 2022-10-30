@@ -15,7 +15,7 @@ jobs:
       nginx:
         image: nginx
         ports:
-          - 6006:80
+          - 80:6006
         volumes:
           - "/github/workspace/storybook-static:/usr/share/nginx/html"
 
