@@ -15,7 +15,7 @@ jobs:
       nginx:
         image: nginx
         ports:
-          - 80:6006
+          - 80:80
         volumes:
           - "/github/workspace/storybook-static:/usr/share/nginx/html"
 
@@ -44,7 +44,7 @@ jobs:
 
     - run: npx test-storybook --maxWorkers=2 --coverage
       env:
-        TARGET_URL: http://nginx:6006
+        TARGET_URL: http://nginx
 
     - uses: codecov/codecov-action@v3
       with:
