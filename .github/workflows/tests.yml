@@ -45,6 +45,8 @@ jobs:
     - run: npm run build-storybook
 
     - run: npx test-storybook --maxWorkers=2 --coverage
+      env:
+        TARGET_URL: http://nginx:9009
 
     - uses: codecov/codecov-action@v3
       with:
