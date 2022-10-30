@@ -9,8 +9,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    #container:
-    #  image: mcr.microsoft.com/playwright:v1.27.1-focal
     services:
       nginx:
         image: nginx
@@ -34,16 +32,18 @@ jobs:
     - name: Install dependencies
       run: npm ci
 
-    #- run: npm run build --if-present
+    - name: Install playwright deps
+      run: |
+        npx playwright install-deps
+        npx playwright install
 
-    #- run: npm run lint
+    - run: npm run build --if-present
 
-    #- run: npm test
+    - run: npm run lint
+
+    - run: npm test
 
     - run: npm run build-storybook
-
-    #- name: Setup tmate session
-    #  uses: mxschmitt/action-tmate@v3
 
     - run: sudo cp -r storybook-static/. /home/runner/work/nginx/
 
