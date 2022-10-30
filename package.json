@@ -38,7 +38,7 @@
     "test:prod": "MODE=prod wtr",
     "test:prod:watch": "MODE=prod wtr --watch",
     "test-storybook": "test-storybook",
-    "test-storybook:ci": "npx concurrently -k -s first -n \"SB,TEST\" -c \"magenta,blue\" \"npm run build-storybook --quiet && npx http-server storybook-static --port 6006\" \"npx wait-on tcp:6006 && test-storybook --maxWorkers=2 --coverage\"",
+    "test-storybook:ci": "npx concurrently -k -s first -n \"SB,TEST\" -c \"magenta,blue\" \"npm run build-storybook --quiet && npx http-server storybook-static --port 6006\" \"npx wait-on -d 30000 -i 1000 -l -v tcp:6006 && test-storybook --maxWorkers=2 --coverage\"",
     "semantic-release": "semantic-release",
     "storybook": "npx storybook dev -p 6006",
     "build-storybook": "npm run analyze && npx storybook build"
