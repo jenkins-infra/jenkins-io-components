@@ -1,5 +1,5 @@
 {
-  "name": "@halkeye/jenkins-io-components",
+  "name": "@jenkinsci/jenkins-io-components",
   "version": "0.0.1",
   "description": "Random parts shared between jenkins.io",
   "publishConfig": {
