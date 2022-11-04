@@ -34,7 +34,8 @@ export default {
           .css,
     }),
     typescript({
-      sourceMap: process.env.NODE_ENV === 'production',
+      sourceMap: false,
+      inlineSources: false,
     }),
     //postcss({
     //  sourceMap: process.env.NODE_ENV === 'production',
@@ -105,7 +106,7 @@ export default {
       entryFileNames: '[name].ejs.js',
       dir: 'build',
       // plugins: [htmlPlugin.api.addOutput('modern')],
-      sourcemap: process.env.NODE_ENV === 'production',
+      sourcemap: true,
     },
     {
       // Legacy JS bundles (ES5 compilation and SystemJS module output)
@@ -113,7 +114,7 @@ export default {
       chunkFileNames: '[name]-[hash].cjs.js',
       entryFileNames: '[name].cjs.js',
       dir: 'build',
-      sourcemap: process.env.NODE_ENV === 'production',
+      sourcemap: true,
       plugins: [
         //htmlPlugin.api.addOutput('legacy'),
         // Uses babel to compile JS to ES5 and modules to SystemJS
