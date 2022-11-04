@@ -37,7 +37,7 @@ export class NavbarLink extends LitElement {
 .active {
 	color: #fff;
 	text-decoration: none;
-	background-color: #007bff;
+	background-color: #0070EB;
 }
 
 
