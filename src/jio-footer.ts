@@ -1,4 +1,5 @@
 import {LitElement, html, TemplateResult} from 'lit';
+import {ifDefined} from 'lit/directives/if-defined.js';
 import {customElement, property} from 'lit/decorators.js';
 
 import {relOrAbsoluteLink} from './jio-navbar-link';
@@ -49,6 +50,12 @@ export class Footer extends LitElement {
    @property()
    githubRepo = '';
 
+   /**
+    * Github branch
+    */
+   @property()
+   githubBranch = 'main';
+
    override render() {
       return html`
 <footer>
@@ -56,7 +63,7 @@ export class Footer extends LitElement {
       <div class="row">
          <div class="col-md-4">
             <p class="box">
-               <jio-improve-this-page sourcePath=${this.sourcePath} githubRepo=${this.githubRepo}></jio-improve-this-page>
+               <jio-improve-this-page sourcePath=${this.sourcePath} githubRepo=${this.githubRepo} .githubBranch=${ifDefined(this.githubBranch)}></jio-improve-this-page>
                <jio-report-a-problem sourcePath=${this.sourcePath} githubRepo=${this.githubRepo}></jio-report-a-problem>
             </p>
             <div class="license-box">

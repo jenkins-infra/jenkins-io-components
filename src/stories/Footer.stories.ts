@@ -16,10 +16,11 @@ export default {
   }
 } as Meta;
 
-const render = ({property, sourcePath, githubRepo}) => html`<jio-footer
+const render = ({property, sourcePath, githubRepo, githubBranch}) => html`<jio-footer
   property=${ifDefined(property)}
   sourcePath=${ifDefined(sourcePath)}
   githubRepo=${ifDefined(githubRepo)}
+  githubBranch=${ifDefined(githubBranch)}
 ></jio-footer>`;
 
 export const Default: StoryObj<Footer> = {

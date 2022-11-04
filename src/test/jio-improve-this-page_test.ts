@@ -32,5 +32,20 @@ suite('jio-improve-this-page', () => {
     `
     );
   });
+  test('Should everything with sourcePath, githubRepo, and githubBranch', async () => {
+    const el = (await fixture(html`<jio-improve-this-page sourcePath="source/path" githubBranch='boobar' githubRepo="github/repo"></jio-improve-this-page>`)) as ImproveThisPage;
+    assert.shadowDom.equal(
+      el,
+      `
+      <a
+        href="https://github.com/github/repo/edit/boobar/source/path"
+        title="Edit source/path on GitHub"
+      >
+        <ion-icon name="logo-github"></ion-icon>
+        <span class="text">Improve this page</span>
+      </a>
+    `
+    );
+  });
 });
 
