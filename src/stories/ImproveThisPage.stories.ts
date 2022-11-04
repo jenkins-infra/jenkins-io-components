@@ -1,4 +1,4 @@
-import {Story, Meta} from '@storybook/web-components';
+import {StoryObj, Meta} from '@storybook/web-components';
 import {html} from 'lit';
 import {ifDefined} from 'lit/directives/if-defined.js';
 
@@ -10,14 +10,17 @@ export default {
   component: 'jio-improve-this-page',
 } as Meta;
 
-const Template: Story<Partial<ImproveThisPage>> = ({githubRepo, sourcePath}) => html`<jio-improve-this-page
+const render = ({githubRepo, sourcePath, githubBranch}) => html`<jio-improve-this-page
   sourcePath=${ifDefined(sourcePath)}
   githubRepo=${ifDefined(githubRepo)}
+  githubBranch=${ifDefined(githubBranch)}
 ></jio-improve-this-page>`;
 ;
 
-export const Default = Template.bind({});
-Default.args = {
-  sourcePath: 'src/stories/ImproveThisPage.ts',
-  githubRepo: 'halkeye/jenkins-io-components',
+export const Default: StoryObj<ImproveThisPage> = {
+  render,
+  args: {
+    sourcePath: 'src/stories/ImproveThisPage.ts',
+    githubRepo: 'halkeye/jenkins-io-components',
+  }
 };

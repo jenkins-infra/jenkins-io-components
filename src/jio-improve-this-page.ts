@@ -23,12 +23,18 @@ export class ImproveThisPage extends LitElement {
   @property()
   githubRepo = '';
 
+  /**
+   * Github branch
+   */
+  @property()
+  githubBranch = 'main';
+
   override render() {
     if (!this.sourcePath) {return null;}
     if (!this.githubRepo) {return null;}
 
     return html`
-    <a href=${`https://github.com/${this.githubRepo}/edit/main/${this.sourcePath}`} title=${`Edit ${this.sourcePath} on GitHub`}>
+    <a href=${`https://github.com/${this.githubRepo}/edit/${this.githubBranch}/${this.sourcePath}`} title=${`Edit ${this.sourcePath} on GitHub`}>
       <ion-icon name="logo-github"></ion-icon>
       <span class="text">Improve this page</span>
      </a>
