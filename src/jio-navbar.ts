@@ -36,7 +36,7 @@ export class Navbar extends LitElement {
   locationPathname: string = location.pathname;
 
   /**
-   * Keeps track of what menu is opened. 
+   * Keeps track of what menu is opened.
    *
    * Never to be set externally, though storybook shows it.
    * @private
@@ -146,9 +146,9 @@ export class Navbar extends LitElement {
           {label: "Infrastructure", link: "/projects/infrastructure/"},
           {label: "CI/CD and Jenkins Area Meetups", link: "/projects/jam/"},
           {label: "Jenkins Configuration as Code", link: "/projects/jcasc/"},
-          {label: "Jenkins Operator", link: "/projects/jenkins - operator/"},
+          {label: "Jenkins Operator", link: "/projects/jenkins-operator/"},
           {label: "Jenkins Remoting", link: "/projects/remoting/"},
-          {label: "Document Jenkins on Kubernetes", link: "/sigs/docs/gsod/2020/projects/document - jenkins - on - kubernetes/"},
+          {label: "Document Jenkins on Kubernetes", link: "/sigs/docs/gsod/2020/projects/document-jenkins-on-kubernetes/"},
         ]
       },
       {
