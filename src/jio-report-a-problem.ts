@@ -37,6 +37,12 @@ export class ReportAProblem extends LitElement {
   @property()
   githubRepo = '';
 
+  /**
+   * Github branch
+   */
+  @property()
+  githubBranch = 'main';
+
   override render() {
     if (!this.githubRepo) {return null;}
 
@@ -53,7 +59,7 @@ export class ReportAProblem extends LitElement {
     queryParams.append('body', outdent`
         ${[
         `Problem with the [${title}](${url}) page`,
-        this.sourcePath ?? `[source file](https://github.com/${this.githubRepo}/tree/master/src/${this.sourcePath})`
+        this.sourcePath ?? `[source file](https://github.com/${this.githubRepo}/tree/${this.githubBranch}/src/${this.sourcePath})`
       ].filter(Boolean).join(', ')}
 
         TODO: Describe the expected and actual behavior here
