@@ -86,18 +86,18 @@ export class Navbar extends LitElement {
           {
             label: "User Guide", link: "/doc/book", header: true
           },
-          {label: "- Installing Jenkins", link: "/doc/book/installing/"}, // FIXME - nest again
+          {label: "- Installing Jenkins", link: "/doc/book/installing/"},
           {label: "- Jenkins Pipeline", link: "/doc/book/pipeline/"},
           {label: "- Managing Jenkins", link: "/doc/book/managing/"},
           {label: "- Securing Jenkins", link: "/doc/book/security/"},
-          {label: "- System Administration", link: "/doc/book/system - administration/"},
+          {label: "- System Administration", link: "/doc/book/system-administration/"},
           {label: "- Troubleshooting Jenkins", link: "/doc/book/troubleshooting/"},
           {label: "- Terms and Definitions", link: "/doc/book/glossary/"},
           {label: "Solution Pages", link: "/solutions", header: true},
           {
             label: "Tutorials", link: "/doc/tutorials", header: true
           },
-          {label: "- Guided Tour", link: "/doc/pipeline/tour/getting - started/"},
+          {label: "- Guided Tour", link: "/doc/pipeline/tour/getting-started/"},
           {label: "- More Tutorials", link: "/doc/tutorials/"},
           {
             label: "Developer Guide", link: "/doc/developer", header: true
@@ -126,13 +126,13 @@ export class Navbar extends LitElement {
           {
             label: "Special Interest Groups", link: "/sigs/", header: true
           },
-          {label: "- Advocacy and Outreach", link: "/sigs/advocacy - and - outreach/"},
-          {label: "- Chinese Localization", link: "/sigs/chinese - localization/"},
-          {label: "- Cloud Native", link: "/sigs/cloud - native/"},
+          {label: "- Advocacy and Outreach", link: "/sigs/advocacy-and-outreach/"},
+          {label: "- Chinese Localization", link: "/sigs/chinese-localization/"},
+          {label: "- Cloud Native", link: "/sigs/cloud-native/"},
           {label: "- Documentation", link: "/sigs/docs/"},
           {label: "- Google Summer of Code", link: "/sigs/gsoc/"},
-          {label: "- Hardware and EDA", link: "/sigs/hw - and - eda/"},
-          {label: "- Pipeline Authoring", link: "/sigs/pipeline - authoring/"},
+          {label: "- Hardware and EDA", link: "/sigs/hw-and-eda/"},
+          {label: "- Pipeline Authoring", link: "/sigs/pipeline-authoring/"},
           {label: "- Platform", link: "/sigs/platform/"},
           {label: "- User Experience", link: "/sigs/ux/"},
         ]
