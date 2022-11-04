@@ -63,7 +63,7 @@ export class NavbarLink extends LitElement {
   class = "";
 
   @property()
-  locationHref = location.href;
+  locationPathname = location.pathname;
 
   override render() {
     let title;
@@ -71,14 +71,14 @@ export class NavbarLink extends LitElement {
     if (this.title) {
       title = this.title;
     }
-    const {isActive, href} = relOrAbsoluteLink(this.href, this.property, this.locationHref);
+    const {isActive, href} = relOrAbsoluteLink(this.href, this.property, this.locationPathname);
     return html`<a class=${`nav-link ${this.class} ${isActive ? "active" : ""}`} title=${ifDefined(title)} href=${href}>
         <slot></slot>
       </a>`;
   }
 }
 
-export const relOrAbsoluteLink = (href: string, property: string, locationHref = "") => {
+export const relOrAbsoluteLink = (href: string, property: string, locationPathname = location.pathname) => {
   const parsedMenuItem = new URL(href, 'https://www.jenkins.io');
   const parsedPropertyUrl = new URL(property);
   let isActive = false;
@@ -86,7 +86,7 @@ export const relOrAbsoluteLink = (href: string, property: string, locationHref =
   if (parsedPropertyUrl.host === parsedMenuItem.host) {
     // if its one of my properties, then its a relative link
     href = parsedMenuItem.toString().substring(parsedMenuItem.toString().split('/').slice(0, 3).join('/').length);
-    if (locationHref && locationHref.startsWith(parsedMenuItem.pathname)) {
+    if (locationPathname && locationPathname.startsWith(parsedMenuItem.pathname)) {
       isActive = true;
     }
   } else if (parsedPropertyUrl.host !== parsedMenuItem.host) {
