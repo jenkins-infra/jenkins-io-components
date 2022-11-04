@@ -20,9 +20,9 @@ export default {
   }
 } as Meta;
 
-const render = ({property, showSearchBox, locationHref}) => html`<jio-navbar
+const render = ({property, showSearchBox, locationPathname}) => html`<jio-navbar
   property=${ifDefined(property)}
-  .locationHref=${ifDefined(locationHref)}
+  .locationPathname=${ifDefined(locationPathname)}
   ?showSearchBox=${showSearchBox}
 ></jio-navbar>`;
 
@@ -38,7 +38,7 @@ export const SamePropertyActiveLink: StoryObj<Navbar> = {
   name: "Active link inside dropdown",
   args: {
     property: 'https://www.jenkins.io',
-    locationHref: '/press/'
+    locationPathname: '/press/'
   },
   play: async ({canvasElement}) => {
     const wc = canvasElement.querySelector("jio-navbar") as Navbar;
@@ -60,7 +60,7 @@ export const SamePropertyActiveToplevelLink: StoryObj<Navbar> = {
   name: "Active link outside dropdown",
   args: {
     property: 'https://www.jenkins.io',
-    locationHref: '/node/'
+    locationPathname: '/node/'
   }
 };
 

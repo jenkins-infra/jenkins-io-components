@@ -8,7 +8,7 @@ suite('jio-navbar-link', () => {
     test('renders properly by default', async () => {
       const el = (await fixture(html`<jio-navbar-link>Link Title</jio-navbar-link>`)) as NavbarLink;
       assert.instanceOf(el, NavbarLink);
-      assert.shadowDom.equal(el, `<a class="nav-link" href="/"><slot></slot></a>`);
+      assert.shadowDom.equal(el, `<a class="active nav-link" href="/"><slot></slot></a>`);
       assert.lightDom.equal(el, `Link Title`);
     });
     test('is accessible', async () => {
@@ -66,13 +66,13 @@ suite('jio-navbar-link', () => {
   suite('same property', async () => {
     suite('active link', async () => {
       test('exact match', async () => {
-        const locationHref = '/active/url';
+        const locationPathname = '/active/url';
         const property = "https://www.jenkins.io";
 
         const el = (await fixture(html`<jio-navbar-link
                                   href="/active/url"
                                   .property=${property}
-                                  .locationHref=${locationHref}
+                                  .locationPathname=${locationPathname}
                                   >someLabel</jio-navbar-link>`)) as NavbarLink;
         assert.instanceOf(el, NavbarLink);
         assert.isAccessible(el);
@@ -80,13 +80,13 @@ suite('jio-navbar-link', () => {
         assert.lightDom.equal(el, `someLabel`);
       });
       test('partial match', async () => {
-        const locationHref = '/blog/1234';
+        const locationPathname = '/blog/1234';
         const property = "https://www.jenkins.io";
 
         const el = (await fixture(html`<jio-navbar-link
                                   href="/blog"
                                   .property=${property}
-                                  .locationHref=${locationHref}
+                                  .locationPathname=${locationPathname}
                                   >someLabel</jio-navbar-link>`)) as NavbarLink;
         assert.instanceOf(el, NavbarLink);
         assert.isAccessible(el);
@@ -94,13 +94,13 @@ suite('jio-navbar-link', () => {
         assert.lightDom.equal(el, `someLabel`);
       });
       test('partial match shouldnt match different word', async () => {
-        const locationHref = '/blog/1234';
+        const locationPathname = '/blog/1234';
         const property = "https://www.jenkins.io";
 
         const el = (await fixture(html`<jio-navbar-link
                                   href="/blogging"
                                   .property=${property}
-                                  .locationHref=${locationHref}
+                                  .locationPathname=${locationPathname}
                                   >someLabel</jio-navbar-link>`)) as NavbarLink;
         assert.instanceOf(el, NavbarLink);
         assert.isAccessible(el);

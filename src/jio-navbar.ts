@@ -33,7 +33,7 @@ export class Navbar extends LitElement {
   showSearchBox: Boolean = false;
 
   @property()
-  locationHref: string = location.href;
+  locationPathname: string = location.pathname;
 
   /**
    * Keeps track of what menu is opened. 
@@ -264,7 +264,7 @@ export class Navbar extends LitElement {
 
     return html`<jio-navbar-link
       .class=${ifDefined(extraClasses.join(" "))}
-      .locationHref=${ifDefined(this.locationHref)}
+      .locationPathname=${ifDefined(this.locationPathname)}
       .property=${this.property}
       href=${menuItem.link}
       title=${ifDefined(menuItem.title)}
