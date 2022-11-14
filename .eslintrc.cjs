@@ -7,14 +7,18 @@ module.exports = {
     "plugin:wc/recommended",
     "plugin:lit/all",
     "plugin:storybook/recommended",
-    "prettier"
+    "prettier",
+    "plugin:testing-library/dom"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion": 2020,
     "sourceType": "module",
   },
-  "plugins": ["@typescript-eslint"],
+  "plugins": [
+    "@typescript-eslint",
+    "testing-library"
+  ],
   "env": {
     "browser": true
   },
@@ -28,7 +32,7 @@ module.exports = {
     "@typescript-eslint/no-non-null-assertion": "off",
     "@typescript-eslint/no-unused-vars": ["warn", {
       "argsIgnorePattern": "^_"
-    }]
+    }],
   },
   "overrides": [{
     "files": ["rollup.config.js", "web-test-runner.config.js", ".eslintrc.cjs", "*.cjs", ".storybook/*.cjs"],
