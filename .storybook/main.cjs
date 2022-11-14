@@ -23,6 +23,9 @@ module.exports = {
     "name": "@storybook/web-components-webpack5",
     "options": {}
   },
+  features: {
+    interactionsDebugger: true,
+  },
   webpackFinal: async (config/*, {}*/) => {
     // `configType` has a value of 'DEVELOPMENT' or 'PRODUCTION'
     // You can change the configuration based on that.
