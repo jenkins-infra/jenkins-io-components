@@ -4,6 +4,7 @@ import {ifDefined} from 'lit/directives/if-defined.js';
 
 import './jio-cdf-logo';
 import './jio-navbar-link';
+import './jio-searchbox';
 
 import globalStyles from './global.css';
 import styles from './jio-navbar.css';
@@ -184,11 +185,7 @@ export class Navbar extends LitElement {
     });
     let searchboxHtml = html``;
     if (this.showSearchBox) {
-      searchboxHtml = html`
-      <li class="nav-item searchbox">
-        <input class="form-control searchbox" type="search" placeholder="Search" aria-label="Search"></input>
-      </li>
-      `;
+      searchboxHtml = html`<li class="nav-item searchbox"><jio-searchbox class="searchbox"></jio-searchbox></li>`;
     }
     return html`
       <nav class="navbar">

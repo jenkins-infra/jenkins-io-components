@@ -1,3 +1,4 @@
+import {expect} from '@storybook/jest';
 import {StoryObj, Meta} from '@storybook/web-components';
 import {within, waitFor, userEvent} from '@storybook/testing-library';
 
@@ -70,6 +71,30 @@ export const ChangeBrand: StoryObj<Navbar> = {
   </jio-navbar>`,
   args: {
     property: 'https://webcomponents.jenkins.io'
+  }
+};
+
+export const Searchbox: StoryObj<Navbar> = {
+  args: {
+    showSearchBox: true,
+  }
+};
+
+export const SearchboxOpen: StoryObj<Navbar> = {
+  args: {
+    showSearchBox: true,
+  },
+  play: async ({canvasElement}) => {
+    const wc = canvasElement.querySelector('jio-navbar').shadowRoot.querySelector("jio-searchbox").shadowRoot as unknown as HTMLElement;
+    await new Promise(resolve => canvasElement.addEventListener('jio-searchbox:ready', resolve, {once: true}));
+    Object.defineProperty(wc, 'outerHTML', {value: ''}); // fake it so jest doesn't complain when using within
+
+    const screen = within(wc);
+
+    userEvent.type(screen.getByTestId('searchbox'), 'governance');
+    userEvent.unhover(screen.getByTestId('searchbox'));
+
+    expect((await screen.findByRole('listbox')).closest('.algolia-autocomplete')).toHaveClass('algolia-autocomplete-right');
   }
 };
 
