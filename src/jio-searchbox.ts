@@ -11,6 +11,18 @@ declare global {
 @customElement('jio-searchbox')
 export class Searchbox extends LitElement {
   static override styles = css`
+    :host {
+      margin: auto;
+      margin-left: 0.75em;
+      box-sizing: border-box;
+      display: inline-block;
+      height: 32px !important;
+      position: relative;
+      visibility: visible !important;
+      white-space: nowrap;
+      width: 200px;
+    }
+
     .form-control {
       display: block;
       width: 100%;
@@ -36,9 +48,32 @@ export class Searchbox extends LitElement {
       position: relative;
       visibility: visible !important;
       white-space: nowrap;
-      width: 200px;
+    }
+
+    .algolia-autocomplete {
+      width: 100%;
+    }
+
+    @media (max-width: 991px) {
+      :host {
+        width: 100%;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        margin-left: 0;
+      }
+      .algolia-autocomplete .ds-dropdown-menu {
+        width: 100%;
+        max-width: 100%;
+        min-width: 100%;
+      }
     }
   `;
+
+  get isReady() {
+    return this._isReady;
+  }
+
+  private _isReady = false;
 
   override connectedCallback() {
     super.connectedCallback();
@@ -95,6 +130,7 @@ export class Searchbox extends LitElement {
       });
 
       this.dispatchEvent(new CustomEvent('jio-searchbox:ready', {bubbles: true, composed: true}));
+      this._isReady = true;
     });
   }
 

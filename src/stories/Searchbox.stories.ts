@@ -1,11 +1,16 @@
 import {StoryObj, Meta} from '@storybook/web-components';
 import {within, userEvent} from '@storybook/testing-library';
-import {expect} from '@storybook/jest';
 
 import {html} from 'lit';
 
 import {Searchbox} from '../jio-searchbox';
 import '../jio-searchbox';
+
+
+const sleep = (ms: number) => new Promise(r => setTimeout(r, ms));
+const waitFor = async function waitFor(f: () => Promise<boolean>) {
+  while (!await f()) {await sleep(100);}
+};
 
 export default {
   title: 'Example/Searchbox',
@@ -28,16 +33,14 @@ export const Searched: StoryObj<Searchbox> = {
   render,
   args: {},
   play: async ({canvasElement}) => {
-    const wc = canvasElement.querySelector("jio-searchbox").shadowRoot as unknown as HTMLElement;
-    await new Promise(resolve => canvasElement.addEventListener('jio-searchbox:ready', resolve, {once: true}));
-    Object.defineProperty(wc, 'outerHTML', {value: ''}); // fake it so jest doesn't complain when using within
+    const wc = canvasElement.querySelector("jio-searchbox") as Searchbox;
+    await waitFor(async () => wc.isReady === true);
+    Object.defineProperty(wc.shadowRoot, 'outerHTML', {value: ''}); // fake it so jest doesn't complain when using within
 
-    const screen = within(wc);
+    const screen = within(wc.shadowRoot as unknown as HTMLElement);
 
-    await userEvent.type(screen.getByTestId('searchbox'), 'governance');
-    await userEvent.unhover(screen.getByTestId('searchbox'));
-
-    expect((await screen.findByRole('listbox')).closest('.algolia-autocomplete')).toHaveClass('algolia-autocomplete-left');
+    userEvent.type(screen.getByTestId('searchbox'), 'governance');
+    userEvent.unhover(screen.getByTestId('searchbox'));
   }
 };
 

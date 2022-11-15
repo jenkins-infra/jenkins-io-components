@@ -185,7 +185,7 @@ export class Navbar extends LitElement {
     });
     let searchboxHtml = html``;
     if (this.showSearchBox) {
-      searchboxHtml = html`<li class="nav-item searchbox"><jio-searchbox class="searchbox"></jio-searchbox></li>`;
+      searchboxHtml = html`<li class="nav-item searchbox"><jio-searchbox></jio-searchbox></li>`;
     }
     return html`
       <nav class="navbar">
@@ -194,7 +194,7 @@ export class Navbar extends LitElement {
             <a href="/">Jenkins</a>
           </slot>
         </span>
-        <button class="navbar-toggler collapsed btn" type="button" @click=${this._clickCollapseButton}>
+        <button class="navbar-toggler collapsed btn" type="button" @click=${this._clickCollapseButton} aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <ion-icon name="menu-outline" title="Toggle Menu Visible"></ion-icon>
         </button>
         <div class="collapse ${this.menuToggled ? "show" : ""}">
