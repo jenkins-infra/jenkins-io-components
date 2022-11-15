@@ -33,6 +33,7 @@ module.exports = {
     "@typescript-eslint/no-unused-vars": ["warn", {
       "argsIgnorePattern": "^_"
     }],
+    "storybook/context-in-play-function": "off"
   },
   "overrides": [{
     "files": ["rollup.config.js", "web-test-runner.config.js", ".eslintrc.cjs", "*.cjs", ".storybook/*.cjs"],

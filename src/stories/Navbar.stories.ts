@@ -1,5 +1,6 @@
 import {expect} from '@storybook/jest';
 import {StoryObj, Meta} from '@storybook/web-components';
+import {MINIMAL_VIEWPORTS} from '@storybook/addon-viewport';
 import {within, waitFor, userEvent} from '@storybook/testing-library';
 
 import {html} from 'lit';
@@ -7,6 +8,8 @@ import {ifDefined} from 'lit/directives/if-defined.js';
 
 import {Navbar} from '../jio-navbar';
 import '../jio-navbar';
+
+import {Searched} from './Searchbox.stories';
 
 export default {
   title: 'Example/Navbar',
@@ -74,30 +77,6 @@ export const ChangeBrand: StoryObj<Navbar> = {
   }
 };
 
-export const Searchbox: StoryObj<Navbar> = {
-  args: {
-    showSearchBox: true,
-  }
-};
-
-export const SearchboxOpen: StoryObj<Navbar> = {
-  args: {
-    showSearchBox: true,
-  },
-  play: async ({canvasElement}) => {
-    const wc = canvasElement.querySelector('jio-navbar').shadowRoot.querySelector("jio-searchbox").shadowRoot as unknown as HTMLElement;
-    await new Promise(resolve => canvasElement.addEventListener('jio-searchbox:ready', resolve, {once: true}));
-    Object.defineProperty(wc, 'outerHTML', {value: ''}); // fake it so jest doesn't complain when using within
-
-    const screen = within(wc);
-
-    userEvent.type(screen.getByTestId('searchbox'), 'governance');
-    userEvent.unhover(screen.getByTestId('searchbox'));
-
-    expect((await screen.findByRole('listbox')).closest('.algolia-autocomplete')).toHaveClass('algolia-autocomplete-right');
-  }
-};
-
 export const ExtraRightSlot: StoryObj<Navbar> = {
   render: ({property}) => html`<jio-navbar property=${ifDefined(property)}>
     <div slot="rightMenuItems">
@@ -110,3 +89,48 @@ export const ExtraRightSlot: StoryObj<Navbar> = {
   }
 };
 
+export const Searchbox: StoryObj<Navbar> = {
+  args: {
+    showSearchBox: true,
+  }
+};
+
+export const SearchboxOpen: StoryObj<Navbar> = {
+  args: {
+    showSearchBox: true,
+  },
+  play: async ({canvasElement}) => {
+    const wc = canvasElement.querySelector('jio-navbar') as Navbar;
+    Object.defineProperty(wc.shadowRoot as unknown as HTMLElement, 'outerHTML', {value: ''}); // fake it so jest doesn't complain when using within
+
+    await Searched.play({canvasElement: wc.shadowRoot as unknown as HTMLElement});
+
+    const screen = within(wc.shadowRoot.querySelector('jio-searchbox').shadowRoot as unknown as HTMLElement);
+
+    expect((await screen.findByRole('listbox')).closest('.algolia-autocomplete')).toHaveClass('algolia-autocomplete-right');
+  }
+};
+
+export const MobileSearchBox: StoryObj<Navbar> = {
+  args: {
+    showSearchBox: true,
+  },
+  parameters: {
+    viewport: {
+      viewports: MINIMAL_VIEWPORTS,
+      defaultViewport: 'mobile2',
+    },
+  },
+  play: async ({canvasElement}) => {
+    const wc = canvasElement.querySelector('jio-navbar') as Navbar;
+    Object.defineProperty(wc.shadowRoot as unknown as HTMLElement, 'outerHTML', {value: ''}); // fake it so jest doesn't complain when using within
+
+    userEvent.click(wc.shadowRoot.querySelector('.navbar-toggler')); // open navbar
+
+    await Searched.play({canvasElement: wc.shadowRoot as unknown as HTMLElement});
+
+    const screen = within(wc.shadowRoot.querySelector('jio-searchbox').shadowRoot as unknown as HTMLElement);
+
+    expect((await screen.findByRole('listbox')).closest('.algolia-autocomplete')).toHaveClass('algolia-autocomplete-right');
+  }
+};
