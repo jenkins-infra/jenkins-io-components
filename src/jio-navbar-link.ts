@@ -78,6 +78,10 @@ export class NavbarLink extends LitElement {
   }
 }
 
+export const cleanPathname = (pathname: string) => {
+  return pathname.split('/').filter(Boolean).join('/');
+};
+
 export const relOrAbsoluteLink = (href: string, property: string, locationPathname = location.pathname) => {
   const parsedMenuItem = new URL(href, 'https://www.jenkins.io');
   const parsedPropertyUrl = new URL(property);
@@ -86,7 +90,7 @@ export const relOrAbsoluteLink = (href: string, property: string, locationPathna
   if (parsedPropertyUrl.host === parsedMenuItem.host) {
     // if its one of my properties, then its a relative link
     href = parsedMenuItem.toString().substring(parsedMenuItem.toString().split('/').slice(0, 3).join('/').length);
-    if (locationPathname && locationPathname.startsWith(parsedMenuItem.pathname)) {
+    if (locationPathname && cleanPathname(locationPathname) === cleanPathname(parsedMenuItem.pathname)) {
       isActive = true;
     }
   } else if (parsedPropertyUrl.host !== parsedMenuItem.host) {

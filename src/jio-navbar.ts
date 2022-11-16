@@ -259,10 +259,12 @@ export class Navbar extends LitElement {
       throw new Error('dropdown passed into render item');
     }
 
+    // TODO - header navbar links should never be active
     return html`<jio-navbar-link
       .class=${ifDefined(extraClasses.join(" "))}
       .locationPathname=${ifDefined(this.locationPathname)}
       .property=${this.property}
+      ?header=${menuItem.header}
       href=${menuItem.link}
       title=${ifDefined(menuItem.title)}
       >${menuItem.header ? html`<strong>${menuItem.label}</strong>` : menuItem.label}</jio-navbar-link>`;

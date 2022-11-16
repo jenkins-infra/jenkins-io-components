@@ -3,6 +3,7 @@ import {StoryObj, Meta} from '@storybook/web-components';
 import {MINIMAL_VIEWPORTS} from '@storybook/addon-viewport';
 import {within, waitFor, userEvent} from '@storybook/testing-library';
 
+import {deepQuerySelectorAll} from "shadow-dom-testing-library";
 import {html} from 'lit';
 import {ifDefined} from 'lit/directives/if-defined.js';
 
@@ -42,7 +43,7 @@ export const SamePropertyActiveLink: StoryObj<Navbar> = {
   name: "Active link inside dropdown",
   args: {
     property: 'https://www.jenkins.io',
-    locationPathname: '/press/'
+    locationPathname: '/projects/gsoc/'
   },
   play: async ({canvasElement}) => {
     const wc = canvasElement.querySelector("jio-navbar") as Navbar;
@@ -52,10 +53,10 @@ export const SamePropertyActiveLink: StoryObj<Navbar> = {
 
     const screen = within(root);
 
-    console.log('active gavin');
-    const aboutDropdown = await screen.findByText('About');
-    console.log('aboutDropdown', aboutDropdown);
-    return userEvent.click(aboutDropdown);
+    const aboutDropdown = await screen.findByText('Subprojects');
+    userEvent.click(aboutDropdown);
+
+    expect(deepQuerySelectorAll(canvasElement, '.active')).toHaveLength(1);
   }
 };
 
@@ -65,6 +66,32 @@ export const SamePropertyActiveToplevelLink: StoryObj<Navbar> = {
   args: {
     property: 'https://www.jenkins.io',
     locationPathname: '/node/'
+  },
+  play: async ({canvasElement}) => {
+    expect(deepQuerySelectorAll(canvasElement, '.active')).toHaveLength(1);
+  }
+};
+
+// TODO - maybe header navitems shouldn't have active links?
+export const SamePropertyActiveHeader: StoryObj<Navbar> = {
+  render,
+  name: "Active link - Header navitem",
+  args: {
+    property: 'https://www.jenkins.io',
+    locationPathname: '/solutions/'
+  },
+  play: async ({canvasElement}) => {
+    const wc = canvasElement.querySelector("jio-navbar") as Navbar;
+    const root = await waitFor(() => (wc.shadowRoot as ShadowRoot).firstElementChild as HTMLElement, {
+      timeout: 5000
+    });
+
+    const screen = within(root);
+
+    const aboutDropdown = await screen.findByText('Documentation');
+    userEvent.click(aboutDropdown);
+
+    expect(deepQuerySelectorAll(canvasElement, '.active')).toHaveLength(1);
   }
 };
 
