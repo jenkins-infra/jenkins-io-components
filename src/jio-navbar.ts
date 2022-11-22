@@ -185,7 +185,7 @@ export class Navbar extends LitElement {
     });
     let searchboxHtml = html``;
     if (this.showSearchBox) {
-      searchboxHtml = html`<li class="nav-item searchbox"><jio-searchbox></jio-searchbox></li>`;
+      searchboxHtml = html`<jio-searchbox></jio-searchbox>`;
     }
     return html`
       <nav class="navbar">
@@ -203,13 +203,13 @@ export class Navbar extends LitElement {
           </ul>
           <ul class="nav navbar-nav ml-auto">
             ${menuItemsHtml}
-            ${searchboxHtml}
             <li class="nav-item download-btn">
               ${this.renderNavItemLink({link: '/download/', label: 'Download', }, ['btn btn-outline-secondary'])}
             </li>
             <slot name="rightMenuItems" @slotchange=${this.handleSlotchange}></slot>
           </ul>
         </div>
+        ${searchboxHtml}
       </nav>
     `;
   }
