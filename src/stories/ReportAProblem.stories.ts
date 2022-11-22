@@ -18,5 +18,5 @@ const Template: Story<Partial<ReportAProblem>> = ({githubRepo, sourcePath}) => h
 export const Default = Template.bind({});
 Default.args = {
   sourcePath: 'src/stories/ReportAProblem.ts',
-  githubRepo: 'halkeye/jenkins-io-components',
+  githubRepo: 'jenkins-infra/jenkins-io-components',
 };

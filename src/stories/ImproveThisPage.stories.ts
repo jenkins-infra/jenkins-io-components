@@ -21,6 +21,6 @@ export const Default: StoryObj<ImproveThisPage> = {
   render,
   args: {
     sourcePath: 'src/stories/ImproveThisPage.ts',
-    githubRepo: 'halkeye/jenkins-io-components',
+    githubRepo: 'jenkins-infra/jenkins-io-components',
   }
 };
