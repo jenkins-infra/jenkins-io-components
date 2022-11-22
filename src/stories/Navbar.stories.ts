@@ -10,8 +10,6 @@ import {ifDefined} from 'lit/directives/if-defined.js';
 import {Navbar} from '../jio-navbar';
 import '../jio-navbar';
 
-import {Searched} from './Searchbox.stories';
-
 export default {
   title: 'Example/Navbar',
   component: 'jio-navbar',
@@ -116,7 +114,7 @@ export const ExtraRightSlot: StoryObj<Navbar> = {
   }
 };
 
-export const Searchbox: StoryObj<Navbar> = {
+export const SearchboxEnabled: StoryObj<Navbar> = {
   args: {
     showSearchBox: true,
   }
@@ -128,13 +126,8 @@ export const SearchboxOpen: StoryObj<Navbar> = {
   },
   play: async ({canvasElement}) => {
     const wc = canvasElement.querySelector('jio-navbar') as Navbar;
-    Object.defineProperty(wc.shadowRoot as unknown as HTMLElement, 'outerHTML', {value: ''}); // fake it so jest doesn't complain when using within
 
-    await Searched.play({canvasElement: wc.shadowRoot as unknown as HTMLElement});
-
-    const screen = within(wc.shadowRoot.querySelector('jio-searchbox').shadowRoot as unknown as HTMLElement);
-
-    expect((await screen.findByRole('listbox')).closest('.algolia-autocomplete')).toHaveClass('algolia-autocomplete-right');
+    expect(wc.shadowRoot.querySelector('jio-searchbox')).toBeVisible();
   }
 };
 
@@ -150,14 +143,9 @@ export const MobileSearchBox: StoryObj<Navbar> = {
   },
   play: async ({canvasElement}) => {
     const wc = canvasElement.querySelector('jio-navbar') as Navbar;
-    Object.defineProperty(wc.shadowRoot as unknown as HTMLElement, 'outerHTML', {value: ''}); // fake it so jest doesn't complain when using within
 
     userEvent.click(wc.shadowRoot.querySelector('.navbar-toggler')); // open navbar
 
-    await Searched.play({canvasElement: wc.shadowRoot as unknown as HTMLElement});
-
-    const screen = within(wc.shadowRoot.querySelector('jio-searchbox').shadowRoot as unknown as HTMLElement);
-
-    expect((await screen.findByRole('listbox')).closest('.algolia-autocomplete')).toHaveClass('algolia-autocomplete-right');
+    expect(wc.shadowRoot.querySelector('jio-searchbox')).toBeVisible();
   }
 };

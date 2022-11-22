@@ -12,6 +12,8 @@ a:focus-visible {
   display: none;
   font-size: 1.25rem;
   line-height: 1;
+
+  margin-left: auto;
 }
 
 .nav {
@@ -171,16 +173,6 @@ button.nav-link {
   vertical-align: 0.255em;
 }
 
-.searchbox {
-  box-sizing: border-box;
-  display: inline-block;
-  height: 32px !important;
-  position: relative;
-  visibility: visible !important;
-  white-space: nowrap;
-  width: 200px;
-}
-
 @media (min-width: 992px) {
   .mr-auto {
     margin-right: auto;
@@ -222,17 +214,6 @@ button.nav-link {
 
   .navbar-nav .dropdown-menu {
     position: absolute;
-  }
-
-  .searchbox {
-    margin-bottom: 10px;
-    margin-left: 0;
-    margin-top: 10px;
-    width: 100%;
-  }
-
-  jio-searchbox {
-    width: 100%;
   }
 }
 

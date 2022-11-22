@@ -1,7 +1,8 @@
+import {expect} from '@storybook/jest';
 import {StoryObj, Meta} from '@storybook/web-components';
-import {within, userEvent} from '@storybook/testing-library';
 
 import {html} from 'lit';
+import {deepQuerySelector} from "shadow-dom-testing-library";
 
 import {Searchbox} from '../jio-searchbox';
 import '../jio-searchbox';
@@ -29,18 +30,14 @@ export const Default: StoryObj<Searchbox> = {
   args: {},
 };
 
-export const Searched: StoryObj<Searchbox> = {
+export const SearchOpen: StoryObj<Searchbox> = {
   render,
   args: {},
   play: async ({canvasElement}) => {
-    const wc = canvasElement.querySelector("jio-searchbox") as Searchbox;
+    const wc = deepQuerySelector(canvasElement, "jio-searchbox") as Searchbox;
     await waitFor(async () => wc.isReady === true);
-    Object.defineProperty(wc.shadowRoot, 'outerHTML', {value: ''}); // fake it so jest doesn't complain when using within
 
-    const screen = within(wc.shadowRoot as unknown as HTMLElement);
-
-    userEvent.type(screen.getByTestId('searchbox'), 'governance');
-    userEvent.unhover(screen.getByTestId('searchbox'));
+    expect(wc.shadowRoot.querySelector('.DocSearch-Button')).toBeVisible();
   }
 };
 
