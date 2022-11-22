@@ -128,14 +128,10 @@
   },
   "customElements": "custom-elements.json",
   "files": [
-    "build/jio-*.d.ts",
-    "build/jio-*.d.ts.map",
-    "build/jio-*.js",
-    "build/jio-*.js.map",
-    "build/shared-*.d.ts",
-    "build/shared-*.d.ts.map",
-    "build/shared-*.js",
-    "build/shared-*.js.map",
+    "build/*.d.ts",
+    "build/*.d.ts.map",
+    "build/*.js",
+    "build/*.js.map",
     "custom-elements.json",
     "makeLayout.js"
   ],
