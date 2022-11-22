@@ -10,7 +10,6 @@
     "declaration": true,
     "declarationMap": true,
     "sourceMap": false,
-    "inlineSources": true,
     "outDir": "./build",
     "rootDir": "./src",
     "strict": true,

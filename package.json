@@ -6,7 +6,7 @@
     "access": "public"
   },
   "main": "build/jio-components.cjs.js",
-  "module": "build/jio-components.ejs.js",
+  "module": "build/jio-components.esm.js",
   "type": "module",
   "browserslist": [
     "last 2 versions",
@@ -81,8 +81,6 @@
     "@web/dev-server": "^0.1.34",
     "@web/dev-server-esbuild": "^0.3.2",
     "@web/dev-server-legacy": "^1.0.1",
-    "@web/rollup-plugin-html": "^1.11.0",
-    "@web/rollup-plugin-polyfills-loader": "^1.3.1",
     "@web/test-runner": "^0.14.0",
     "@web/test-runner-playwright": "^0.8.10",
     "@webcomponents/webcomponentsjs": "^2.6.0",
