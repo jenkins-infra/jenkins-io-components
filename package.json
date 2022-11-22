@@ -44,7 +44,9 @@
   ],
   "release": {
     "branches": [
-      "main"
+      "main",
+      "alpha",
+      "beta"
     ]
   },
   "author": "Gavin Mogan <npm@gavinmogan.com> (https://www.gavinmogan.com/)",
