@@ -50,8 +50,3 @@ jobs:
     - run: npx test-storybook --maxWorkers=2 --coverage
       env:
         TARGET_URL: http://localhost
-
-    - uses: codecov/codecov-action@v3
-      with:
-        fail_ci_if_error: true
-        verbose: true
