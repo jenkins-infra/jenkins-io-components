@@ -1,9 +1,9 @@
 name: Release
 on:
   workflow_run:
-    workflows: 
+    workflows:
       - Tests
-    branches: 
+    branches:
       - main
       - alpha
       - beta
