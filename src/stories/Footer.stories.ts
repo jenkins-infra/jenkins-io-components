@@ -33,7 +33,7 @@ export const HasSourcePath: StoryObj<Footer> = {
   render,
   args: {
     property: 'https://www.jenkins.io',
-    githubRepo: 'halkeye/jenkins-io-components',
+    githubRepo: 'jenkins-infra/jenkins-io-components',
     sourcePath: 'src/stories/Footer.stories.ts',
   }
 };
@@ -42,7 +42,7 @@ export const NoSourcePath: StoryObj<Footer> = {
   render,
   args: {
     property: 'https://www.jenkins.io',
-    githubRepo: 'halkeye/jenkins-io-components',
+    githubRepo: 'jenkins-infra/jenkins-io-components',
   }
 };
 
@@ -50,7 +50,7 @@ export const ExternalProperty: StoryObj<Footer> = {
   render,
   args: {
     property: 'https://accounts.jenkins.io',
-    githubRepo: 'halkeye/jenkins-io-components',
+    githubRepo: 'jenkins-infra/jenkins-io-components',
     sourcePath: 'src/stories/Footer.stories.ts',
   }
 };
