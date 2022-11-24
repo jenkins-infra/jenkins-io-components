@@ -52,7 +52,6 @@
   "author": "Gavin Mogan <npm@gavinmogan.com> (https://www.gavinmogan.com/)",
   "license": "MIT",
   "dependencies": {
-    "@docsearch/js": "^3.3.0",
     "lit": "^2.4.0",
     "outdent": "^0.8.0"
   },

@@ -1,5 +1,6 @@
 import {expect} from '@storybook/jest';
 import {StoryObj, Meta} from '@storybook/web-components';
+import {userEvent} from '@storybook/testing-library';
 
 import {html} from 'lit';
 import {deepQuerySelector} from "shadow-dom-testing-library";
@@ -37,7 +38,10 @@ export const SearchOpen: StoryObj<Searchbox> = {
     const wc = deepQuerySelector(canvasElement, "jio-searchbox") as Searchbox;
     await waitFor(async () => wc.isReady === true);
 
-    expect(wc.shadowRoot.querySelector('.DocSearch-Button')).toBeVisible();
+    const button = wc.shadowRoot.querySelector('.DocSearch-Button');
+    expect(button).toBeVisible();
+
+    userEvent.click(button);
   }
 };
 
