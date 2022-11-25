@@ -183,7 +183,7 @@ export class Navbar extends LitElement {
       }
       return body;
     });
-    let searchboxHtml = html``;
+    let searchboxHtml = null;
     if (this.showSearchBox) {
       searchboxHtml = html`<jio-searchbox></jio-searchbox>`;
     }
@@ -194,10 +194,16 @@ export class Navbar extends LitElement {
             <a href="/">Jenkins</a>
           </slot>
         </span>
-        <button class="navbar-toggler collapsed btn" type="button" @click=${this._clickCollapseButton} aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button
+          class="navbar-toggler collapsed btn"
+          type="button"
+          @click=${this._clickCollapseButton}
+          aria-controls="navbarSupportedContent"
+          aria-expanded=${this.menuToggled}
+          aria-label="Toggle navigation">
           <ion-icon name="menu-outline" title="Toggle Menu Visible"></ion-icon>
         </button>
-        <div class="collapse ${this.menuToggled ? "show" : ""}">
+        <div class="navbar-menu collapse ${this.menuToggled ? "show" : ""}">
           <ul class="nav navbar-nav mr-auto">
             ${this.renderNavItemDropdown({label: html`<jio-cdf-logo></jio-cdf-logo>`, link: cdfMenuItems}, 99, this.visibleMenu === 99)}
           </ul>

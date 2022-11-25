@@ -186,6 +186,18 @@ button.nav-link {
 @media (max-width: 991px) {
   .navbar-toggler {
     display: block;
+    margin-left: 0;
+    order: 4;
+  }
+
+  jio-searchbox {
+    margin-left: auto;
+    margin-right: 10px;
+    order: 3;
+  }
+
+  .navbar-menu {
+    order: 5;
   }
 
   .navbar {

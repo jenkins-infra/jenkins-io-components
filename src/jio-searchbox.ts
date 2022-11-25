@@ -1,4 +1,4 @@
-import {LitElement, css, unsafeCSS} from 'lit';
+import {LitElement} from 'lit';
 import {customElement} from 'lit/decorators.js';
 
 declare global {
@@ -10,8 +10,6 @@ declare global {
 
 @customElement('jio-searchbox')
 export class Searchbox extends LitElement {
-  static override styles = css``;
-
   get isReady() {
     return this._isReady;
   }
