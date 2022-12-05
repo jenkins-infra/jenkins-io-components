@@ -77,7 +77,7 @@ export class Navbar extends LitElement {
     const cdfMenuItems = [
       {label: "What is CDF?", link: "https://cd.foundation/"},
       {label: "Jenkins X", link: "https://jenkins-x.io/"},
-      {label: "Tekton", link: "https://cloud.google.com/tekton/"},
+      {label: "Tekton", link: "https://tekton.dev/"},
       {label: "Spinnaker", link: "https://www.spinnaker.io/"},
     ];
     const menuItems = [
