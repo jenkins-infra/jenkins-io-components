@@ -16,7 +16,7 @@ export class Searchbox extends LitElement {
 
   private _isReady = false;
 
-  addCss(root: HTMLElement | ShadowRoot) {
+  addDocsearchCSS(root: HTMLElement | ShadowRoot) {
     // Add CSS to document body so popup works
     const linkFileEl = document.createElement('link');
     linkFileEl.setAttribute('rel', 'stylesheet');
@@ -24,11 +24,18 @@ export class Searchbox extends LitElement {
     linkFileEl.setAttribute('href', `https://cdn.jsdelivr.net/npm/@docsearch/css@3`);
     linkFileEl.setAttribute('media', 'all');
     root.appendChild(linkFileEl);
+
+    const style = document.createElement('style');
+    style.setAttribute('type', 'text/css');
+    // make sure the search box is just below the navbar
+    // default is top = 0
+    style.appendChild(document.createTextNode(`.DocSearch-Container { top: 56px; }`));
+    root.appendChild(style);
   }
   override connectedCallback() {
     super.connectedCallback();
 
-    [document.head, this.renderRoot].forEach(root => this.addCss(root));
+    [document.head, this.renderRoot].forEach(root => this.addDocsearchCSS(root));
 
     // Load the behavior
     const scriptFileEl = document.createElement('script');
