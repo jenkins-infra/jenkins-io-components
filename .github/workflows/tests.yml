@@ -16,14 +16,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    services:
-      nginx:
-        image: nginx
-        ports:
-          - 80:80
-        volumes:
-          - "/home/runner/work/nginx:/usr/share/nginx/html"
-
     steps:
     - uses: actions/checkout@v3
 
@@ -52,8 +44,22 @@ jobs:
 
     - run: npm run build-storybook
 
-    - run: sudo cp -r storybook-static/. /home/runner/work/nginx/
+    - name: Deploy to Netlify
+      id: netlifydeploy
+      uses: nwtgck/actions-netlify@v1.2
+      with:
+        publish-dir: './storybook-static'
+        production-branch: main
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        deploy-message: "Deploy from GitHub Actions"
+        alias: deploy-preview-${{ github.event.number }}
+        enable-pull-request-comment: true
+        enable-commit-comment: true
+        overwrites-pull-request-comment: true
+      env:
+        NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+        NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
 
     - run: npx test-storybook --maxWorkers=2 --coverage
       env:
-        TARGET_URL: http://localhost
+        TARGET_URL: ${{ steps.netlifydeploy.outputs.deploy-url}}
