@@ -1,10 +1,8 @@
-// my-preset/index.js
-
 function managerEntries(entry = []) {
   return [...entry, require.resolve('./register')];
 }
 
-const config = (entry = [], options) => {
+const config = (entry = [], _options) => {
   return [...entry];
 };
 
