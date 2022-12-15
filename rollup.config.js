@@ -17,7 +17,11 @@ const processor = postcss(require('./postcss.config.cjs'));
 export default {
   // Entry point for application build; can specify a glob to build multiple
   // HTML files for non-SPA app
-  input: readdirSync('./src/').filter(file => file.endsWith('.ts')).map(file => `src/${file}`),
+  input: [].concat(
+    readdirSync('./src/').filter(file => file.endsWith('.ts')).map(file => `src/${file}`)
+  ).concat(
+    readdirSync('./src/generated/locales/').filter(file => file.endsWith('.ts')).map(file => `src/generated/locales/${file}`)
+  ),
   plugins: [
     litcss({
       include: '/**/*.css',

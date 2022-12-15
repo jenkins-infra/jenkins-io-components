@@ -18,6 +18,7 @@ module.exports = {
     "@storybook/addon-links",
     "@storybook/addon-essentials",
     "@storybook/addon-coverage",
+    "../sb-addons/locale-selector"
   ],
   "framework": {
     "name": "@storybook/web-components-webpack5",

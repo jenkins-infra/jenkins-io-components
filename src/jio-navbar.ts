@@ -1,7 +1,9 @@
 import {LitElement, html, TemplateResult} from 'lit';
 import {customElement, state, property} from 'lit/decorators.js';
 import {ifDefined} from 'lit/directives/if-defined.js';
+import {msg, localized} from '@lit/localize';
 
+import './jio-locale';
 import './jio-cdf-logo';
 import './jio-navbar-link';
 import './jio-searchbox';
@@ -16,6 +18,7 @@ export type NavbarItemLink = {
   title?: string;
 };
 
+@localized()
 @customElement('jio-navbar')
 export class Navbar extends LitElement {
   static override styles = [globalStyles, styles];
@@ -75,10 +78,10 @@ export class Navbar extends LitElement {
 
   override render() {
     const cdfMenuItems = [
-      {label: "What is CDF?", link: "https://cd.foundation/"},
-      {label: "Jenkins X", link: "https://jenkins-x.io/"},
-      {label: "Tekton", link: "https://tekton.dev/"},
-      {label: "Spinnaker", link: "https://www.spinnaker.io/"},
+      {label: msg("What is CDF?"), link: "https://cd.foundation/"},
+      {label: msg("Jenkins X"), link: "https://jenkins-x.io/"},
+      {label: msg("Tekton"), link: "https://tekton.dev/"},
+      {label: msg("Spinnaker"), link: "https://www.spinnaker.io/"},
     ];
     const menuItems = [
       {label: "Blog", link: "/node"},
