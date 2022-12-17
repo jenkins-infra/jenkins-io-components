@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file target-language="fr-CA" source-language="en" original="lit-localize-inputs" datatype="plaintext">
+    <body>
+      <trans-unit id="s4f3b6ee4d6bd05ff" approved="yes">
+        <source>What is CDF?</source>
+        <target state="final">Qu'est-ce que le CDF?</target>
+      </trans-unit>
+      <trans-unit id="sb4e921250adb4bd1" approved="yes">
+        <source>Jenkins X</source>
+        <target state="final">Jenkins X</target>
+      </trans-unit>
+      <trans-unit id="s1efe24b5ff7e7748" approved="yes">
+        <source>Tekton</source>
+        <target state="final">Tekton</target>
+      </trans-unit>
+      <trans-unit id="s4d45b0787ed19e06" approved="yes">
+        <source>Spinnaker</source>
+        <target state="final">Spinnaker</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

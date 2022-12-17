@@ -9,7 +9,7 @@ export const parameters = {
     argTypesRegex: "^on[A-Z].*"
   },
   locales: {
-    allLocales: allLocales
+    allLocales: Array.from(new Set(allLocales))
   },
   controls: {
     expanded: true,

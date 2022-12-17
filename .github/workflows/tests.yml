@@ -37,6 +37,9 @@ jobs:
 
     - run: npm run lint
 
+    - name: manage localization
+      run: node ./bin/localize.js
+
     - run: npm run build-storybook
 
     - name: Deploy to Netlify Preview
