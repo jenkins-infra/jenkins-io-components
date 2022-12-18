@@ -8,8 +8,8 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 chdir(join(__dirname, '..'))
 
-exec('crowdin upload')
 exec('npx lit-localize extract')
+exec('crowdin upload')
 exec('crowdin download')
 
 console.log("loading localize")
