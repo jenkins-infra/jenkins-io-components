@@ -84,96 +84,96 @@ export class Navbar extends LitElement {
       {label: msg("Spinnaker"), link: "https://www.spinnaker.io/"},
     ];
     const menuItems = [
-      {label: "Blog", link: "/node"},
+      {label: msg("Blog"), link: "/node"},
       {
-        label: "Documentation", link: [
+        label: msg("Documentation"), link: [
           {
-            label: "User Guide", link: "/doc/book", header: true
+            label: msg("User Guide"), link: "/doc/book", header: true
           },
-          {label: "- Installing Jenkins", link: "/doc/book/installing/"},
-          {label: "- Jenkins Pipeline", link: "/doc/book/pipeline/"},
-          {label: "- Managing Jenkins", link: "/doc/book/managing/"},
-          {label: "- Securing Jenkins", link: "/doc/book/security/"},
-          {label: "- System Administration", link: "/doc/book/system-administration/"},
-          {label: "- Troubleshooting Jenkins", link: "/doc/book/troubleshooting/"},
-          {label: "- Terms and Definitions", link: "/doc/book/glossary/"},
-          {label: "Solution Pages", link: "/solutions", header: true},
+          {label: "- " + msg("Installing Jenkins"), link: "/doc/book/installing/"},
+          {label: "- " + msg("Jenkins Pipeline"), link: "/doc/book/pipeline/"},
+          {label: "- " + msg("Managing Jenkins"), link: "/doc/book/managing/"},
+          {label: "- " + msg("Securing Jenkins"), link: "/doc/book/security/"},
+          {label: "- " + msg("System Administration"), link: "/doc/book/system-administration/"},
+          {label: "- " + msg("Troubleshooting Jenkins"), link: "/doc/book/troubleshooting/"},
+          {label: "- " + msg("Terms and Definitions"), link: "/doc/book/glossary/"},
+          {label: msg("Solution Pages"), link: "/solutions", header: true},
           {
-            label: "Tutorials", link: "/doc/tutorials", header: true
+            label: msg("Tutorials"), link: "/doc/tutorials", header: true
           },
-          {label: "- Guided Tour", link: "/doc/pipeline/tour/getting-started/"},
-          {label: "- More Tutorials", link: "/doc/tutorials/"},
+          {label: "- " + msg("Guided Tour"), link: "/doc/pipeline/tour/getting-started/"},
+          {label: "- " + msg("More Tutorials"), link: "/doc/tutorials/"},
           {
-            label: "Developer Guide", link: "/doc/developer", header: true
+            label: msg("Developer Guide"), link: "/doc/developer", header: true
           },
-          {label: "Contributor Guide", link: "/participate", header: true},
+          {label: msg("Contributor Guide"), link: "/participate", header: true},
         ]
       },
-      {label: "Plugins", link: "https://plugins.jenkins.io/"},
+      {label: msg("Plugins"), link: "https://plugins.jenkins.io/"},
       {
-        label: "Community", link: [
+        label: msg("Community"), link: [
           {
-            label: "Overview", link: "/participate/"
+            label: msg("Overview"), link: "/participate/"
           },
           {
-            label: "Chat", link: "/chat/", title: "Chat with the rest of the Jenkins community on IRC"
+            label: msg("Chat"), link: "/chat/", title: "Chat with the rest of the Jenkins community on IRC"
           },
-          {label: "Meet", link: "/projects/jam/"},
+          {label: msg("Meet"), link: "/projects/jam/"},
           {
-            label: "Events", link: "/events/"
+            label: msg("Events"), link: "/events/"
           },
-          {label: "Forum", link: "https://community.jenkins.io/"},
-          {label: "Issue Tracker", link: "https://issues.jenkins.io/"},
-          {label: "Mailing Lists", link: "/mailing-lists/", title: "Browse Jenkins mailing list archives and/ or subscribe to lists"},
-          {label: "Roadmap", link: "/project/roadmap/"},
-          {label: "Account Management", link: "https://accounts.jenkins.io/", title: "Create/manage your account for accessing wiki, issue tracker, etc"},
+          {label: msg("Forum"), link: "https://community.jenkins.io/"},
+          {label: msg("Issue Tracker"), link: "https://issues.jenkins.io/"},
+          {label: msg("Mailing Lists"), link: "/mailing-lists/", title: "Browse Jenkins mailing list archives and/ or subscribe to lists"},
+          {label: msg("Roadmap"), link: "/project/roadmap/"},
+          {label: msg("Account Management"), link: "https://accounts.jenkins.io/", title: "Create/manage your account for accessing wiki, issue tracker, etc"},
           {
-            label: "Special Interest Groups", link: "/sigs/", header: true
+            label: msg("Special Interest Groups"), link: "/sigs/", header: true
           },
-          {label: "- Advocacy and Outreach", link: "/sigs/advocacy-and-outreach/"},
-          {label: "- Chinese Localization", link: "/sigs/chinese-localization/"},
-          {label: "- Cloud Native", link: "/sigs/cloud-native/"},
-          {label: "- Documentation", link: "/sigs/docs/"},
-          {label: "- Google Summer of Code", link: "/sigs/gsoc/"},
-          {label: "- Hardware and EDA", link: "/sigs/hw-and-eda/"},
-          {label: "- Pipeline Authoring", link: "/sigs/pipeline-authoring/"},
-          {label: "- Platform", link: "/sigs/platform/"},
-          {label: "- User Experience", link: "/sigs/ux/"},
-        ]
-      },
-      {
-        label: "Subprojects", link: [
-          {
-            label: "Overview", link: "/projects/"
-          },
-          {label: "Google Summer of Code in Jenkins", link: "/projects/gsoc/"},
-          {label: "Infrastructure", link: "/projects/infrastructure/"},
-          {label: "CI/CD and Jenkins Area Meetups", link: "/projects/jam/"},
-          {label: "Jenkins Configuration as Code", link: "/projects/jcasc/"},
-          {label: "Jenkins Operator", link: "/projects/jenkins-operator/"},
-          {label: "Jenkins Remoting", link: "/projects/remoting/"},
-          {label: "Document Jenkins on Kubernetes", link: "/sigs/docs/gsod/2020/projects/document-jenkins-on-kubernetes/"},
+          {label: "- " + msg("Advocacy and Outreach"), link: "/sigs/advocacy-and-outreach/"},
+          {label: "- " + msg("Chinese Localization"), link: "/sigs/chinese-localization/"},
+          {label: "- " + msg("Cloud Native"), link: "/sigs/cloud-native/"},
+          {label: "- " + msg("Documentation"), link: "/sigs/docs/"},
+          {label: "- " + msg("Google Summer of Code"), link: "/sigs/gsoc/"},
+          {label: "- " + msg("Hardware and EDA"), link: "/sigs/hw-and-eda/"},
+          {label: "- " + msg("Pipeline Authoring"), link: "/sigs/pipeline-authoring/"},
+          {label: "- " + msg("Platform"), link: "/sigs/platform/"},
+          {label: "- " + msg("User Experience"), link: "/sigs/ux/"},
         ]
       },
       {
-        label: "About", link: [
-          {label: "Roadmap", link: "/project/roadmap/"},
+        label: msg("Subprojects"), link: [
           {
-            label: "Security", link: "/security/"
+            label: msg("Overview"), link: "/projects/"
           },
-          {
-            label: "Press", link: "/press/"
-          },
-          {
-            label: "Awards", link: "/awards/"
-          },
-          {label: "Conduct", link: "/project/conduct/"},
-          {label: "Artwork", link: "/artwork/"},
+          {label: msg("Google Summer of Code in Jenkins"), link: "/projects/gsoc/"},
+          {label: msg("Infrastructure"), link: "/projects/infrastructure/"},
+          {label: msg("CI/CD and Jenkins Area Meetups"), link: "/projects/jam/"},
+          {label: msg("Jenkins Configuration as Code"), link: "/projects/jcasc/"},
+          {label: msg("Jenkins Operator"), link: "/projects/jenkins-operator/"},
+          {label: msg("Jenkins Remoting"), link: "/projects/remoting/"},
+          {label: msg("Document Jenkins on Kubernetes"), link: "/sigs/docs/gsod/2020/projects/document-jenkins-on-kubernetes/"},
         ]
       },
       {
-        label: "English", link: [
-          {label: "中文 Chinese", link: "/zh/"},
+        label: msg("About"), link: [
+          {label: msg("Roadmap"), link: "/project/roadmap/"},
+          {
+            label: msg("Security"), link: "/security/"
+          },
+          {
+            label: msg("Press"), link: "/press/"
+          },
+          {
+            label: msg("Awards"), link: "/awards/"
+          },
+          {label: msg("Conduct"), link: "/project/conduct/"},
+          {label: msg("Artwork"), link: "/artwork/"},
+        ]
+      },
+      {
+        label: msg("English"), link: [
+          {label: msg("中文 Chinese"), link: "/zh/"},
         ]
       }
     ] as Array<NavbarItemLink>;
