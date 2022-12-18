@@ -1,9 +1,11 @@
 import {LitElement, html, css} from 'lit';
 import {customElement, property} from 'lit/decorators.js';
 import {ionIconText} from './shared-styles';
+import {msg, str, localized} from '@lit/localize';
 
 import outdent from 'outdent';
 
+@localized()
 @customElement('jio-report-a-problem')
 export class ReportAProblem extends LitElement {
   static override styles = [
@@ -46,6 +48,10 @@ export class ReportAProblem extends LitElement {
   override render() {
     if (!this.githubRepo) {return null;}
 
+    const githubBranch = this.githubBranch;
+    const githubRepo = this.githubRepo;
+    const sourcePath = this.sourcePath;
+
     const _document = typeof document !== 'undefined' ? document : {title: 'Unknown'};
     const _location = typeof location !== 'undefined' ? location : {href: 'http://unknown'};
     const url = this.url || _location.href;
@@ -59,7 +65,7 @@ export class ReportAProblem extends LitElement {
     queryParams.append('body', outdent`
         ${[
         `Problem with the [${title}](${url}) page`,
-        this.sourcePath ?? `[source file](https://github.com/${this.githubRepo}/tree/${this.githubBranch}/src/${this.sourcePath})`
+        sourcePath ?? `[source file](https://github.com/${githubRepo}/tree/${githubBranch}/src/${sourcePath})`
       ].filter(Boolean).join(', ')}
 
         TODO: Describe the expected and actual behavior here
@@ -73,11 +79,11 @@ export class ReportAProblem extends LitElement {
         <!-- If you have suggestions on a fix for the bug, please describe it here. -->
 
         N/A`);
-    const pluginSiteReportUrl = `https://github.com/${this.githubRepo}/issues/new?${queryParams.toString()}`;
+    const pluginSiteReportUrl = `https://github.com/${githubRepo}/issues/new?${queryParams.toString()}`;
     return html`
-      <a href=${pluginSiteReportUrl} title=${`Report a problem with ${this.sourcePath || url}`}>
+      <a href=${pluginSiteReportUrl} title=${msg(str`Report a problem with ${sourcePath || url}`)}>
         <ion-icon class="report" name="warning"></ion-icon>
-        <span class="text">Report a problem</span>
+        <span class="text">${msg('Report a problem')}</span>
       </a>
     `;
   }

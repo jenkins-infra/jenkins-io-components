@@ -2,6 +2,18 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
 <file target-language="en" source-language="en" original="lit-localize-inputs" datatype="plaintext">
 <body>
+<trans-unit id="s21ef0d574a03abef">
+  <source>Report a problem with <x id="0" equiv-text="${sourcePath || url}"/></source>
+</trans-unit>
+<trans-unit id="s728100e55dec6c27">
+  <source>Report a problem</source>
+</trans-unit>
+<trans-unit id="sc5369ab067c9db6f">
+  <source>Edit <x id="0" equiv-text="${sourcePath}"/> on GitHub</source>
+</trans-unit>
+<trans-unit id="sa1a2a32f24f873c4">
+  <source>Improve this page</source>
+</trans-unit>
 <trans-unit id="s4f3b6ee4d6bd05ff">
   <source>What is CDF?</source>
 </trans-unit>

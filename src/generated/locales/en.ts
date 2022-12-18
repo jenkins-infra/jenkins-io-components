@@ -3,13 +3,17 @@
     // Re-generate this file by running lit-localize
 
     
-    
+    import {str} from '@lit/localize';
 
     /* eslint-disable no-irregular-whitespace */
     /* eslint-disable @typescript-eslint/no-explicit-any */
 
     export const templates = {
-      's4f3b6ee4d6bd05ff': `What is CDF?`,
+      's21ef0d574a03abef': str`Report a problem with ${0}`,
+'s728100e55dec6c27': `Report a problem`,
+'sc5369ab067c9db6f': str`Edit ${0} on GitHub`,
+'sa1a2a32f24f873c4': `Improve this page`,
+'s4f3b6ee4d6bd05ff': `What is CDF?`,
 'sb4e921250adb4bd1': `Jenkins X`,
 's1efe24b5ff7e7748': `Tekton`,
 's4d45b0787ed19e06': `Spinnaker`,
@@ -65,5 +69,20 @@
 's74bec541bd25310f': `Artwork`,
 's4caed5b7a7e5d89b': `English`,
 'sa64d0efb4c0ded72': `中文 Chinese`,
+'sfc5ae29537c2d728': `Creative Commons Attribution-ShareAlike license`,
+'s689b7846e70a2db2': `The content driving this site is licensed under the Creative Commons Attribution-ShareAlike 4.0 license.`,
+'s175d37c8eb04d73e': `Downloads`,
+'sefd60397b86da01d': `Contributing`,
+'s5e4a5c08d4b85275': `Structure and governance`,
+'s464397dd226a319c': `Issue tracker`,
+'sa8c3b80277455232': `GitHub`,
+'s9e830101b9b781cc': `Jenkins on Jenkins`,
+'sf452259f15498073': `Mailing lists`,
+'s66dd6cdcbe0ea0c8': `Chats`,
+'sece556bea3b31804': `Twitter`,
+'sf5b4f5c4b20fdc85': `Reddit`,
+'sc97c6ad4bb0119e5': `Code of Conduct`,
+'se071f4c919dd94aa': `Press information`,
+'s5eccbe991f054d30': `Merchandise`,
     };
   
