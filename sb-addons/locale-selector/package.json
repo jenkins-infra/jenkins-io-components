@@ -1,0 +1,14 @@
+{
+  "name": "locale-selector",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Gavin Mogan <npm@gavinmogan.com> (https://www.gavinmogan.com/)",
+  "license": "MIT",
+  "devDependencies": {
+    "@storybook/manager-api": "^7.0.0-beta.6"
+  }
+}

@@ -1,3 +1,5 @@
+import './jio-locale';
+
 export {ReportAProblem} from './jio-report-a-problem';
 export {ImproveThisPage} from './jio-improve-this-page';
 export {ChangelogWeatherIcon} from './jio-changelog-weather-icon';
@@ -9,3 +11,4 @@ export {Navbar} from './jio-navbar';
 export {NavbarLink} from './jio-navbar-link';
 export {Footer} from './jio-footer';
 export {Searchbox} from './jio-searchbox';
+

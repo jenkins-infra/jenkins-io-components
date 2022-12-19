@@ -1,7 +1,9 @@
 import {LitElement, html, css} from 'lit';
 import {customElement, property} from 'lit/decorators.js';
 import {ionIconText} from './shared-styles';
+import {msg, str, localized} from '@lit/localize';
 
+@localized()
 @customElement('jio-improve-this-page')
 export class ImproveThisPage extends LitElement {
   static override styles = [
@@ -32,11 +34,14 @@ export class ImproveThisPage extends LitElement {
   override render() {
     if (!this.sourcePath) {return null;}
     if (!this.githubRepo) {return null;}
+    const sourcePath = this.sourcePath;
+    const githubRepo = this.githubRepo;
+    const githubBranch = this.githubBranch;
 
     return html`
-    <a href=${`https://github.com/${this.githubRepo}/edit/${this.githubBranch}/${this.sourcePath}`} title=${`Edit ${this.sourcePath} on GitHub`}>
+    <a href=${`https://github.com/${githubRepo}/edit/${githubBranch}/${sourcePath}`} title=${msg(str`Edit ${sourcePath} on GitHub`)}>
       <ion-icon name="logo-github"></ion-icon>
-      <span class="text">Improve this page</span>
+      <span class="text">${msg('Improve this page')}</span>
      </a>
     `;
   }

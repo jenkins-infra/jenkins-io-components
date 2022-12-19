@@ -1,9 +1,16 @@
 import {setCustomElementsManifest} from '@storybook/web-components';
 import customElements from '../custom-elements.json';
+import {allLocales} from '../src/generated/locale-codes.ts';
+
 setCustomElementsManifest(customElements);
 
 export const parameters = {
-  actions: {argTypesRegex: "^on[A-Z].*"},
+  actions: {
+    argTypesRegex: "^on[A-Z].*"
+  },
+  locales: {
+    allLocales: Array.from(new Set(allLocales))
+  },
   controls: {
     expanded: true,
     matchers: {

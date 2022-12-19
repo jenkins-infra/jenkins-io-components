@@ -36,7 +36,7 @@ module.exports = {
     "storybook/context-in-play-function": "off"
   },
   "overrides": [{
-    "files": ["rollup.config.js", "web-test-runner.config.js", ".eslintrc.cjs", "*.cjs", ".storybook/*.cjs"],
+    "files": ["rollup.config.js", "web-test-runner.config.js", ".eslintrc.cjs", "*.cjs", ".storybook/*.cjs", "sb-addons/**/*"],
     "rules": {
       "@typescript-eslint/no-var-requires": "off"
     },

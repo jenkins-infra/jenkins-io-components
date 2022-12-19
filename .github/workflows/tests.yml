@@ -66,6 +66,7 @@ jobs:
       uses: chrnorm/deployment-action@v2
       with:
         token: '${{ secrets.GITHUB_TOKEN }}'
+        initial-status: success
         environment: preview
         environment-url: "https://deploy-preview-${{ github.event.number }}--jenkins-io-components.netlify.app"
 
@@ -74,6 +75,7 @@ jobs:
       uses: chrnorm/deployment-action@v2
       with:
         token: '${{ secrets.GITHUB_TOKEN }}'
+        initial-status: success
         environment: production
         environment-url: "https://jenkins-io-components.netlify.app"
 
