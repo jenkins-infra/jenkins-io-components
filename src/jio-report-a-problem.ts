@@ -43,7 +43,17 @@ export class ReportAProblem extends LitElement {
    * Github branch
    */
   @property()
-  githubBranch = 'main';
+  githubBranch = 'master';
+
+  get locationHref() {
+    const _location = typeof location !== 'undefined' ? location : {href: 'http://unknown'};
+    return _location.href;
+  }
+
+  get windowTitle() {
+    const _document = typeof document !== 'undefined' ? document : {title: 'Unknown'};
+    return _document.title;
+  }
 
   override render() {
     if (!this.githubRepo) {return null;}
@@ -52,11 +62,8 @@ export class ReportAProblem extends LitElement {
     const githubRepo = this.githubRepo;
     const sourcePath = this.sourcePath;
 
-    const _document = typeof document !== 'undefined' ? document : {title: 'Unknown'};
-    const _location = typeof location !== 'undefined' ? location : {href: 'http://unknown'};
-    const url = this.url || _location.href;
-    const title = this.pageTitle || _document.title || url;
-
+    const url = this.url || this.locationHref;
+    const title = this.pageTitle || this.windowTitle;
 
     const queryParams = new URLSearchParams();
     queryParams.append('labels', 'bug');

@@ -29,7 +29,7 @@ export class ImproveThisPage extends LitElement {
    * Github branch
    */
   @property()
-  githubBranch = 'main';
+  githubBranch = 'master';
 
   override render() {
     if (!this.sourcePath) {return null;}
@@ -39,7 +39,7 @@ export class ImproveThisPage extends LitElement {
     const githubBranch = this.githubBranch;
 
     return html`
-    <a href=${`https://github.com/${githubRepo}/edit/${githubBranch}/${sourcePath}`} title=${msg(str`Edit ${sourcePath} on GitHub`)}>
+    <a href=${`https://github.com/${githubRepo}/edit/${githubBranch}/${sourcePath}`} title=${msg(str`Edit ${sourcePath} on GitHub`)} rel="noreferrer noopener">
       <ion-icon name="logo-github"></ion-icon>
       <span class="text">${msg('Improve this page')}</span>
      </a>

@@ -33,6 +33,7 @@ suite('jio-navbar-link', () => {
       assert.shadowDom.equal(el, `<a class="nav-link" href="https://www.jenkins.io/path/to"><slot></slot></a>`);
       assert.lightDom.equal(el, `someLabel`);
     });
+
     test('relative link with matching property should render full url', async () => {
       const property = "https://www.jenkins.io";
 
