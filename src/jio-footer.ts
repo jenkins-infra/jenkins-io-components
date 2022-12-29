@@ -56,7 +56,7 @@ export class Footer extends LitElement {
     * Github branch
     */
    @property()
-   githubBranch = 'main';
+   githubBranch = 'master';
 
    override render() {
       return html`

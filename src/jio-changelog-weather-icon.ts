@@ -26,10 +26,8 @@ export class ChangelogWeatherIcon extends LitElement {
     } as Record<EnumWeatherIcons, string>;
 
     return html`
-      <span>
-        ${this.count}
-        <span class=${this.count === 0 ? 'light' : ''}><jio-weather-icon weather=${mode} title=${titles[mode]}></jio-weather-icon></span>
-      </span>
+      ${this.count}
+      <span class=${this.count === 0 ? 'light' : ''}><jio-weather-icon weather=${mode} title=${titles[mode]}></jio-weather-icon></span>
     `;
   }
 }

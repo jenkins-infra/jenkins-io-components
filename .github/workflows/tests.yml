@@ -88,10 +88,3 @@ jobs:
       if: github.event_name != 'pull_request'
       env:
         TARGET_URL: "https://jenkins-io-components.netlify.app"
-
-    - name: Install playwright deps
-      run: |
-        npx playwright install-deps
-        npx playwright install
-
-    - run: npm test

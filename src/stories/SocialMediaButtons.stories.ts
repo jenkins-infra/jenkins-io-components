@@ -1,6 +1,7 @@
-import {Story, Meta} from '@storybook/web-components';
+import {StoryObj, Meta} from '@storybook/web-components';
 import {html} from 'lit';
 import {ifDefined} from 'lit/directives/if-defined.js';
+import {expect} from '@storybook/jest';
 
 import {SocialMediaButtons} from '../jio-socialmedia-buttons';
 import '../jio-components';
@@ -10,7 +11,7 @@ export default {
   component: 'jio-socialmedia-buttons',
 } as Meta;
 
-const Template: Story<Partial<SocialMediaButtons>> = ({
+const render = ({
   github, twitter, linkedin, blog
 }) => html`<jio-socialmedia-buttons
   github=${ifDefined(github)}
@@ -19,23 +20,82 @@ const Template: Story<Partial<SocialMediaButtons>> = ({
   blog=${ifDefined(blog)}
 ></jio-socialmedia-buttons>`;
 
-export const Github = Template.bind({});
-Github.args = {github: "halkeye", };
+export const Github: StoryObj<SocialMediaButtons> = {
+  render,
+  args: {
+    github: "halkeye"
+  },
+  play: async ({canvasElement}) => {
+    const socialMediaButtons = canvasElement.querySelector('jio-socialmedia-buttons') as SocialMediaButtons;
+    expect(socialMediaButtons.shadowRoot.children).toHaveLength(1);
 
-export const LinkedIn = Template.bind({});
-LinkedIn.args = {linkedin: "halkeye", };
-
-export const Twitter = Template.bind({});
-Twitter.args = {twitter: "halkeye", };
-
-export const Blog = Template.bind({});
-Blog.args = {blog: "https://g4v.dev", };
-
-export const Combined = Template.bind({});
-Combined.args = {
-  ...Github.args,
-  ...LinkedIn.args,
-  ...Twitter.args,
-  ...Blog.args,
+    const githubLink = socialMediaButtons.shadowRoot.querySelector('ul li a[href="https://github.com/halkeye"]');
+    expect(githubLink).toHaveAttribute('rel', 'noreferrer noopener');
+    expect(githubLink).toHaveAttribute('target', '_blank');
+    expect(githubLink).toHaveTextContent('Github');
+  }
 };
 
+export const Linkedin: StoryObj<SocialMediaButtons> = {
+  render,
+  args: {
+    linkedin: "halkeye"
+  },
+  play: async ({canvasElement}) => {
+    const socialMediaButtons = canvasElement.querySelector('jio-socialmedia-buttons') as SocialMediaButtons;
+    expect(socialMediaButtons.shadowRoot.children).toHaveLength(1);
+
+    const linkedinLink = socialMediaButtons.shadowRoot.querySelector('ul li a[href="https://www.linkedin.com/in/halkeye"]');
+    expect(linkedinLink).toHaveAttribute('rel', 'noreferrer noopener');
+    expect(linkedinLink).toHaveAttribute('target', '_blank');
+    expect(linkedinLink).toHaveTextContent('LinkedIn');
+  }
+};
+
+export const Twitter: StoryObj<SocialMediaButtons> = {
+  render,
+  args: {
+    twitter: "halkeye"
+  },
+  play: async ({canvasElement}) => {
+    const socialMediaButtons = canvasElement.querySelector('jio-socialmedia-buttons') as SocialMediaButtons;
+    expect(socialMediaButtons.shadowRoot.children).toHaveLength(1);
+
+    const linkedinLink = socialMediaButtons.shadowRoot.querySelector('ul li a[href="https://twitter.com/halkeye"]');
+    expect(linkedinLink).toHaveAttribute('rel', 'noreferrer noopener');
+    expect(linkedinLink).toHaveAttribute('target', '_blank');
+    expect(linkedinLink).toHaveTextContent('Twitter');
+  }
+};
+
+export const Blog: StoryObj<SocialMediaButtons> = {
+  render,
+  args: {
+    blog: "https://g4v.dev"
+  },
+  play: async ({canvasElement}) => {
+    const socialMediaButtons = canvasElement.querySelector('jio-socialmedia-buttons') as SocialMediaButtons;
+    expect(socialMediaButtons.shadowRoot.children).toHaveLength(1);
+
+    const linkedinLink = socialMediaButtons.shadowRoot.querySelector('ul li a[href="https://g4v.dev"]');
+    expect(linkedinLink).toHaveAttribute('rel', 'noreferrer noopener');
+    expect(linkedinLink).toHaveAttribute('target', '_blank');
+    expect(linkedinLink).toHaveTextContent('Blog');
+  }
+};
+
+export const Combined: StoryObj<SocialMediaButtons> = {
+  render,
+  args: {
+    ...Github.args,
+    ...Linkedin.args,
+    ...Twitter.args,
+    ...Blog.args,
+  },
+  play: async (args) => {
+    Github.play(args);
+    Linkedin.play(args);
+    Twitter.play(args);
+    Blog.play(args);
+  }
+};

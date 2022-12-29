@@ -22,15 +22,15 @@ export class ChangelogRatings extends LitElement {
   @property({type: Number}) rollback = 0;
 
   @property({type: Array})
-  ratings: Array<Number | string> = [];
+  ratings: Array<number | string> = [];
 
   @property({type: String})
   version = "";
 
   override render() {
-    const issues = {} as Record<string, Number>;
+    const issues = {} as Record<string, number>;
     for (let i = 0; i < this.ratings.length; i += 2) {
-      issues[this.ratings[i].toString()] = this.ratings[i + 1] as Number;
+      issues[this.ratings[i].toString()] = this.ratings[i + 1] as number;
     }
 
     let relatedIssues = html``;
@@ -38,14 +38,13 @@ export class ChangelogRatings extends LitElement {
       return html`<span>${`${issues[issueKey]}×`}<a href=${`https://issues.jenkins.io/browse/JENKINS-${issueKey}`}>JENKINS-${issueKey}</a> </span>`;
     };
 
+    const issueSort = (aIssueKey: string, bIssueKey: string): number => {
+      return issues[bIssueKey] - issues[aIssueKey];
+    };
+
     if (Object.keys(issues).length > 0) {
-      const body = Object.keys(issues).map(relatedIssueHtml);
-      relatedIssues = html`
-        <span class="related-issues">
-          Community reported issues:
-          ${body}
-        </span>
-  `;
+      const body = Object.keys(issues).sort(issueSort).map(relatedIssueHtml);
+      relatedIssues = html`<span class="related-issues">Community reported issues: ${body}</span>`;
     }
 
     return html`
