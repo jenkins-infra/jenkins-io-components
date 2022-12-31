@@ -130,12 +130,11 @@
   },
   "customElements": "custom-elements.json",
   "files": [
-    "build/*.d.ts",
-    "build/*.d.ts.map",
-    "build/*.js",
-    "build/*.js.map",
-    "custom-elements.json",
-    "makeLayout.js"
+    "build/**/*.d.ts",
+    "build/**/*.d.ts.map",
+    "build/**/*.js",
+    "build/**/*.js.map",
+    "custom-elements.json"
   ],
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": "npm run lint --"
