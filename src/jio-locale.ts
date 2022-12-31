@@ -4,7 +4,16 @@ import {sourceLocale, targetLocales} from './generated/locale-codes';
 export const {getLocale, setLocale} = configureLocalization({
   sourceLocale,
   targetLocales,
-  loadLocale: (locale: string) => import(`./generated/locales/${locale}`),
+  loadLocale: (locale: string) => {
+    if (locale === 'en') {
+      return import(`./generated/locales/en`);
+    } else if (locale === 'es-ES') {
+      return import(`./generated/locales/es-ES`);
+    } else if (locale === 'fr-CA') {
+      return import(`./generated/locales/fr-CA`);
+    }
+    return Promise.reject(`${locale} not found`);
+  },
 });
 
 export const setLocaleFromUrl = async () => {

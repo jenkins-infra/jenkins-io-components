@@ -14,14 +14,16 @@ import {createRequire} from 'module';
 const require = createRequire(import.meta.url);
 const processor = postcss(require('./postcss.config.cjs'));
 
+const input = [].concat(
+  readdirSync('./src/').filter(file => file.endsWith('.ts')).map(file => `src/${file}`)
+).concat(
+  readdirSync('./src/generated/locales/').filter(file => file.endsWith('.ts')).map(file => `src/generated/locales/${file}`)
+).reduce((prev, cur) => {prev[cur.replace('src/', '').replace(/\.[tj]s$/, '')] = cur; return prev;}, {});
+
 export default {
   // Entry point for application build; can specify a glob to build multiple
   // HTML files for non-SPA app
-  input: [].concat(
-    readdirSync('./src/').filter(file => file.endsWith('.ts')).map(file => `src/${file}`)
-  ).concat(
-    readdirSync('./src/generated/locales/').filter(file => file.endsWith('.ts')).map(file => `src/generated/locales/${file}`)
-  ),
+  input,
   plugins: [
     litcss({
       include: '/**/*.css',
