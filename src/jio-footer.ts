@@ -69,7 +69,9 @@ export class Footer extends LitElement {
                <jio-report-a-problem sourcePath=${this.sourcePath} githubRepo=${this.githubRepo} .githubBranch=${ifDefined(this.githubBranch)}></jio-report-a-problem>
             </p>
             <div class="license-box">
-              ${licenseHtmls[this.license] || html``}
+            <b>
+            ${licenseHtmls[this.license] || html``}
+          </b>
             </div>
          </div>
          <div class="links col-md-8">

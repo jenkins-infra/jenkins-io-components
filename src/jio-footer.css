@@ -30,6 +30,7 @@ footer {
   float: left;
   font-size: 0.85rem;
   padding-left: 0;
+  font-weight: bold;
 }
 
 a {
@@ -78,4 +79,9 @@ ul {
   border-top: solid 2px #fff;
   margin-right: 2rem;
   padding: 1rem 0;
+}
+
+p .box{
+  display: flex;
+  gap: 20px;
 }

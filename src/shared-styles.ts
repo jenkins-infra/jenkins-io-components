@@ -36,4 +36,8 @@ export const ionIconText = css`
       height: 22px;
       vertical-align: middle;
     }
+
+    .text{
+      margin-left: 4px;
+    }
 `;
