@@ -13,7 +13,7 @@
     "iOS >= 8"
   ],
   "scripts": {
-    "dev": "rollup -c --watch",
+    "dev": "npx storybook dev -p 6006",
     "build": "rollup -c",
     "build:watch": "rollup -c --watch",
     "clean": "rimraf build jio-*.{d.ts,d.ts.map,js,js.map} test/jio-*.{d.ts,d.ts.map,js,js.map} test/jio-*_test.{d.ts,d.ts.map,js,js.map} shared-styles.{d.ts,d.ts.map,js,js.map}",

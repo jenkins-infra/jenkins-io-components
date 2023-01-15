@@ -54,7 +54,6 @@ export class Searchbox extends LitElement {
         appId: "M6L7Q4Z8HS",
         apiKey: "52f8dfbff76ffd9106f1c68fee16154b",
         searchParameters: {
-          facetFilters: ["lang:en"],
         },
       });
       this._isReady = true;
