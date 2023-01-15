@@ -29,8 +29,8 @@ footer {
 .license-box {
   float: left;
   font-size: 0.85rem;
-  padding-left: 0;
   font-weight: bold;
+  padding-left: 0;
 }
 
 a {
@@ -81,7 +81,7 @@ ul {
   padding: 1rem 0;
 }
 
-p .box{
+p .box {
   display: flex;
   gap: 20px;
 }

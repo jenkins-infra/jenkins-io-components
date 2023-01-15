@@ -37,7 +37,7 @@ export const ionIconText = css`
       vertical-align: middle;
     }
 
-    .text{
+    .text {
       margin-left: 4px;
     }
 `;
