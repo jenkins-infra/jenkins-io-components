@@ -164,11 +164,16 @@ pipeline {
         }
       }
       environment {
-        GITHUB_TOKEN = credentials('jenkins-io-components-ghapp')
         NPM_TOKEN = credentials('jenkinsci-npm-token')
       }
       steps {
-        sh 'npx semantic-release'
+        script {
+          withCredentials([usernamePassword(credentialsId: 'jenkins-io-components-ghapp',
+                usernameVariable: 'GITHUB_APP',
+                passwordVariable: 'GITHUB_TOKEN')]) {
+            sh 'npx semantic-release'
+          }
+        }
       }
     }
   }
