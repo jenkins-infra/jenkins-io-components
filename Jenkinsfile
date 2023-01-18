@@ -164,9 +164,8 @@ pipeline {
         }
       }
       environment {
-        NETLIFY_AUTH_TOKEN = credentials('netlify-auth-token')
-        // GITHUB_TOKEN
-        // NPM_TOKEN
+        GITHUB_TOKEN = credentials('jenkins-io-components-ghapp')
+        NPM_TOKEN = credentials('jenkinsci-npm-token')
       }
       steps {
         sh 'npx semantic-release'
