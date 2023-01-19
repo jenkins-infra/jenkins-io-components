@@ -3,8 +3,8 @@ jio-report-a-problem {
   --jio-a-color: #fff;
 }
 
-jio-report-a-problem {
-  margin-left: 10px;
+jio-improve-this-page {
+  margin-right: 10px;
 }
 
 * {
@@ -82,4 +82,8 @@ ul {
   border-top: solid 2px #fff;
   margin-right: 2rem;
   padding: 1rem 0;
+}
+
+.box {
+  display: flex;
 }
