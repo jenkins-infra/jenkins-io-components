@@ -1,4 +1,4 @@
-import {css} from 'lit';
+import { css } from 'lit';
 
 export const ionIconText = css`
     a {
@@ -35,9 +35,5 @@ export const ionIconText = css`
       width: 22px;
       height: 22px;
       vertical-align: middle;
-    }
-
-    .text {
-      margin-left: 4px;
     }
 `;

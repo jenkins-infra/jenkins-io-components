@@ -3,6 +3,10 @@ jio-report-a-problem {
   --jio-a-color: #fff;
 }
 
+jio-report-a-problem {
+  margin-left: 15px;
+}
+
 * {
   box-sizing: border-box;
 }
