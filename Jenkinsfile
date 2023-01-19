@@ -158,17 +158,25 @@ pipeline {
     stage('Release') {
       when {
         allOf {
-          branch "main"
+          anyOf {
+            branch "main"
+            branch "beta"
+          }
           // Only deploy to production from infra.ci.jenkins.io
           expression { infra.isInfra() }
         }
       }
       environment {
-        GITHUB_TOKEN = credentials('jenkins-io-components-ghapp')
         NPM_TOKEN = credentials('jenkinsci-npm-token')
       }
       steps {
-        sh 'npx semantic-release'
+        script {
+          withCredentials([usernamePassword(credentialsId: 'jenkins-io-components-ghapp',
+                usernameVariable: 'GITHUB_APP',
+                passwordVariable: 'GITHUB_TOKEN')]) {
+            sh 'npx semantic-release --repositoryUrl https://x-access-token:$GITHUB_TOKEN@github.com/jenkins-infra/jenkins-io-components.git'
+          }
+        }
       }
     }
   }
