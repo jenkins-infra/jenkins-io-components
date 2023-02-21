@@ -84,32 +84,6 @@ export class Navbar extends LitElement {
       {label: msg("Spinnaker"), link: "https://www.spinnaker.io/"},
     ];
     const menuItems = [
-      {label: msg("Blog"), link: "/node"},
-      {
-        label: msg("Documentation"), link: [
-          {
-            label: msg("User Guide"), link: "/doc/book", header: true
-          },
-          {label: "- " + msg("Installing Jenkins"), link: "/doc/book/installing/"},
-          {label: "- " + msg("Jenkins Pipeline"), link: "/doc/book/pipeline/"},
-          {label: "- " + msg("Managing Jenkins"), link: "/doc/book/managing/"},
-          {label: "- " + msg("Securing Jenkins"), link: "/doc/book/security/"},
-          {label: "- " + msg("System Administration"), link: "/doc/book/system-administration/"},
-          {label: "- " + msg("Troubleshooting Jenkins"), link: "/doc/book/troubleshooting/"},
-          {label: "- " + msg("Terms and Definitions"), link: "/doc/book/glossary/"},
-          {label: msg("Solution Pages"), link: "/solutions", header: true},
-          {
-            label: msg("Tutorials"), link: "/doc/tutorials", header: true
-          },
-          {label: "- " + msg("Guided Tour"), link: "/doc/pipeline/tour/getting-started/"},
-          {label: "- " + msg("More Tutorials"), link: "/doc/tutorials/"},
-          {
-            label: msg("Developer Guide"), link: "/doc/developer", header: true
-          },
-          {label: msg("Contributor Guide"), link: "/participate", header: true},
-        ]
-      },
-      {label: msg("Plugins"), link: "https://plugins.jenkins.io/"},
       {
         label: msg("Community"), link: [
           {
@@ -141,6 +115,32 @@ export class Navbar extends LitElement {
           {label: "- " + msg("User Experience"), link: "/sigs/ux/"},
         ]
       },
+      {label: msg("Blog"), link: "/node"},
+      {
+        label: msg("Documentation"), link: [
+          {
+            label: msg("User Guide"), link: "/doc/book", header: true
+          },
+          {label: "- " + msg("Installing Jenkins"), link: "/doc/book/installing/"},
+          {label: "- " + msg("Jenkins Pipeline"), link: "/doc/book/pipeline/"},
+          {label: "- " + msg("Managing Jenkins"), link: "/doc/book/managing/"},
+          {label: "- " + msg("Securing Jenkins"), link: "/doc/book/security/"},
+          {label: "- " + msg("System Administration"), link: "/doc/book/system-administration/"},
+          {label: "- " + msg("Troubleshooting Jenkins"), link: "/doc/book/troubleshooting/"},
+          {label: "- " + msg("Terms and Definitions"), link: "/doc/book/glossary/"},
+          {label: msg("Solution Pages"), link: "/solutions", header: true},
+          {
+            label: msg("Tutorials"), link: "/doc/tutorials", header: true
+          },
+          {label: "- " + msg("Guided Tour"), link: "/doc/pipeline/tour/getting-started/"},
+          {label: "- " + msg("More Tutorials"), link: "/doc/tutorials/"},
+          {
+            label: msg("Developer Guide"), link: "/doc/developer", header: true
+          },
+          {label: msg("Contributor Guide"), link: "/participate", header: true},
+        ]
+      },
+      {label: msg("Plugins"), link: "https://plugins.jenkins.io/"},
       {
         label: msg("Subprojects"), link: [
           {
