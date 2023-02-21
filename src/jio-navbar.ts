@@ -197,6 +197,9 @@ export class Navbar extends LitElement {
     let searchboxHtml = null;
     if (this.showSearchBox) {
       searchboxHtml = html`<jio-searchbox></jio-searchbox>`;
+      if (this.menuToggled) {
+        this._clickCollapseButton;
+      }
     }
     return html`
       <nav class="navbar">
