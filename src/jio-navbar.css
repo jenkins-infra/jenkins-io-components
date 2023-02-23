@@ -142,7 +142,7 @@ button.nav-link {
 
 .navbar.dropdown-menu {
   font-size: 0.875rem;
-  max-height: 80vh;
+  max-height: 60vh;
   overflow-y: auto;
 }
 
