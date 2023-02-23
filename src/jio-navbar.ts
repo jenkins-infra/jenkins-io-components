@@ -294,7 +294,7 @@ export class Navbar extends LitElement {
 
   private _handleSearchboxClick() {
     if (this.menuToggled) {
-      this._clickCollapseButton();
+      this.menuToggled=false;
     }
   }
 
