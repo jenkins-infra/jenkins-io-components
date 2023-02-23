@@ -196,7 +196,7 @@ export class Navbar extends LitElement {
     });
     let searchboxHtml = null;
     if (this.showSearchBox) {
-      searchboxHtml = html`<jio-searchbox @click=${() => { if (this.menuToggled) this.menuToggled = false; }}></jio-searchbox>`;
+      searchboxHtml = html`<jio-searchbox @click=${this._handleSearchboxClick}></jio-searchbox>`;
     }
     return html`
       <nav class="navbar">
@@ -290,6 +290,12 @@ export class Navbar extends LitElement {
   private _clickCollapseButton(e: Event) {
     e.preventDefault();
     this.menuToggled = !this.menuToggled;
+  }
+
+  private _handleSearchboxClick() {
+    if (this.menuToggled) {
+      this._clickCollapseButton();
+    }
   }
 
   private _toggleDropdown(e: Event) {
