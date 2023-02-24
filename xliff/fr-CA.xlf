@@ -218,14 +218,6 @@
         <source>Artwork</source>
         <target state="needs-translation">Artwork</target>
       </trans-unit>
-      <trans-unit id="s4caed5b7a7e5d89b">
-        <source>English</source>
-        <target state="needs-translation">English</target>
-      </trans-unit>
-      <trans-unit id="sa64d0efb4c0ded72">
-        <source>中文 Chinese</source>
-        <target state="needs-translation">中文 Chinese</target>
-      </trans-unit>
     </body>
   </file>
 </xliff>
