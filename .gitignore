@@ -19,3 +19,5 @@ shared-*.d.ts.map
 shared-*.js
 shared-*.js.map
 .idea
+eslint-results.json
+stylelint-results.json
