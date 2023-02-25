@@ -67,8 +67,6 @@
 's5b6e52ea97400a5f': `Awards`,
 's3069cdedba617e6f': `Conduct`,
 's74bec541bd25310f': `Artwork`,
-'s4caed5b7a7e5d89b': `English`,
-'sa64d0efb4c0ded72': `中文 Chinese`,
 'sfc5ae29537c2d728': `Creative Commons Attribution-ShareAlike license`,
 's689b7846e70a2db2': `The content driving this site is licensed under the Creative Commons Attribution-ShareAlike 4.0 license.`,
 's175d37c8eb04d73e': `Downloads`,
@@ -85,4 +83,3 @@
 'se071f4c919dd94aa': `Press information`,
 's5eccbe991f054d30': `Merchandise`,
     };
-  
