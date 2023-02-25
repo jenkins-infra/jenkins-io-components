@@ -225,9 +225,9 @@ button.nav-link {
   }
 
   .navbar-nav .dropdown-menu {
-    position: absolute;
     max-height: 40vh;
     overflow-y: auto;
+    position: absolute;
   }
 }
 
