@@ -45,6 +45,12 @@ export class ReportAProblem extends LitElement {
   @property()
   githubBranch = 'master';
 
+  /**
+   * Whether to use the plugin site report URL
+   */
+  @property({ type: Boolean })
+  usePluginSiteReportUrl = false;
+
   get locationHref() {
     const _location = typeof location !== 'undefined' ? location : {href: 'http://unknown'};
     return _location.href;
@@ -65,22 +71,27 @@ export class ReportAProblem extends LitElement {
     const url = this.url || this.locationHref;
     const title = this.pageTitle || this.windowTitle;
 
-    const queryParams = new URLSearchParams();
-    queryParams.append('labels', 'bug');
-    queryParams.append('template', '4-bug.yml');
-    queryParams.append('title', `${title} - TODO: Describe what's wrong`);
-    queryParams.append('problem', outdent`
+    if (this.usePluginSiteReportUrl) {
+
+      const queryParams = new URLSearchParams();
+      queryParams.append('labels', 'bug');
+      queryParams.append('template', '4-bug.yml');
+      queryParams.append('title', `${title} - TODO: Describe what's wrong`);
+      queryParams.append('problem', outdent`
         ${[
         `[${title}](${url}) page`,
         sourcePath ?? `[source file](https://github.com/${githubRepo}/tree/${githubBranch}/src/${sourcePath})`
       ].filter(Boolean).join(', ')}`);
-    const pluginSiteReportUrl = `https://github.com/${githubRepo}/issues/new?${queryParams.toString()}`;
-    return html`
-      <a href=${pluginSiteReportUrl} title=${msg(str`Report a problem with ${sourcePath || url}`)}>
-        <ion-icon class="report" name="warning"></ion-icon>
-        <span class="text">${msg('Report a problem')}</span>
-      </a>
-    `;
+      const pluginSiteReportUrl = `https://github.com/${githubRepo}/issues/new?${queryParams.toString()}`;
+      return html`
+        <a href=${pluginSiteReportUrl} title=${msg(str`Report a problem with ${sourcePath || url}`)}>
+          <ion-icon class="report" name="warning"></ion-icon>
+          <span class="text">${msg('Report a problem')}</span>
+        </a>
+      `;
+    } else {
+      return null;
+    }
   }
 }
 
@@ -89,4 +100,3 @@ declare global {
     'jio-report-a-problem': ReportAProblem;
   }
 }
-
