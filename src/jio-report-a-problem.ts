@@ -67,25 +67,13 @@ export class ReportAProblem extends LitElement {
 
     const queryParams = new URLSearchParams();
     queryParams.append('labels', 'bug');
-    queryParams.append('template', '4-bug.md');
-    queryParams.append('title', `${title} page - TODO: Put a summary here`);
-    queryParams.append('body', outdent`
+    queryParams.append('template', '4-bug.yml');
+    queryParams.append('title', `${title} - TODO: Describe what's wrong`);
+    queryParams.append('problem', outdent`
         ${[
-        `Problem with the [${title}](${url}) page`,
+        `[${title}](${url}) page`,
         sourcePath ?? `[source file](https://github.com/${githubRepo}/tree/${githubBranch}/src/${sourcePath})`
-      ].filter(Boolean).join(', ')}
-
-        TODO: Describe the expected and actual behavior here
-
-        # Screenshots
-
-        TODO: Add screenshots if possible
-
-        # Possible Solution
-
-        <!-- If you have suggestions on a fix for the bug, please describe it here. -->
-
-        N/A`);
+      ].filter(Boolean).join(', ')}`);
     const pluginSiteReportUrl = `https://github.com/${githubRepo}/issues/new?${queryParams.toString()}`;
     return html`
       <a href=${pluginSiteReportUrl} title=${msg(str`Report a problem with ${sourcePath || url}`)}>
