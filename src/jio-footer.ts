@@ -103,6 +103,9 @@ export class Footer extends LitElement {
                            <li>
                               <a href=${relOrAbsoluteLink('/participate/', this.property).href}>${msg('Contributing')}</a>
                            </li>
+                           <li>
+                              <a href=${relOrAbsoluteLink('/books/', this.property).href}>${msg('Books')}</a>
+                           </li>
                         </ul>
                      </div>
                   </div>
