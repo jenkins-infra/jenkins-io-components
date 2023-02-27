@@ -76,7 +76,6 @@ export class ReportAProblem extends LitElement {
       const queryParams = new URLSearchParams();
       queryParams.append('labels', 'bug');
       queryParams.append('template', '4-bug.yml');
-      queryParams.append('title', `${title} - TODO: Describe what's wrong`);
       queryParams.append('problem', outdent`
         ${[
         `[${title}](${url}) page`,
