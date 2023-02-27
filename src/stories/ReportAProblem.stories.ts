@@ -11,11 +11,12 @@ export default {
   component: 'jio-report-a-problem',
 } as Meta;
 
-const render = ({githubRepo, sourcePath, pageTitle, url}) => html`<jio-report-a-problem
+const render = ({githubRepo, sourcePath, pageTitle, url, usePluginSiteReportUrl}) => html`<jio-report-a-problem
   sourcePath=${ifDefined(sourcePath)}
   githubRepo=${ifDefined(githubRepo)}
   pageTitle=${ifDefined(pageTitle)}
   url=${ifDefined(url)}
+  usePluginSiteReportUrl=${ifDefined(usePluginSiteReportUrl)}
 ></jio-report-a-problem>`;
 
 const expectToBeUrlEncoded = (href: string, {title, url, githubRepo}) => {
@@ -24,7 +25,6 @@ const expectToBeUrlEncoded = (href: string, {title, url, githubRepo}) => {
   expect(href).toContain(`https://github.com/${githubRepo}/issues/new`);
   expect(href).toContain(new URLSearchParams({title}).toString());
   expect(href).toContain(encodeURIComponent(url));
-  expect(hrefURL.searchParams.get('title') || '').toEqual(`${title} - TODO: Put a summary here`);
   expect(hrefURL.searchParams.get('body') || '').toContain(url);
 
   const nonHrefBodyLines = hrefURL.searchParams.get('body')?.split('\n')?.filter(line => line.startsWith(' '));
@@ -45,6 +45,7 @@ export const RepoAndSourcePath: StoryObj<ReportAProblem> = {
   args: {
     sourcePath: 'src/stories/ReportAProblem.ts',
     githubRepo: 'jenkins-infra/jenkins-io-components',
+    usePluginSiteReportUrl: true,
   },
   play: async ({canvasElement, args}) => {
     const reportAProblem = canvasElement.querySelector('jio-report-a-problem') as ReportAProblem;
@@ -80,6 +81,7 @@ export const NoSourcePath: StoryObj<ReportAProblem> = {
   render,
   args: {
     githubRepo: 'jenkins-infra/jenkins-io-components',
+    usePluginSiteReportUrl: true,
   },
   play: async ({canvasElement, args}) => {
     const reportAProblem = canvasElement.querySelector('jio-report-a-problem') as ReportAProblem;
