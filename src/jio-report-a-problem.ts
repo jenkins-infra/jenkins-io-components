@@ -46,10 +46,10 @@ export class ReportAProblem extends LitElement {
   githubBranch = 'master';
 
   /**
-   * Whether to use the plugin site report URL
+   * The name of the bug report template to use
    */
-  @property({ type: Boolean })
-  usePluginSiteReportUrl = false;
+  @property({ type: String })
+  template = '';
 
   get locationHref() {
     const _location = typeof location !== 'undefined' ? location : {href: 'http://unknown'};
@@ -71,7 +71,7 @@ export class ReportAProblem extends LitElement {
     const url = this.url || this.locationHref;
     const title = this.pageTitle || this.windowTitle;
 
-    if (this.usePluginSiteReportUrl) {
+    if (this.template != null) {
 
       const queryParams = new URLSearchParams();
       queryParams.append('labels', 'bug');

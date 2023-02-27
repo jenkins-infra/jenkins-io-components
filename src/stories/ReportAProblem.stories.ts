@@ -11,12 +11,12 @@ export default {
   component: 'jio-report-a-problem',
 } as Meta;
 
-const render = ({githubRepo, sourcePath, pageTitle, url, usePluginSiteReportUrl}) => html`<jio-report-a-problem
+const render = ({githubRepo, sourcePath, pageTitle, url, template}) => html`<jio-report-a-problem
   sourcePath=${ifDefined(sourcePath)}
   githubRepo=${ifDefined(githubRepo)}
   pageTitle=${ifDefined(pageTitle)}
   url=${ifDefined(url)}
-  usePluginSiteReportUrl=${ifDefined(usePluginSiteReportUrl)}
+  template=${ifDefined(template)}
 ></jio-report-a-problem>`;
 
 const expectToBeUrlEncoded = (href: string, {title, url, githubRepo}) => {
@@ -45,7 +45,7 @@ export const RepoAndSourcePath: StoryObj<ReportAProblem> = {
   args: {
     sourcePath: 'src/stories/ReportAProblem.ts',
     githubRepo: 'jenkins-infra/jenkins-io-components',
-    usePluginSiteReportUrl: true,
+    template: '4-bug.yml',
   },
   play: async ({canvasElement, args}) => {
     const reportAProblem = canvasElement.querySelector('jio-report-a-problem') as ReportAProblem;
@@ -81,7 +81,7 @@ export const NoSourcePath: StoryObj<ReportAProblem> = {
   render,
   args: {
     githubRepo: 'jenkins-infra/jenkins-io-components',
-    usePluginSiteReportUrl: true,
+    template: '4-bug.yml',
   },
   play: async ({canvasElement, args}) => {
     const reportAProblem = canvasElement.querySelector('jio-report-a-problem') as ReportAProblem;

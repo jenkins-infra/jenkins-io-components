@@ -58,6 +58,12 @@ export class Footer extends LitElement {
    @property()
    githubBranch = 'master';
 
+   /**
+    * The name of the bug report template to use
+    */
+   @property({ type: String })
+   reportAProblemTemplate = ""
+
    override render() {
       return html`
 <footer>
