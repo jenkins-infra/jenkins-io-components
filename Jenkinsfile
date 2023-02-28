@@ -36,6 +36,7 @@ pipeline {
         NODE_ENV = 'development'
       }
       steps {
+        sh 'asdf install'
         sh 'npm ci'
         sh 'npx playwright install'
       }
