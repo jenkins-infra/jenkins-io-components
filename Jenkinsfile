@@ -43,9 +43,15 @@ pipeline {
     }
 
     stage('Confirm Changelog notes') {
-      when { changeRequest target: 'main' }
+      when {
+        anyOf {
+          changeRequest target: 'main'
+          changeRequest target: 'alpha'
+          changeRequest target: 'beta'
+        }
+      }
       steps {
-        sh 'npx changeset status --since=main'
+        sh 'npx changeset status --since=$CHANGE_TARGET'
       }
     }
 
