@@ -42,6 +42,13 @@ pipeline {
       }
     }
 
+    stage('Confirm Changelog notes') {
+      when { changeRequest target: 'main' }
+      steps {
+        sh 'npx changeset status --since=main'
+      }
+    }
+
     stage('Lint') {
       environment {
         NODE_ENV = "development"
@@ -107,7 +114,6 @@ pipeline {
       }
     }
 
-
     stage('Deploy PR to preview site') {
       when {
         allOf{
@@ -162,6 +168,7 @@ pipeline {
           anyOf {
             branch "main"
             branch "beta"
+            branch "alpha"
           }
           // Only deploy to production from infra.ci.jenkins.io
           expression { infra.isInfra() }
@@ -175,7 +182,27 @@ pipeline {
           withCredentials([usernamePassword(credentialsId: 'jenkins-io-components-ghapp',
                 usernameVariable: 'GITHUB_APP',
                 passwordVariable: 'GITHUB_TOKEN')]) {
-            sh 'npx semantic-release --repositoryUrl https://x-access-token:$GITHUB_TOKEN@github.com/jenkins-infra/jenkins-io-components.git'
+            script {
+              if (env.BRANCH_NAME == 'beta') {
+                sh 'npx changeset version --snapshot'
+                sh 'npx changeset publish --tag=beta'
+              } else if (env.BRANCH_NAME == 'alpha') {
+                sh 'npx changeset version --snapshot'
+                sh 'npx changeset publish --tag=alpha'
+              } else {
+                sh 'npx changeset version'
+                sh 'npx changeset publish'
+              }
+            }
+            sh '''
+              git config --global user.email "noreply@jenkins.io"
+              git config --global user.name "GitHub App User"
+              git add -u .
+              git commit -m "Release"
+
+              git remote add tags --repositoryUrl "https://x-access-token:$GITHUB_TOKEN@github.com/jenkins-infra/jenkins-io-components.git"
+              git push tags --follow-tags
+            '''
           }
         }
       }

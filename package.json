@@ -1,6 +1,6 @@
 {
   "name": "@jenkinsci/jenkins-io-components",
-  "version": "0.0.1",
+  "version": "1.18.1",
   "description": "Random parts shared between jenkins.io",
   "publishConfig": {
     "access": "public"
@@ -57,6 +57,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.19.3",
+    "@changesets/cli": "^2.26.0",
     "@custom-elements-manifest/analyzer": "^0.6.4",
     "@lit-labs/cli-localize": "^0.1.0",
     "@open-wc/testing": "^3.1.6",
