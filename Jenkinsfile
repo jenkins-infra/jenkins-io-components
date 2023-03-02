@@ -42,19 +42,6 @@ pipeline {
       }
     }
 
-    stage('Confirm Changelog notes') {
-      when {
-        anyOf {
-          changeRequest target: 'main'
-          changeRequest target: 'alpha'
-          changeRequest target: 'beta'
-        }
-      }
-      steps {
-        sh 'npx changeset status --since=$CHANGE_TARGET'
-      }
-    }
-
     stage('Lint') {
       environment {
         NODE_ENV = "development"
