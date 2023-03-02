@@ -61,8 +61,8 @@ export class Footer extends LitElement {
    /**
     * The name of the bug report template to use
     */
-   @property({ type: String })
-   reportAProblemTemplate = ""
+   @property({type: String})
+   reportAProblemTemplate = "";
 
    override render() {
       return html`
@@ -72,7 +72,7 @@ export class Footer extends LitElement {
          <div class="col-md-4">
             <p class="box">
                <jio-improve-this-page sourcePath=${this.sourcePath} githubRepo=${this.githubRepo} .githubBranch=${ifDefined(this.githubBranch)}></jio-improve-this-page>
-               <jio-report-a-problem sourcePath=${this.sourcePath} githubRepo=${this.githubRepo} .githubBranch=${ifDefined(this.githubBranch)}></jio-report-a-problem>
+               <jio-report-a-problem sourcePath=${this.sourcePath} githubRepo=${this.githubRepo} .githubBranch=${ifDefined(this.githubBranch)} .template=${ifDefined(this.reportAProblemTemplate)}></jio-report-a-problem>
             </p>
             <div class="license-box">
               ${licenseHtmls[this.license] || html``}

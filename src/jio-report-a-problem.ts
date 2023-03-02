@@ -48,7 +48,7 @@ export class ReportAProblem extends LitElement {
   /**
    * The name of the bug report template to use
    */
-  @property({ type: String })
+  @property({type: String})
   template = '';
 
   get locationHref() {
@@ -61,29 +61,54 @@ export class ReportAProblem extends LitElement {
     return _document.title;
   }
 
+  get derivedTitle() {
+    return this.pageTitle || this.windowTitle;
+  }
+
+  get derivedUrl() {
+    return this.url || this.locationHref;
+  }
+
+  get reportUrl() {
+    if (this.template && (this.template.endsWith('.yml') || this.template.endsWith('.yaml'))) {
+      // custom fields version
+      const queryParams = new URLSearchParams();
+      queryParams.append('labels', 'bug');
+      queryParams.append('template', this.template);
+      let problem = `[${this.derivedTitle}](${this.derivedUrl}) page`;
+      if (this.sourcePath) {
+        problem += `[source file](https://github.com/${this.githubRepo}/tree/${this.githubBranch}/src/${this.sourcePath})`;
+      }
+      queryParams.append('problem', problem);
+      return `https://github.com/${this.githubRepo}/issues/new?${queryParams.toString()}`;
+    } else {
+      // legacy template (if available)
+      const queryParams = new URLSearchParams();
+      queryParams.append('labels', 'bug');
+      queryParams.append('template', '4-bug.md');
+      queryParams.append('title', `${this.derivedTitle} page - TODO: Put a summary here`);
+      let problem = `Problem with the [${this.derivedTitle}](${this.derivedUrl}) page`;
+      if (this.sourcePath) {
+        problem += `[source file](https://github.com/${this.githubRepo}/tree/${this.githubBranch}/src/${this.sourcePath})`;
+      }
+      problem += `
+        TODO: Describe the expected and actual behavior here
+        # Screenshots
+        TODO: Add screenshots if possible
+        # Possible Solution
+        <!-- If you have suggestions on a fix for the bug, please describe it here. -->
+        N/A`;
+      queryParams.append('body', outdent`${problem.split('\n').map(line => line.trim()).join('\n')}`);
+      return `https://github.com/${this.githubRepo}/issues/new?${queryParams.toString()}`;
+    }
+  }
+
   override render() {
     if (!this.githubRepo) {return null;}
 
-    const githubBranch = this.githubBranch;
-    const githubRepo = this.githubRepo;
-    const sourcePath = this.sourcePath;
-
-    const url = this.url || this.locationHref;
-    const title = this.pageTitle || this.windowTitle;
-
     if (this.template != null) {
-
-      const queryParams = new URLSearchParams();
-      queryParams.append('labels', 'bug');
-      queryParams.append('template', '4-bug.yml');
-      queryParams.append('problem', outdent`
-        ${[
-        `[${title}](${url}) page`,
-        sourcePath ?? `[source file](https://github.com/${githubRepo}/tree/${githubBranch}/src/${sourcePath})`
-      ].filter(Boolean).join(', ')}`);
-      const pluginSiteReportUrl = `https://github.com/${githubRepo}/issues/new?${queryParams.toString()}`;
       return html`
-        <a href=${pluginSiteReportUrl} title=${msg(str`Report a problem with ${sourcePath || url}`)}>
+        <a href=${this.reportUrl} title=${msg(str`Report a problem with ${this.sourcePath || this.derivedUrl}`)}>
           <ion-icon class="report" name="warning"></ion-icon>
           <span class="text">${msg('Report a problem')}</span>
         </a>

@@ -45,7 +45,6 @@ export const RepoAndSourcePath: StoryObj<ReportAProblem> = {
   args: {
     sourcePath: 'src/stories/ReportAProblem.ts',
     githubRepo: 'jenkins-infra/jenkins-io-components',
-    template: '4-bug.yml',
   },
   play: async ({canvasElement, args}) => {
     const reportAProblem = canvasElement.querySelector('jio-report-a-problem') as ReportAProblem;
@@ -81,7 +80,6 @@ export const NoSourcePath: StoryObj<ReportAProblem> = {
   render,
   args: {
     githubRepo: 'jenkins-infra/jenkins-io-components',
-    template: '4-bug.yml',
   },
   play: async ({canvasElement, args}) => {
     const reportAProblem = canvasElement.querySelector('jio-report-a-problem') as ReportAProblem;
@@ -137,5 +135,27 @@ export const OverrideURL: StoryObj<ReportAProblem> = {
       reportAProblem.shadowRoot.querySelector('a').getAttribute('href'),
       {url: 'https://google.com/', title: 'thingie page', githubRepo: args.githubRepo}
     );
+  }
+};
+
+export const JenkinsIOBugTemplate: StoryObj<ReportAProblem> = {
+  render,
+  args: {
+    sourcePath: 'src/stories/ReportAProblem.ts',
+    githubRepo: 'halkeye/fake-jenkins-io-issue-templates',
+    githubBranch: 'main',
+    template: '4-bug.yml',
+  },
+  play: async ({canvasElement}) => {
+    const reportAProblem = canvasElement.querySelector('jio-report-a-problem') as ReportAProblem;
+    expect(reportAProblem.shadowRoot.children).toHaveLength(1);
+    expect(reportAProblem.shadowRoot.querySelector('a')).toHaveAttribute('title', 'Report a problem with src/stories/ReportAProblem.ts');
+    expect(reportAProblem.shadowRoot.querySelector('a ion-icon')).toHaveAttribute('name', 'warning');
+    expect(reportAProblem.shadowRoot.querySelector('a span')).toHaveTextContent('Report a problem');
+
+    const url = new URL(reportAProblem.shadowRoot.querySelector('a').getAttribute('href'));
+    expect(Array.from(url.searchParams.keys()).sort()).toEqual(['labels', 'problem', 'template']);
+    expect(url.searchParams.get('labels')).toEqual('bug');
+    expect(url.searchParams.get('template')).toEqual('4-bug.yml');
   }
 };
