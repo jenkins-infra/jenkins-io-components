@@ -197,7 +197,7 @@ pipeline {
               git add -u .
               git commit -m "Release"
 
-              git remote add tags --repositoryUrl "https://x-access-token:$GITHUB_TOKEN@github.com/jenkins-infra/jenkins-io-components.git"
+              git remote add tags "https://x-access-token:$GITHUB_TOKEN@github.com/jenkins-infra/jenkins-io-components.git"
               git push tags --follow-tags
             '''
           }
