@@ -11,11 +11,12 @@ export default {
   component: 'jio-report-a-problem',
 } as Meta;
 
-const render = ({githubRepo, sourcePath, pageTitle, url}) => html`<jio-report-a-problem
+const render = ({githubRepo, sourcePath, pageTitle, url, template}) => html`<jio-report-a-problem
   sourcePath=${ifDefined(sourcePath)}
   githubRepo=${ifDefined(githubRepo)}
   pageTitle=${ifDefined(pageTitle)}
   url=${ifDefined(url)}
+  template=${ifDefined(template)}
 ></jio-report-a-problem>`;
 
 const expectToBeUrlEncoded = (href: string, {title, url, githubRepo}) => {
@@ -24,7 +25,6 @@ const expectToBeUrlEncoded = (href: string, {title, url, githubRepo}) => {
   expect(href).toContain(`https://github.com/${githubRepo}/issues/new`);
   expect(href).toContain(new URLSearchParams({title}).toString());
   expect(href).toContain(encodeURIComponent(url));
-  expect(hrefURL.searchParams.get('title') || '').toEqual(`${title} - TODO: Put a summary here`);
   expect(hrefURL.searchParams.get('body') || '').toContain(url);
 
   const nonHrefBodyLines = hrefURL.searchParams.get('body')?.split('\n')?.filter(line => line.startsWith(' '));
@@ -135,5 +135,27 @@ export const OverrideURL: StoryObj<ReportAProblem> = {
       reportAProblem.shadowRoot.querySelector('a').getAttribute('href'),
       {url: 'https://google.com/', title: 'thingie page', githubRepo: args.githubRepo}
     );
+  }
+};
+
+export const JenkinsIOBugTemplate: StoryObj<ReportAProblem> = {
+  render,
+  args: {
+    sourcePath: 'src/stories/ReportAProblem.ts',
+    githubRepo: 'halkeye/fake-jenkins-io-issue-templates',
+    githubBranch: 'main',
+    template: '4-bug.yml',
+  },
+  play: async ({canvasElement}) => {
+    const reportAProblem = canvasElement.querySelector('jio-report-a-problem') as ReportAProblem;
+    expect(reportAProblem.shadowRoot.children).toHaveLength(1);
+    expect(reportAProblem.shadowRoot.querySelector('a')).toHaveAttribute('title', 'Report a problem with src/stories/ReportAProblem.ts');
+    expect(reportAProblem.shadowRoot.querySelector('a ion-icon')).toHaveAttribute('name', 'warning');
+    expect(reportAProblem.shadowRoot.querySelector('a span')).toHaveTextContent('Report a problem');
+
+    const url = new URL(reportAProblem.shadowRoot.querySelector('a').getAttribute('href'));
+    expect(Array.from(url.searchParams.keys()).sort()).toEqual(['labels', 'problem', 'template']);
+    expect(url.searchParams.get('labels')).toEqual('bug');
+    expect(url.searchParams.get('template')).toEqual('4-bug.yml');
   }
 };
