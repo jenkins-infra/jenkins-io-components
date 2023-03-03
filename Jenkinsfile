@@ -175,7 +175,10 @@ pipeline {
           withCredentials([usernamePassword(credentialsId: 'jenkins-io-components-ghapp',
                 usernameVariable: 'GITHUB_APP',
                 passwordVariable: 'GITHUB_TOKEN')]) {
-            sh 'npm whoami'
+            sh '''
+              npm config set '//registry.npmjs.org/:_authToken' "${NPM_TOKEN}"
+              npm whoami
+            '''
             script {
               if (env.BRANCH_NAME == 'beta') {
                 sh 'npx changeset version --snapshot'
