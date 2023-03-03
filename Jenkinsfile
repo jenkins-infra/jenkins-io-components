@@ -175,6 +175,7 @@ pipeline {
           withCredentials([usernamePassword(credentialsId: 'jenkins-io-components-ghapp',
                 usernameVariable: 'GITHUB_APP',
                 passwordVariable: 'GITHUB_TOKEN')]) {
+            sh 'npm whoami'
             script {
               if (env.BRANCH_NAME == 'beta') {
                 sh 'npx changeset version --snapshot'
