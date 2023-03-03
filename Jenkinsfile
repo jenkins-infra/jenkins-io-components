@@ -178,6 +178,7 @@ pipeline {
             sh '''
               npm config set '//registry.npmjs.org/:_authToken' "${NPM_TOKEN}"
               npm whoami
+              git checkout $BRANCH_NAME
             '''
             script {
               if (env.BRANCH_NAME == 'beta') {
