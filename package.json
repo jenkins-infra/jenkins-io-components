@@ -1,6 +1,6 @@
 {
   "name": "@jenkinsci/jenkins-io-components",
-  "version": "1.18.1",
+  "version": "0.0.0-20230303043743",
   "description": "Random parts shared between jenkins.io",
   "publishConfig": {
     "access": "public"
