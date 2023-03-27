@@ -101,10 +101,13 @@ export class Navbar extends LitElement {
           {
             label: msg("Tutorials"), link: "/doc/tutorials", header: true
           },
+          {label: "- " + msg("Guided Tour"), link: "/doc/pipeline/tour/getting-started/"},
+          {label: "- " + msg("More Tutorials"), link: "/doc/tutorials/"},
           {
             label: msg("Developer Guide"), link: "/doc/developer", header: true
           },
           {label: msg("Contributor Guide"), link: "/participate", header: true},
+          {label: msg("Books"), link: "/books", header: true},
         ]
       },
       {label: msg("Plugins"), link: "https://plugins.jenkins.io/"},
