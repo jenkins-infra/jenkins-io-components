@@ -1,5 +1,4 @@
-import {LitElement, html, css} from 'lit';
-import {ifDefined} from 'lit/directives/if-defined.js';
+import {LitElement, html, nothing, css} from 'lit';
 import {customElement, property} from 'lit/decorators.js';
 
 @customElement('jio-navbar-link')
@@ -60,19 +59,16 @@ export class NavbarLink extends LitElement {
   property = 'https://www.jenkins.io';
 
   @property()
+  // FIXME - rename this later?
+  // eslint-disable-next-line lit/no-native-attributes
   class = "";
 
   @property()
   locationPathname = location.pathname;
 
   override render() {
-    let title;
-    // ifDefined only checks defined, not empty
-    if (this.title) {
-      title = this.title;
-    }
     const {isActive, href} = relOrAbsoluteLink(this.href, this.property, this.locationPathname);
-    return html`<a class=${`nav-link ${this.class} ${isActive ? "active" : ""}`} title=${ifDefined(title)} href=${href}>
+    return html`<a class=${`nav-link ${this.class} ${isActive ? "active" : ""}`} title=${this.title ? this.title : nothing} href=${href}>
         <slot></slot>
       </a>`;
   }

@@ -1,12 +1,18 @@
 {
   "customSyntax": "postcss-scss",
   "extends": [
+    "stylelint-config-standard",
     "stylelint-config-recommended",
     "stylelint-config-styled-components",
-    "stylelint-config-sass-guidelines",
-    "stylelint-prettier/recommended"
+    "stylelint-config-sass-guidelines"
   ],
   "rules": {
-    "selector-no-qualifying-type": null
+    "declaration-property-value-no-unknown": true,
+    "media-feature-range-notation": "prefix",
+    "selector-no-qualifying-type": null,
+    "color-function-notation": null,
+    "alpha-value-notation": null,
+    "hue-degree-notation": null,
+    "number-max-precision": null
   }
 }
