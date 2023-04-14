@@ -85,6 +85,7 @@ export class Navbar extends LitElement {
     ];
     const menuItems = [
       {label: msg("Blog"), link: "/node"},
+      {label: msg("Success Stories"), link: "https://stories.jenkins.io/"},
       {
         label: msg("Documentation"), link: [
           {
