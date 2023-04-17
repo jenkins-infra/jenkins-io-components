@@ -131,12 +131,8 @@ export class Navbar extends LitElement {
             label: msg("Special Interest Groups"), link: "/sigs/", header: true
           },
           {label: "- " + msg("Advocacy and Outreach"), link: "/sigs/advocacy-and-outreach/"},
-          {label: "- " + msg("Chinese Localization"), link: "/sigs/chinese-localization/"},
-          {label: "- " + msg("Cloud Native"), link: "/sigs/cloud-native/"},
           {label: "- " + msg("Documentation"), link: "/sigs/docs/"},
           {label: "- " + msg("Google Summer of Code"), link: "/sigs/gsoc/"},
-          {label: "- " + msg("Hardware and EDA"), link: "/sigs/hw-and-eda/"},
-          {label: "- " + msg("Pipeline Authoring"), link: "/sigs/pipeline-authoring/"},
           {label: "- " + msg("Platform"), link: "/sigs/platform/"},
           {label: "- " + msg("User Experience"), link: "/sigs/ux/"},
         ]
