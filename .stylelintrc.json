@@ -1,10 +1,9 @@
 {
-  "customSyntax": "postcss-scss",
+  "customSyntax": "postcss",
   "extends": [
     "stylelint-config-standard",
     "stylelint-config-recommended",
-    "stylelint-config-styled-components",
-    "stylelint-config-sass-guidelines"
+    "stylelint-config-styled-components"
   ],
   "rules": {
     "declaration-property-value-no-unknown": true,
