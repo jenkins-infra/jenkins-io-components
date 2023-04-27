@@ -1,4 +1,4 @@
-import {LitElement, html, css} from 'lit';
+import {LitElement, nothing, html, css, TemplateResult} from 'lit';
 import {customElement, property} from 'lit/decorators.js';
 import './jio-changelog-weather-icon';
 
@@ -30,10 +30,12 @@ export class ChangelogRatings extends LitElement {
   override render() {
     const issues = {} as Record<string, number>;
     for (let i = 0; i < this.ratings.length; i += 2) {
+      // disabling lint rule as this isn't assigning, just reading from
+      // eslint-disable-next-line lit/no-this-assign-in-render
       issues[this.ratings[i].toString()] = this.ratings[i + 1] as number;
     }
 
-    let relatedIssues = html``;
+    let relatedIssues: TemplateResult | symbol = nothing;
     const relatedIssueHtml = (issueKey: string) => {
       return html`<span>${`${issues[issueKey]}×`}<a href=${`https://issues.jenkins.io/browse/JENKINS-${issueKey}`}>JENKINS-${issueKey}</a> </span>`;
     };

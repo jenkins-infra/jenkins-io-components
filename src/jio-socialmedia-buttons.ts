@@ -1,4 +1,4 @@
-import {LitElement, html} from 'lit';
+import {LitElement, TemplateResult, html, nothing} from 'lit';
 import {customElement, property} from 'lit/decorators.js';
 import styles from './jio-socialmedia-buttons.css';
 
@@ -19,25 +19,25 @@ export class SocialMediaButtons extends LitElement {
   linkedin = "";
 
   override render() {
-    let twitter = html``;
+    let _twitter: TemplateResult | symbol = nothing;
     if (this.twitter) {
-      twitter = html`<li><a href=${`https://twitter.com/${this.twitter}`} target="_blank" rel="noreferrer noopener">Twitter</a></li>`;
+      _twitter = html`<li><a href=${`https://twitter.com/${this.twitter}`} target="_blank" rel="noreferrer noopener">Twitter</a></li>`;
     }
-    let github = html``;
+    let _github: TemplateResult | symbol = nothing;
     if (this.github) {
-      github = html`<li><a href=${`https://github.com/${this.github}`} target="_blank" rel="noreferrer noopener">Github</a></li>`;
+      _github = html`<li><a href=${`https://github.com/${this.github}`} target="_blank" rel="noreferrer noopener">Github</a></li>`;
     }
-    let blog = html``;
+    let _blog: TemplateResult | symbol = nothing;
     if (this.blog) {
-      blog = html`<li><a href=${this.blog} target="_blank" rel="noreferrer noopener">Blog</a></li>`;
-    }
-    let linkedin = html``;
+      _blog = html`<li><a href=${this.blog} target="_blank" rel="noreferrer noopener">Blog</a></li>`;
+    };
+    let _linkedin: TemplateResult | symbol = nothing;
     if (this.linkedin) {
-      linkedin = html`<li><a href=${`https://www.linkedin.com/in/${this.linkedin}`} target="_blank" rel="noreferrer noopener">LinkedIn</a></li>`;
+      _linkedin = html`<li><a href=${`https://www.linkedin.com/in/${this.linkedin}`} target="_blank" rel="noreferrer noopener">LinkedIn</a></li>`;
     }
     return html`
       <ul>
-        ${github}${twitter}${blog}${linkedin}
+        ${_github}${_twitter}${_blog}${_linkedin}
       </ul>
     `;
   }

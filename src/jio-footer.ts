@@ -1,4 +1,4 @@
-import {LitElement, html, TemplateResult} from 'lit';
+import {LitElement, html, nothing, TemplateResult} from 'lit';
 import {ifDefined} from 'lit/directives/if-defined.js';
 import {customElement, property} from 'lit/decorators.js';
 import {msg, localized} from '@lit/localize';
@@ -75,7 +75,7 @@ export class Footer extends LitElement {
                <jio-report-a-problem sourcePath=${this.sourcePath} githubRepo=${this.githubRepo} .githubBranch=${ifDefined(this.githubBranch)} .template=${ifDefined(this.reportAProblemTemplate)}></jio-report-a-problem>
             </p>
             <div class="license-box">
-              ${licenseHtmls[this.license] || html``}
+              ${licenseHtmls[this.license] || nothing}
             </div>
          </div>
          <div class="links col-md-8">

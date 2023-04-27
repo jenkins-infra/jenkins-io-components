@@ -1,4 +1,4 @@
-import {LitElement, html, TemplateResult} from 'lit';
+import {LitElement, html, nothing, TemplateResult} from 'lit';
 import {customElement, state, property} from 'lit/decorators.js';
 import {ifDefined} from 'lit/directives/if-defined.js';
 import {msg, localized} from '@lit/localize';
@@ -179,16 +179,15 @@ export class Navbar extends LitElement {
     const menuItemsHtml = menuItems.map((menuItem, idx) => {
       let body;
       if (menuItem.link && Array.isArray(menuItem.link)) {
+        // eslint-disable-next-line lit/no-this-assign-in-render
         body = this.renderNavItemDropdown(menuItem, idx, this.visibleMenu === idx);
       } else {
+        // eslint-disable-next-line lit/no-this-assign-in-render
         body = html`<li class="nav-item">${this.renderNavItemLink(menuItem)}</li>`;
       }
       return body;
     });
-    let searchboxHtml = null;
-    if (this.showSearchBox) {
-      searchboxHtml = html`<jio-searchbox @click=${this._handleSearchboxClick}></jio-searchbox>`;
-    }
+    const searchboxHtml = !this.showSearchBox ? nothing : html`<jio-searchbox @click=${this._handleSearchboxClick}></jio-searchbox>`;
     return html`
       <nav class="navbar">
         <span class="navbar-brand">
@@ -285,7 +284,7 @@ export class Navbar extends LitElement {
 
   private _handleSearchboxClick() {
     if (this.menuToggled) {
-      this.menuToggled=false;
+      this.menuToggled = false;
     }
   }
 
