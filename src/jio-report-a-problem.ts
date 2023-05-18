@@ -77,7 +77,7 @@ export class ReportAProblem extends LitElement {
       queryParams.append('template', this.template);
       let problem = `[${this.derivedTitle}](${this.derivedUrl}) page`;
       if (this.sourcePath) {
-        problem += `[source file](https://github.com/${this.githubRepo}/tree/${this.githubBranch}/src/${this.sourcePath})`;
+        problem += `[source file](https://github.com/${this.githubRepo}/tree/${this.githubBranch}/${this.sourcePath})`;
       }
       queryParams.append('problem', problem);
       return `https://github.com/${this.githubRepo}/issues/new?${queryParams.toString()}`;
@@ -89,7 +89,7 @@ export class ReportAProblem extends LitElement {
       queryParams.append('title', `${this.derivedTitle} page - TODO: Put a summary here`);
       let problem = `Problem with the [${this.derivedTitle}](${this.derivedUrl}) page`;
       if (this.sourcePath) {
-        problem += `[source file](https://github.com/${this.githubRepo}/tree/${this.githubBranch}/src/${this.sourcePath})`;
+        problem += `[source file](https://github.com/${this.githubRepo}/tree/${this.githubBranch}/${this.sourcePath})`;
       }
       problem += `
         TODO: Describe the expected and actual behavior here

@@ -18,7 +18,10 @@ const licenseHtmls = {
      <div id="creativecommons">
         <a href="https://creativecommons.org/licenses/by-sa/4.0/">
            <p>
-              <img alt=${msg('Creative Commons Attribution-ShareAlike license')} src="https://licensebuttons.net/l/by-sa/4.0/88x31.png">
+              <img alt=${msg('Creative Commons Attribution-ShareAlike license')}
+                   src="https://mirrors.creativecommons.org/presskit/buttons/88x31/svg/by-sa.svg"
+                   width="88" height="31"
+              >
            </p>
         </a>
         <p>
