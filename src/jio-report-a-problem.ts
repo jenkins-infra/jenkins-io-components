@@ -108,9 +108,9 @@ export class ReportAProblem extends LitElement {
 
     if (this.template != null) {
       return html`
-        <a href=${this.reportUrl} title=${msg(str`Report a problem with ${this.sourcePath || this.derivedUrl}`)}>
+        <a href=${this.reportUrl} title=${msg(str`Report a page issue with ${this.sourcePath || this.derivedUrl}`)}>
           <ion-icon class="report" name="warning"></ion-icon>
-          <span class="text">${msg('Report a problem')}</span>
+          <span class="text">${msg('Report page issue')}</span>
         </a>
       `;
     } else {
