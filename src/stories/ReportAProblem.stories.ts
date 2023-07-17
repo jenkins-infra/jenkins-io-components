@@ -53,9 +53,9 @@ export const RepoAndSourcePath: StoryObj<ReportAProblem> = {
     expect(reportAProblem.sourcePath).toEqual(args.sourcePath || 'src/stories/Footer.stories.ts');
 
     expect(reportAProblem.shadowRoot.children).toHaveLength(1);
-    expect(reportAProblem.shadowRoot.querySelector('a')).toHaveAttribute('title', 'Report a problem with src/stories/ReportAProblem.ts');
+    expect(reportAProblem.shadowRoot.querySelector('a')).toHaveAttribute('title', 'Report a page issue with src/stories/ReportAProblem.ts');
     expect(reportAProblem.shadowRoot.querySelector('a ion-icon')).toHaveAttribute('name', 'warning');
-    expect(reportAProblem.shadowRoot.querySelector('a span')).toHaveTextContent('Report a problem');
+    expect(reportAProblem.shadowRoot.querySelector('a span')).toHaveTextContent('Report page issue');
 
     expectToBeUrlEncoded(
       reportAProblem.shadowRoot.querySelector('a').getAttribute('href'),
@@ -84,9 +84,9 @@ export const NoSourcePath: StoryObj<ReportAProblem> = {
   play: async ({canvasElement, args}) => {
     const reportAProblem = canvasElement.querySelector('jio-report-a-problem') as ReportAProblem;
     expect(reportAProblem.shadowRoot.children).toHaveLength(1);
-    expect(reportAProblem.shadowRoot.querySelector('a')).toHaveAttribute('title', expect.stringContaining('Report a problem with http'));
+    expect(reportAProblem.shadowRoot.querySelector('a')).toHaveAttribute('title', expect.stringContaining('Report a page issue with http'));
     expect(reportAProblem.shadowRoot.querySelector('a ion-icon')).toHaveAttribute('name', 'warning');
-    expect(reportAProblem.shadowRoot.querySelector('a span')).toHaveTextContent('Report a problem');
+    expect(reportAProblem.shadowRoot.querySelector('a span')).toHaveTextContent('Report page issue');
 
     expectToBeUrlEncoded(
       reportAProblem.shadowRoot.querySelector('a').getAttribute('href'),
@@ -105,9 +105,9 @@ export const OverridePageTitle: StoryObj<ReportAProblem> = {
     const reportAProblem = canvasElement.querySelector('jio-report-a-problem') as ReportAProblem;
 
     expect(reportAProblem.shadowRoot.children).toHaveLength(1);
-    expect(reportAProblem.shadowRoot.querySelector('a')).toHaveAttribute('title', expect.stringContaining('Report a problem with src/stories/ReportAProblem.ts'));
+    expect(reportAProblem.shadowRoot.querySelector('a')).toHaveAttribute('title', expect.stringContaining('Report a page issue with src/stories/ReportAProblem.ts'));
     expect(reportAProblem.shadowRoot.querySelector('a ion-icon')).toHaveAttribute('name', 'warning');
-    expect(reportAProblem.shadowRoot.querySelector('a span')).toHaveTextContent('Report a problem');
+    expect(reportAProblem.shadowRoot.querySelector('a span')).toHaveTextContent('Report page issue');
 
     expectToBeUrlEncoded(
       reportAProblem.shadowRoot.querySelector('a').getAttribute('href'),
@@ -127,9 +127,9 @@ export const OverrideURL: StoryObj<ReportAProblem> = {
     const reportAProblem = canvasElement.querySelector('jio-report-a-problem') as ReportAProblem;
 
     expect(reportAProblem.shadowRoot.children).toHaveLength(1);
-    expect(reportAProblem.shadowRoot.querySelector('a')).toHaveAttribute('title', expect.stringContaining('Report a problem with src/stories/ReportAProblem.ts'));
+    expect(reportAProblem.shadowRoot.querySelector('a')).toHaveAttribute('title', expect.stringContaining('Report a page issue with src/stories/ReportAProblem.ts'));
     expect(reportAProblem.shadowRoot.querySelector('a ion-icon')).toHaveAttribute('name', 'warning');
-    expect(reportAProblem.shadowRoot.querySelector('a span')).toHaveTextContent('Report a problem');
+    expect(reportAProblem.shadowRoot.querySelector('a span')).toHaveTextContent('Report page issue');
 
     expectToBeUrlEncoded(
       reportAProblem.shadowRoot.querySelector('a').getAttribute('href'),
@@ -149,9 +149,9 @@ export const JenkinsIOBugTemplate: StoryObj<ReportAProblem> = {
   play: async ({canvasElement}) => {
     const reportAProblem = canvasElement.querySelector('jio-report-a-problem') as ReportAProblem;
     expect(reportAProblem.shadowRoot.children).toHaveLength(1);
-    expect(reportAProblem.shadowRoot.querySelector('a')).toHaveAttribute('title', 'Report a problem with src/stories/ReportAProblem.ts');
+    expect(reportAProblem.shadowRoot.querySelector('a')).toHaveAttribute('title', 'Report a page issue with src/stories/ReportAProblem.ts');
     expect(reportAProblem.shadowRoot.querySelector('a ion-icon')).toHaveAttribute('name', 'warning');
-    expect(reportAProblem.shadowRoot.querySelector('a span')).toHaveTextContent('Report a problem');
+    expect(reportAProblem.shadowRoot.querySelector('a span')).toHaveTextContent('Report page issue');
 
     const url = new URL(reportAProblem.shadowRoot.querySelector('a').getAttribute('href'));
     expect(Array.from(url.searchParams.keys()).sort()).toEqual(['labels', 'problem', 'template']);

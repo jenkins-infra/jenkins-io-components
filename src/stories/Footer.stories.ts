@@ -89,9 +89,9 @@ export const JenkinsIOBugTemplate: StoryObj<Footer> = {
   play: async ({canvasElement}) => {
     const reportAProblem = deepQuerySelectorAll(canvasElement, 'jio-report-a-problem')[0] as ReportAProblem;
     expect(reportAProblem.shadowRoot.children).toHaveLength(1);
-    expect(reportAProblem.shadowRoot.querySelector('a')).toHaveAttribute('title', 'Report a problem with src/stories/ReportAProblem.ts');
+    expect(reportAProblem.shadowRoot.querySelector('a')).toHaveAttribute('title', 'Report a page issue with src/stories/ReportAProblem.ts');
     expect(reportAProblem.shadowRoot.querySelector('a ion-icon')).toHaveAttribute('name', 'warning');
-    expect(reportAProblem.shadowRoot.querySelector('a span')).toHaveTextContent('Report a problem');
+    expect(reportAProblem.shadowRoot.querySelector('a span')).toHaveTextContent('Report page issue');
 
     const url = new URL(reportAProblem.shadowRoot.querySelector('a').getAttribute('href'));
     expect(Array.from(url.searchParams.keys()).sort()).toEqual(['labels', 'problem', 'template']);
