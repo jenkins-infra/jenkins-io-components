@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: crowdin action
         uses: crowdin/github-action@ecdf564895766b8a6b4b581559b3c6cd955467d1 # v1.12.0
         with:
