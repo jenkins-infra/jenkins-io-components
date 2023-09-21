@@ -14,7 +14,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: crowdin action
-        uses: crowdin/github-action@ce5235f7e587746e03d6f7fe80b10a74ead2b120 # v1.13.0
+        uses: crowdin/github-action@6a189cf93a647dc1f4214eb10447661de26b577a # v1.13.1
         with:
           upload_translations: false
           download_translations: true
