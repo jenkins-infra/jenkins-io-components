@@ -156,10 +156,8 @@ export class Navbar extends LitElement {
           {
             label: msg("Overview"), link: "/security/"
           },
-          {label: msg("For Administrators"), link: "/security/for-administrators/"},
-          {label: msg("For Reporters"), link: "/security/reporting/"},
-          {label: msg("For Maintainers"), link: "/security/for-maintainers/"},
-          {label: msg("Jenkins Security Team"), link: "/security/team/"},
+          {label: msg("Security Advisories"), link: "/security/advisories/"},
+          {label: msg("Reporting Vulnerabilities"), link: "/security/reporting/"},
         ]
       },
       {
