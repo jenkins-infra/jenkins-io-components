@@ -26,7 +26,6 @@ export default {
   input,
   plugins: [
     litcss({
-      include: '/**/*.css',
       transform: (css, {filePath}) =>
         processor.process(css, {from: filePath})
           .css,

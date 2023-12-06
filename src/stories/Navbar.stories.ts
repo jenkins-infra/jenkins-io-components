@@ -20,12 +20,14 @@ export default {
     showSearchBox: {control: {type: 'boolean'}, },
     visibleMenu: {table: {disable: true}},
     menuToggled: {table: {disable: true}},
+    theme: {control: 'select', options: ['light', 'dark', 'auto']},
   }
 } as Meta;
 
-const render = ({property, showSearchBox, locationPathname}) => html`<jio-navbar
+const render = ({property, showSearchBox, locationPathname, theme}) => html`<jio-navbar
   property=${ifDefined(property)}
   .locationPathname=${ifDefined(locationPathname)}
+  .theme=${ifDefined(theme)}
   ?showSearchBox=${showSearchBox}
 ></jio-navbar>`;
 

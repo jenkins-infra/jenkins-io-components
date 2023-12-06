@@ -18,6 +18,8 @@ export type NavbarItemLink = {
   title?: string;
 };
 
+export type Theme = 'dark' | 'light' | 'auto';
+
 @localized()
 @customElement('jio-navbar')
 export class Navbar extends LitElement {
@@ -31,13 +33,19 @@ export class Navbar extends LitElement {
 
   /**
    * Show search box
-   * (doesnt yet work)
    */
   @property({type: Boolean})
   showSearchBox: Boolean = false;
 
   @property()
   locationPathname: string = location.pathname;
+
+
+  /**
+   * Header theme (light/dark/auto)
+   */
+  @property()
+  theme = 'light';
 
   /**
    * Keeps track of what menu is opened.
@@ -188,7 +196,7 @@ export class Navbar extends LitElement {
     });
     const searchboxHtml = !this.showSearchBox ? nothing : html`<jio-searchbox @click=${this._handleSearchboxClick}></jio-searchbox>`;
     return html`
-      <nav class="navbar">
+      <nav class="navbar" data-theme=${this.theme}>
         <span class="navbar-brand">
           <slot name="brand">
             <a href="/">Jenkins</a>
