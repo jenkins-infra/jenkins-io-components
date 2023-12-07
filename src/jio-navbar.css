@@ -30,7 +30,7 @@ button:not(:disabled) {
   background: #212529;
   display: flex;
   flex-wrap: wrap;
-  font-size: 0.875rem;
+  font-size: 0.825rem;
   justify-content: space-between;
   padding: 0.5rem 0;
   padding: 0.5rem 1rem;
@@ -155,7 +155,7 @@ button.nav-link {
 }
 
 .download-btn {
-  font-size: 0.875rem;
+  font-size: 0.825rem;
   margin-left: 8px;
 }
 

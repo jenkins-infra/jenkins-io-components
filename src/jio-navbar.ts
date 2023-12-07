@@ -199,7 +199,7 @@ export class Navbar extends LitElement {
       <nav class="navbar" data-theme=${this.theme}>
         <span class="navbar-brand">
           <slot name="brand">
-            <a href="/">Jenkins</a>
+            <a href="https://www.jenkins.io/">Jenkins</a>
           </slot>
         </span>
         <button
