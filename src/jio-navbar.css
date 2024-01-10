@@ -181,7 +181,7 @@ button.nav-link {
   vertical-align: 0.255em;
 }
 
-@media (min-width: 1308px) {
+@media (min-width: 1310px) {
   .mr-auto {
     margin-right: auto;
   }
@@ -191,7 +191,7 @@ button.nav-link {
   }
 }
 
-@media (max-width: 1309px) {
+@media (max-width: 1310px) {
   .navbar-toggler {
     display: block;
     margin-left: 0;
