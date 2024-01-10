@@ -1,6 +1,6 @@
 # Welcome to Jenkins.io Web Components
 
-This is an attempt to build web components that can be used across various jenkins.io based projects
+This is an attempt to build web components that can be used across various jenkins.io based projects.
 
 ## Setup
 
