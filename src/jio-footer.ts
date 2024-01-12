@@ -151,7 +151,7 @@ export class Footer extends LitElement {
                               <a href=${relOrAbsoluteLink('/sigs/', this.property).href}>${msg('Special Interest Groups')}</a>
                            </li>
                            <li>
-                              <a href=${relOrAbsoluteLink('https://twitter.com/jenkinsci', this.property).href}>${msg('Twitter')}</a>
+                              <a href=${relOrAbsoluteLink('https://twitter.com/jenkinsci', this.property).href}>${msg('X (formerly Twitter)')}</a>
                            </li>
                            <li>
                               <a href=${relOrAbsoluteLink('https://reddit.com/r/jenkinsci', this.property).href}>${msg('Reddit')}</a>
