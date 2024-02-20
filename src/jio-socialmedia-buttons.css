@@ -13,11 +13,11 @@ li {
 a {
   --brand-color: var(--accent-color, hsl(212, 100%, 42%));
   --brand-color-translucent: hsla(212, 100%, 42%, 40%);
+
   display: inline-flex;
   flex-shrink: 0;
   font-size: 0;
   height: 2.5rem;
-
   position: relative;
   width: 2.5rem;
 }

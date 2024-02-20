@@ -21,7 +21,7 @@ export const setLocaleFromUrl = async () => {
   const locale = url.searchParams.get('locale') || (new Intl.NumberFormat()).resolvedOptions().locale || sourceLocale;
   await setLocale(locale);
 };
-setLocaleFromUrl().catch(e => console.error(`Error loading locale: ${(e as Error).message}`));
+setLocaleFromUrl().catch(e => console.log(`Error loading locale: ${(e as Error).message}`));
 
 
 window.addEventListener('jio-locale-changed', (e) => {

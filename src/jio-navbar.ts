@@ -1,4 +1,4 @@
-import {LitElement, html, TemplateResult} from 'lit';
+import {LitElement, html, nothing, TemplateResult} from 'lit';
 import {customElement, state, property} from 'lit/decorators.js';
 import {ifDefined} from 'lit/directives/if-defined.js';
 import {msg, localized} from '@lit/localize';
@@ -18,6 +18,8 @@ export type NavbarItemLink = {
   title?: string;
 };
 
+export type Theme = 'dark' | 'light' | 'auto';
+
 @localized()
 @customElement('jio-navbar')
 export class Navbar extends LitElement {
@@ -31,13 +33,19 @@ export class Navbar extends LitElement {
 
   /**
    * Show search box
-   * (doesnt yet work)
    */
   @property({type: Boolean})
   showSearchBox: Boolean = false;
 
   @property()
   locationPathname: string = location.pathname;
+
+
+  /**
+   * Header theme (light/dark/auto)
+   */
+  @property()
+  theme = 'light';
 
   /**
    * Keeps track of what menu is opened.
@@ -85,6 +93,8 @@ export class Navbar extends LitElement {
     ];
     const menuItems = [
       {label: msg("Blog"), link: "/node"},
+      {label: msg("Success Stories"), link: "https://stories.jenkins.io/"},
+      {label: msg("Contributor Spotlight"), link: "https://contributors.jenkins.io/"},
       {
         label: msg("Documentation"), link: [
           {
@@ -101,12 +111,11 @@ export class Navbar extends LitElement {
           {
             label: msg("Tutorials"), link: "/doc/tutorials", header: true
           },
-          {label: "- " + msg("Guided Tour"), link: "/doc/pipeline/tour/getting-started/"},
-          {label: "- " + msg("More Tutorials"), link: "/doc/tutorials/"},
           {
             label: msg("Developer Guide"), link: "/doc/developer", header: true
           },
           {label: msg("Contributor Guide"), link: "/participate", header: true},
+          {label: msg("Books"), link: "/books", header: true},
         ]
       },
       {label: msg("Plugins"), link: "https://plugins.jenkins.io/"},
@@ -131,12 +140,8 @@ export class Navbar extends LitElement {
             label: msg("Special Interest Groups"), link: "/sigs/", header: true
           },
           {label: "- " + msg("Advocacy and Outreach"), link: "/sigs/advocacy-and-outreach/"},
-          {label: "- " + msg("Chinese Localization"), link: "/sigs/chinese-localization/"},
-          {label: "- " + msg("Cloud Native"), link: "/sigs/cloud-native/"},
           {label: "- " + msg("Documentation"), link: "/sigs/docs/"},
           {label: "- " + msg("Google Summer of Code"), link: "/sigs/gsoc/"},
-          {label: "- " + msg("Hardware and EDA"), link: "/sigs/hw-and-eda/"},
-          {label: "- " + msg("Pipeline Authoring"), link: "/sigs/pipeline-authoring/"},
           {label: "- " + msg("Platform"), link: "/sigs/platform/"},
           {label: "- " + msg("User Experience"), link: "/sigs/ux/"},
         ]
@@ -160,10 +165,8 @@ export class Navbar extends LitElement {
           {
             label: msg("Overview"), link: "/security/"
           },
-          {label: msg("For Administrators"), link: "/security/for-administrators/"},
-          {label: msg("For Reporters"), link: "/security/reporting/"},
-          {label: msg("For Maintainers"), link: "/security/for-maintainers/"},
-          {label: msg("Jenkins Security Team"), link: "/security/team/"},
+          {label: msg("Security Advisories"), link: "/security/advisories/"},
+          {label: msg("Reporting Vulnerabilities"), link: "/security/reporting/"},
         ]
       },
       {
@@ -183,18 +186,17 @@ export class Navbar extends LitElement {
     const menuItemsHtml = menuItems.map((menuItem, idx) => {
       let body;
       if (menuItem.link && Array.isArray(menuItem.link)) {
+        // eslint-disable-next-line lit/no-this-assign-in-render
         body = this.renderNavItemDropdown(menuItem, idx, this.visibleMenu === idx);
       } else {
+        // eslint-disable-next-line lit/no-this-assign-in-render
         body = html`<li class="nav-item">${this.renderNavItemLink(menuItem)}</li>`;
       }
       return body;
     });
-    let searchboxHtml = null;
-    if (this.showSearchBox) {
-      searchboxHtml = html`<jio-searchbox @click=${this._handleSearchboxClick}></jio-searchbox>`;
-    }
+    const searchboxHtml = !this.showSearchBox ? nothing : html`<jio-searchbox @click=${this._handleSearchboxClick}></jio-searchbox>`;
     return html`
-      <nav class="navbar">
+      <nav class="navbar" data-theme=${this.theme}>
         <span class="navbar-brand">
           <slot name="brand">
             <a href="/">Jenkins</a>
@@ -289,7 +291,7 @@ export class Navbar extends LitElement {
 
   private _handleSearchboxClick() {
     if (this.menuToggled) {
-      this.menuToggled=false;
+      this.menuToggled = false;
     }
   }
 

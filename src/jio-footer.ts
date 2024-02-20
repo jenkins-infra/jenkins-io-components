@@ -1,4 +1,4 @@
-import {LitElement, html, TemplateResult} from 'lit';
+import {LitElement, html, nothing, TemplateResult} from 'lit';
 import {ifDefined} from 'lit/directives/if-defined.js';
 import {customElement, property} from 'lit/decorators.js';
 import {msg, localized} from '@lit/localize';
@@ -18,7 +18,10 @@ const licenseHtmls = {
      <div id="creativecommons">
         <a href="https://creativecommons.org/licenses/by-sa/4.0/">
            <p>
-              <img alt=${msg('Creative Commons Attribution-ShareAlike license')} src="https://licensebuttons.net/l/by-sa/4.0/88x31.png">
+              <img alt=${msg('Creative Commons Attribution-ShareAlike license')}
+                   src="https://mirrors.creativecommons.org/presskit/buttons/88x31/svg/by-sa.svg"
+                   width="88" height="31"
+              >
            </p>
         </a>
         <p>
@@ -58,6 +61,12 @@ export class Footer extends LitElement {
    @property()
    githubBranch = 'master';
 
+   /**
+    * The name of the bug report template to use
+    */
+   @property({type: String})
+   reportAProblemTemplate = "";
+
    override render() {
       return html`
 <footer>
@@ -66,10 +75,10 @@ export class Footer extends LitElement {
          <div class="col-md-4 col1">
             <p class="box">
                <jio-improve-this-page sourcePath=${this.sourcePath} githubRepo=${this.githubRepo} .githubBranch=${ifDefined(this.githubBranch)}></jio-improve-this-page>
-               <jio-report-a-problem sourcePath=${this.sourcePath} githubRepo=${this.githubRepo} .githubBranch=${ifDefined(this.githubBranch)}></jio-report-a-problem>
+               <jio-report-a-problem sourcePath=${this.sourcePath} githubRepo=${this.githubRepo} .githubBranch=${ifDefined(this.githubBranch)} .template=${ifDefined(this.reportAProblemTemplate)}></jio-report-a-problem>
             </p>
             <div class="license-box">
-              ${licenseHtmls[this.license] || html``}
+              ${licenseHtmls[this.license] || nothing}
             </div>
          </div>
          <div class="links col-md-8">
@@ -142,7 +151,7 @@ export class Footer extends LitElement {
                               <a href=${relOrAbsoluteLink('/sigs/', this.property).href}>${msg('Special Interest Groups')}</a>
                            </li>
                            <li>
-                              <a href=${relOrAbsoluteLink('https://twitter.com/jenkinsci', this.property).href}>${msg('Twitter')}</a>
+                              <a href=${relOrAbsoluteLink('https://twitter.com/jenkinsci', this.property).href}>${msg('𝕏 (formerly Twitter)')}</a>
                            </li>
                            <li>
                               <a href=${relOrAbsoluteLink('https://reddit.com/r/jenkinsci', this.property).href}>${msg('Reddit')}</a>

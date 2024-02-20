@@ -7,12 +7,10 @@ a:focus-visible {
   border: 1px solid transparent;
   border-color: rgba(255, 255, 255, 0.1);
   border-radius: 0.25rem;
-
   color: rgba(255, 255, 255, 0.5);
   display: none;
   font-size: 1.25rem;
   line-height: 1;
-
   margin-left: auto;
 }
 
@@ -39,12 +37,23 @@ button:not(:disabled) {
   position: relative;
 }
 
+@media(prefers-color-scheme: dark) {
+  .navbar[data-theme="auto"] {
+    background-color: #000;
+  }
+}
+
+.navbar[data-theme="dark"] {
+   background-color: #000;
+}
+
 .navbar-brand a,
 .navbar-brand ::slotted(a) {
   color: #fff;
   display: inline-block;
+
   /* FIXME - should this stay generic fonts? */
-  font-family: Georgia, Times, Times New Roman, serif;
+  font-family: Georgia, Times, "Times New Roman", serif;
   font-size: 1.25rem;
   font-size: 20px;
   font-weight: 600;
@@ -78,8 +87,7 @@ button:not(:disabled) {
 
 .navbar-nav {
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  flex-flow: row wrap;
   justify-content: space-between;
   list-style: none;
   margin-bottom: 0;
@@ -154,7 +162,7 @@ button.nav-link {
 .download-btn a {
   background-color: transparent;
   border: 1px solid #6c757d;
-  border-radius: 0.375;
+  border-radius: 0.375px;
   cursor: pointer;
   line-height: 1.5em;
   text-align: center;
@@ -173,7 +181,7 @@ button.nav-link {
   vertical-align: 0.255em;
 }
 
-@media (min-width: 992px) {
+@media (min-width: 1313px) {
   .mr-auto {
     margin-right: auto;
   }
@@ -183,7 +191,7 @@ button.nav-link {
   }
 }
 
-@media (max-width: 991px) {
+@media (max-width: 1313px) {
   .navbar-toggler {
     display: block;
     margin-left: 0;

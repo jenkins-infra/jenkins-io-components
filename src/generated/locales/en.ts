@@ -9,8 +9,8 @@
     /* eslint-disable @typescript-eslint/no-explicit-any */
 
     export const templates = {
-      's21ef0d574a03abef': str`Report a problem with ${0}`,
-'s728100e55dec6c27': `Report a problem`,
+      's21ef0d574a03abef': str`Report a page issue with ${0}`,
+'s728100e55dec6c27': `Report page issue`,
 'sc5369ab067c9db6f': str`Edit ${0} on GitHub`,
 'sa1a2a32f24f873c4': `Improve this page`,
 's4f3b6ee4d6bd05ff': `What is CDF?`,

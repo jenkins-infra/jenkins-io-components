@@ -3,10 +3,10 @@
 <file target-language="en" source-language="en" original="lit-localize-inputs" datatype="plaintext">
 <body>
 <trans-unit id="s21ef0d574a03abef">
-  <source>Report a problem with <x id="0" equiv-text="${sourcePath || url}"/></source>
+  <source>Report a page issue with <x id="0" equiv-text="${sourcePath || url}"/></source>
 </trans-unit>
 <trans-unit id="s728100e55dec6c27">
-  <source>Report a problem</source>
+  <source>Report page isue</source>
 </trans-unit>
 <trans-unit id="sc5369ab067c9db6f">
   <source>Edit <x id="0" equiv-text="${sourcePath}"/> on GitHub</source>

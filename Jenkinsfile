@@ -102,7 +102,7 @@ pipeline {
       }
       post {
         always {
-          publishCoverage adapters: [cobertura('coverage/storybook/cobertura-coverage.xml')], checksName: 'coverage', sourceFileResolver: sourceFiles('NEVER_STORE')
+          recordCoverage name: 'coverage', sourceCodeRetention: 'NEVER', tools: [[parser: 'COBERTURA', pattern: 'coverage/storybook/cobertura-coverage.xml']]
         }
       }
     }

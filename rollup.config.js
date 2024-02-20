@@ -2,8 +2,8 @@
 import {readdirSync} from 'fs';
 import resolve from '@rollup/plugin-node-resolve';
 import {getBabelOutputPlugin} from '@rollup/plugin-babel';
-import {terser} from 'rollup-plugin-terser';
-import minifyHTML from 'rollup-plugin-minify-html-literals';
+import terser from '@rollup/plugin-terser';
+import minifyHTML from 'rollup-plugin-minify-html-literals-v3';
 import summary from 'rollup-plugin-summary';
 import typescript from '@rollup/plugin-typescript';
 import execute from 'rollup-plugin-execute'
@@ -26,7 +26,6 @@ export default {
   input,
   plugins: [
     litcss({
-      include: '/**/*.css',
       transform: (css, {filePath}) =>
         processor.process(css, {from: filePath})
           .css,

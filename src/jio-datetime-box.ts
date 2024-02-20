@@ -1,4 +1,4 @@
-import {LitElement, html, css} from 'lit';
+import {LitElement, html, nothing, css, TemplateResult} from 'lit';
 import {customElement, property} from 'lit/decorators.js';
 
 const SHORT_MONTH_NAMES = Object.freeze([
@@ -86,7 +86,7 @@ export class DatetimeBox extends LitElement {
     const date = dateConverter(this.date) || new Date();
     const endDate = dateConverter(this.endDate);
 
-    let endDateHtml = html``;
+    let endDateHtml: symbol | TemplateResult = nothing;
     if (endDate) {
       endDateHtml = html`
       -
