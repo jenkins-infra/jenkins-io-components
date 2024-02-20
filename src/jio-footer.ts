@@ -63,7 +63,7 @@ export class Footer extends LitElement {
 <footer>
    <div class="container">
       <div class="row">
-         <div class="col-md-4">
+         <div class="col-md-4 col1">
             <p class="box">
                <jio-improve-this-page sourcePath=${this.sourcePath} githubRepo=${this.githubRepo} .githubBranch=${ifDefined(this.githubBranch)}></jio-improve-this-page>
                <jio-report-a-problem sourcePath=${this.sourcePath} githubRepo=${this.githubRepo} .githubBranch=${ifDefined(this.githubBranch)}></jio-report-a-problem>
