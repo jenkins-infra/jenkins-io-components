@@ -164,7 +164,7 @@ export class Footer extends LitElement {
                         <h5>Other</h5>
                         <ul class="other">
                            <li>
-                              <a href=${relOrAbsoluteLink('/conduct/', this.property).href}>${msg('Code of Conduct')}</a>
+                              <a href=${relOrAbsoluteLink('/project/conduct/', this.property).href}>${msg('Code of Conduct')}</a>
                            </li>
                            <li>
                               <a href=${relOrAbsoluteLink('/press/', this.property).href}>${msg('Press information')}</a>
