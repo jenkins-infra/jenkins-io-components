@@ -65,7 +65,7 @@ export const SamePropertyActiveToplevelLink: StoryObj<Navbar> = {
   name: "Active link outside dropdown",
   args: {
     property: 'https://www.jenkins.io',
-    locationPathname: '/node/'
+    locationPathname: '/blog/'
   },
   play: async ({canvasElement}) => {
     expect(deepQuerySelectorAll(canvasElement, '.active')).toHaveLength(1);
