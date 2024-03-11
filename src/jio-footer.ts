@@ -92,7 +92,7 @@ export class Footer extends LitElement {
                               <a href=${relOrAbsoluteLink('/download/', this.property).href}>${msg('Downloads')}</a>
                            </li>
                            <li>
-                              <a href=${relOrAbsoluteLink('/node/', this.property).href}>${msg('Blog')}</a>
+                              <a href=${relOrAbsoluteLink('/blog/', this.property).href}>${msg('Blog')}</a>
                            </li>
                            <li>
                               <a href=${relOrAbsoluteLink('/doc/', this.property).href}>${msg('Documentation')}</a>
