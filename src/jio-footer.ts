@@ -72,7 +72,7 @@ export class Footer extends LitElement {
 <footer>
    <div class="container">
       <div class="row">
-         <div class="col-md-4">
+         <div class="col-md-4 col1">
             <p class="box">
                <jio-improve-this-page sourcePath=${this.sourcePath} githubRepo=${this.githubRepo} .githubBranch=${ifDefined(this.githubBranch)}></jio-improve-this-page>
                <jio-report-a-problem sourcePath=${this.sourcePath} githubRepo=${this.githubRepo} .githubBranch=${ifDefined(this.githubBranch)} .template=${ifDefined(this.reportAProblemTemplate)}></jio-report-a-problem>
@@ -164,7 +164,7 @@ export class Footer extends LitElement {
                         <h5>Other</h5>
                         <ul class="other">
                            <li>
-                              <a href=${relOrAbsoluteLink('/conduct/', this.property).href}>${msg('Code of Conduct')}</a>
+                              <a href=${relOrAbsoluteLink('/project/conduct/', this.property).href}>${msg('Code of Conduct')}</a>
                            </li>
                            <li>
                               <a href=${relOrAbsoluteLink('/press/', this.property).href}>${msg('Press information')}</a>
