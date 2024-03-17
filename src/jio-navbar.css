@@ -213,6 +213,11 @@ button.nav-link {
     order: 5;
   }
 
+  .dropdown{
+    display: flex;
+    justify-content: center;
+  }
+
   .navbar {
     align-items: normal;
   }
