@@ -112,11 +112,6 @@ button.nav-link {
   box-shadow: 0 2px 4px -3px rgb(0 0 0 / 25%);
 }
 
-.nav-link:hover{
-  text-decoration: underline;
-  color: rgba(255, 255, 255, 0.55);
-}
-
 /* FIXME - move to jio-navbar-link */
 .nav-link {
   color: rgba(255, 255, 255, 0.55);
