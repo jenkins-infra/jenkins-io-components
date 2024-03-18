@@ -13,7 +13,7 @@ export class NavbarLink extends LitElement {
   text-decoration: none;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
 }
-.nav-link:hover{
+.nav-link:hover {
   text-decoration: underline;
   color: rgba(255, 255, 255, 0.55);
 }
