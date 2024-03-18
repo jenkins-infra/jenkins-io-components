@@ -208,7 +208,7 @@ button.nav-link {
     order: 5;
   }
 
-  .dropdown{
+  .dropdown {
     display: flex;
     justify-content: center;
   }
