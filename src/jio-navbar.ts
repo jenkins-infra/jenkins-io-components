@@ -92,7 +92,7 @@ export class Navbar extends LitElement {
       {label: msg("Spinnaker"), link: "https://www.spinnaker.io/"},
     ];
     const menuItems = [
-      {label: msg("Blog"), link: "/node"},
+      {label: msg("Blog"), link: "/blog/"},
       {label: msg("Success Stories"), link: "https://stories.jenkins.io/"},
       {label: msg("Contributor Spotlight"), link: "https://contributors.jenkins.io/"},
       {
