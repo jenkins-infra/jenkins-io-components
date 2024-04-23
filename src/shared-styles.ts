@@ -12,22 +12,22 @@ export const ionIconText = css`
     }
     /* unvisited link */
     a:link {
-      color: var(--jio-a-color, #007bff);
+      color: var(--link-color);
     }
 
     /* visited link */
     a:visited {
-      color: var(--jio-a-color, #007bff);
+      color: var(--link-color);
     }
 
     /* mouse over link */
     a:hover {
-      color: var(--jio-a-color, #007bff);
+      color: var(--link-color);
     }
 
     /* selected link */
     a:active {
-      color: var(--jio-a-color, #007bff);
+      color: var(--link-color);
     }
 
     ion-icon {
