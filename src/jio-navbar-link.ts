@@ -36,13 +36,13 @@ export class NavbarLink extends LitElement {
 .active {
 	color: #fff;
 	text-decoration: none;
-	background-color: #0070EB;
+	background-color: var(--link-color);
 }
 
 
 .dropdown-item.active,
 .dropdown-item:active {
-  background-color: #007bff;
+  background-color: var(--link-color);
   color: #fff;
   text-decoration: none;
 }
