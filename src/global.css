@@ -1,5 +1,35 @@
+/* stylelint-disable custom-property-pattern */
+
 * {
   font-family: system-ui, 'Segoe UI', roboto, 'Noto Sans', oxygen, ubuntu,
     cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', arial, sans-serif,
     'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+}
+
+:root, :host {
+  --background: white;
+  --color: hsl(212, 100%, 5%);
+  --color--secondary: hsl(212, 30%, 40%);
+
+  /* Semantic */
+  --accent-color: var(--blue);
+  --link-color: var(--accent-color);
+  --link-color--hover: color-mix(in srgb, var(--link-color) 75%, var(--color));
+  --link-color--active: color-mix(in srgb, var(--link-color), var(--color));
+
+  /* Colors */
+  --blue: color(display-p3 0.135 0.417 0.93);
+  --brown: color(display-p3 0.63 0.518 0.359);
+  --cyan: color(display-p3 0.29 0.661 0.905);
+  --green: color(display-p3 0.277 0.645 0.303);
+  --indigo: color(display-p3 0.3437 0.3375 0.8098);
+  --orange: color(display-p3 0.94 0.522 0.174);
+  --pink: color(display-p3 0.91 0.177 0.265);
+  --purple: color(display-p3 0.6403 0.342 0.8425);
+  --red: color(display-p3 0.83 0.137 0.137);
+  --yellow: color(display-p3 1 0.733 0.245);
+  --teal: color(display-p3 0.299 0.624 0.73);
+
+  /* Transitions */
+  --standard-transition: 0.3s ease;
 }
