@@ -129,7 +129,7 @@ export class Footer extends LitElement {
                               <a href=${relOrAbsoluteLink('https://ci.jenkins.io', this.property).href}>${msg('Jenkins on Jenkins')}</a>
                            </li>
                            <li>
-                              <a href=${relOrAbsoluteLink('https://stats.jenkins.io', this.property).href}>${msg('Jenkins Infra Statistics')}</a>
+                              <a href=${relOrAbsoluteLink('https://stats.jenkins.io', this.property).href}>${msg('Statistics')}</a>
                            </li>
                         </ul>
                      </div>
