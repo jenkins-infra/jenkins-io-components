@@ -140,6 +140,9 @@ button.nav-link {
   min-width: 10rem;
   padding: 0.5em 0;
   position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
   text-align: left;
   z-index: 1000;
 }
@@ -181,7 +184,7 @@ button.nav-link {
   vertical-align: 0.255em;
 }
 
-@media (min-width: 992px) {
+@media (min-width: 1313px) {
   .mr-auto {
     margin-right: auto;
   }
@@ -191,7 +194,7 @@ button.nav-link {
   }
 }
 
-@media (max-width: 991px) {
+@media (max-width: 1313px) {
   .navbar-toggler {
     display: block;
     margin-left: 0;
