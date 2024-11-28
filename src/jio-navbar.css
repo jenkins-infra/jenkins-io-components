@@ -140,6 +140,9 @@ button.nav-link {
   min-width: 10rem;
   padding: 0.5em 0;
   position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
   text-align: left;
   z-index: 1000;
 }
