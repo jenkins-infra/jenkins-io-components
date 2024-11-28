@@ -209,7 +209,7 @@ export class Navbar extends LitElement {
           aria-controls="navbarSupportedContent"
           aria-expanded=${this.menuToggled}
           aria-label="Toggle navigation">
-          <ion-icon name="menu-outline" title="Toggle Menu Visible"></ion-icon>
+          <ion-icon name=${this.menuToggled ? "close-outline" : "menu-outline"} title="Toggle Menu Visible"></ion-icon>
         </button>
         <div class="navbar-menu collapse ${this.menuToggled ? "show" : ""}">
           <ul class="nav navbar-nav mr-auto">
