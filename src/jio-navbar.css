@@ -105,6 +105,11 @@ button:not(:disabled) {
   margin: 0 auto;
 }
 
+.nav-link.dropdown-toggle:hover {
+  text-decoration: underline;
+  color: rgba(255, 255, 255, 0.55);
+}
+
 button.nav-link {
   background: #f9f9f9;
   border: 1px solid #ccc;
@@ -140,6 +145,9 @@ button.nav-link {
   min-width: 10rem;
   padding: 0.5em 0;
   position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
   text-align: left;
   z-index: 1000;
 }
