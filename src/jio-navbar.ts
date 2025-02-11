@@ -310,8 +310,10 @@ export class Navbar extends LitElement {
   private _toggleDropdownHover(e: Event) {
     e.preventDefault();
     e.stopPropagation();
-    const dataset = (e.currentTarget as HTMLElement).dataset;
-    this.visibleMenu = parseInt(dataset.idx || "-1", 10);
+    if (window.innerWidth > 1024) {
+      const dataset = (e.currentTarget as HTMLElement).dataset;
+      this.visibleMenu = parseInt(dataset.idx || "-1", 10);
+    }
   }
 }
 
