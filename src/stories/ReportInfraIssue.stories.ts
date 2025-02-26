@@ -45,7 +45,7 @@ export const RepoAndSourcePath: StoryObj<ReportInfraIssue> = {
     expect(reportInfraIssue.shadowRoot.children).toHaveLength(1);
     expect(reportInfraIssue.shadowRoot.querySelector('a')).toHaveAttribute('title', 'Report an infrastructure issue related to src/stories/ReportInfraIssue.ts');
     expect(reportInfraIssue.shadowRoot.querySelector('a ion-icon')).toHaveAttribute('name', 'warning');
-    expect(reportInfraIssue.shadowRoot.querySelector('a span')).toHaveTextContent('Report Infra Issue');
+    expect(reportInfraIssue.shadowRoot.querySelector('a span')).toHaveTextContent('Report an Infra Issue');
 
     expectToBeHelpdeskLink(reportInfraIssue.shadowRoot.querySelector('a').getAttribute('href'));
   }
@@ -72,7 +72,7 @@ export const NoSourcePath: StoryObj<ReportInfraIssue> = {
     expect(reportInfraIssue.shadowRoot.children).toHaveLength(1);
     expect(reportInfraIssue.shadowRoot.querySelector('a')).toHaveAttribute('title', expect.stringContaining('Report an infrastructure issue related to http'));
     expect(reportInfraIssue.shadowRoot.querySelector('a ion-icon')).toHaveAttribute('name', 'warning');
-    expect(reportInfraIssue.shadowRoot.querySelector('a span')).toHaveTextContent('Report Infra Issue');
+    expect(reportInfraIssue.shadowRoot.querySelector('a span')).toHaveTextContent('Report an Infra Issue');
 
     expectToBeHelpdeskLink(reportInfraIssue.shadowRoot.querySelector('a').getAttribute('href'));
   }
@@ -90,7 +90,7 @@ export const OverridePageTitle: StoryObj<ReportInfraIssue> = {
     expect(reportInfraIssue.shadowRoot.children).toHaveLength(1);
     expect(reportInfraIssue.shadowRoot.querySelector('a')).toHaveAttribute('title', expect.stringContaining('Report an infrastructure issue related to src/stories/ReportInfraIssue.ts'));
     expect(reportInfraIssue.shadowRoot.querySelector('a ion-icon')).toHaveAttribute('name', 'warning');
-    expect(reportInfraIssue.shadowRoot.querySelector('a span')).toHaveTextContent('Report Infra Issue');
+    expect(reportInfraIssue.shadowRoot.querySelector('a span')).toHaveTextContent('Report an Infra Issue');
 
     expectToBeHelpdeskLink(reportInfraIssue.shadowRoot.querySelector('a').getAttribute('href'));
   }
@@ -109,7 +109,7 @@ export const OverrideURL: StoryObj<ReportInfraIssue> = {
     expect(reportInfraIssue.shadowRoot.children).toHaveLength(1);
     expect(reportInfraIssue.shadowRoot.querySelector('a')).toHaveAttribute('title', expect.stringContaining('Report an infrastructure issue related to src/stories/ReportInfraIssue.ts'));
     expect(reportInfraIssue.shadowRoot.querySelector('a ion-icon')).toHaveAttribute('name', 'warning');
-    expect(reportInfraIssue.shadowRoot.querySelector('a span')).toHaveTextContent('Report Infra Issue');
+    expect(reportInfraIssue.shadowRoot.querySelector('a span')).toHaveTextContent('Report an Infra Issue');
 
     expectToBeHelpdeskLink(reportInfraIssue.shadowRoot.querySelector('a').getAttribute('href'));
   }

@@ -70,7 +70,7 @@ export class ReportInfraIssue extends LitElement {
     return html`
       <a href="https://github.com/jenkins-infra/helpdesk/issues" title=${msg(str`Report an infrastructure issue related to ${this.sourcePath || this.derivedUrl}`)}>
         <ion-icon class="report" name="warning"></ion-icon>
-        <span class="text">${msg('Report Infra Issue')}</span>
+        <span class="text">${msg('Report an Infra Issue')}</span>
       </a>
     `;
   }
