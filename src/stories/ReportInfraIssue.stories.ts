@@ -19,7 +19,11 @@ const render = ({githubRepo, sourcePath, pageTitle, url}) => html`<jio-report-in
 ></jio-report-infra-issue>`;
 
 const expectToBeHelpdeskLink = (href: string) => {
-  expect(href).toEqual('https://github.com/jenkins-infra/helpdesk/issues');
+  const url = new URL(href);
+  expect(url.origin + url.pathname).toEqual('https://github.com/jenkins-infra/helpdesk/issues/new');
+  expect(url.searchParams.get('labels')).toEqual('infra');
+  expect(url.searchParams.get('template')).toEqual('infra-issue.yml');
+  expect(url.searchParams.get('problem')).toContain('page');
 };
 
 export const DefaultArgs: StoryObj<ReportInfraIssue> = {
