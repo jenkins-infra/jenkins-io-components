@@ -24,7 +24,7 @@ const expectToBeHelpdeskLink = (href: string) => {
   expect(url.origin + url.pathname).toEqual('https://github.com/jenkins-infra/helpdesk/issues/new');
   expect(url.searchParams.get('labels')).toEqual('infra');
   expect(url.searchParams.get('template')).toBeTruthy();
-  expect(url.searchParams.get('problem') || url.searchParams.get('body')).toContain('page'); // Ensure problem or body contains 'page'
+  expect(url.searchParams.get('problem') || url.searchParams.get('body')).toContain('page');
 };
 
 export const DefaultArgs: StoryObj<ReportInfraIssue> = {
