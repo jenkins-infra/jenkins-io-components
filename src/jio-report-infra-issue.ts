@@ -68,6 +68,7 @@ export class ReportInfraIssue extends LitElement {
 
   get reportUrl() {
     if (this.template && (this.template.endsWith('.yml') || this.template.endsWith('.yaml'))) {
+      // custom fields version
       const queryParams = new URLSearchParams();
       queryParams.append('labels', 'infra');
       queryParams.append('template', this.template);
@@ -78,6 +79,7 @@ export class ReportInfraIssue extends LitElement {
       queryParams.append('problem', problem);
       return `https://github.com/jenkins-infra/helpdesk/issues/new?${queryParams.toString()}`;
     } else {
+      // legacy template (if available) 
       const queryParams = new URLSearchParams();
       queryParams.append('labels', 'infra');
       queryParams.append('template', 'infra-issue.yml');
