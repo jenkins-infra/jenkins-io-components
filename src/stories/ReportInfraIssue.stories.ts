@@ -11,19 +11,20 @@ export default {
   component: 'jio-report-infra-issue',
 } as Meta;
 
-const render = ({githubRepo, sourcePath, pageTitle, url}) => html`<jio-report-infra-issue
+const render = ({githubRepo, sourcePath, pageTitle, url, template}) => html`<jio-report-infra-issue
   sourcePath=${ifDefined(sourcePath)}
   githubRepo=${ifDefined(githubRepo)}
   pageTitle=${ifDefined(pageTitle)}
   url=${ifDefined(url)}
+  .template=${ifDefined(template)}
 ></jio-report-infra-issue>`;
 
 const expectToBeHelpdeskLink = (href: string) => {
   const url = new URL(href);
   expect(url.origin + url.pathname).toEqual('https://github.com/jenkins-infra/helpdesk/issues/new');
   expect(url.searchParams.get('labels')).toEqual('infra');
-  expect(url.searchParams.get('template')).toEqual('infra-issue.yml');
-  expect(url.searchParams.get('problem')).toContain('page');
+  expect(url.searchParams.get('template')).toBeTruthy();
+  expect(url.searchParams.get('problem') || url.searchParams.get('body')).toContain('page'); // Ensure problem or body contains 'page'
 };
 
 export const DefaultArgs: StoryObj<ReportInfraIssue> = {
@@ -116,5 +117,28 @@ export const OverrideURL: StoryObj<ReportInfraIssue> = {
     expect(reportInfraIssue.shadowRoot.querySelector('a span')).toHaveTextContent('Report an Infra Issue');
 
     expectToBeHelpdeskLink(reportInfraIssue.shadowRoot.querySelector('a').getAttribute('href'));
+  }
+};
+
+export const WithCustomTemplate: StoryObj<ReportInfraIssue> = {
+  render,
+  args: {
+    sourcePath: 'src/stories/ReportInfraIssue.ts',
+    githubRepo: 'jenkins-infra/jenkins-io-components',
+    template: 'infra-issue.yml'
+  },
+  play: async ({canvasElement, args}) => {
+    const reportInfraIssue = canvasElement.querySelector('jio-report-infra-issue') as ReportInfraIssue;
+    expect(reportInfraIssue.shadowRoot.children).toHaveLength(1);
+    expect(reportInfraIssue.shadowRoot.querySelector('a')).toHaveAttribute('title', 'Report an infrastructure issue related to src/stories/ReportInfraIssue.ts');
+    expect(reportInfraIssue.shadowRoot.querySelector('a ion-icon')).toHaveAttribute('name', 'warning');
+    expect(reportInfraIssue.shadowRoot.querySelector('a span')).toHaveTextContent('Report an Infra Issue');
+
+    const href = reportInfraIssue.shadowRoot.querySelector('a').getAttribute('href');
+    const url = new URL(href);
+    expect(url.origin + url.pathname).toEqual('https://github.com/jenkins-infra/helpdesk/issues/new');
+    expect(url.searchParams.get('labels')).toEqual('infra');
+    expect(url.searchParams.get('template')).toEqual('infra-issue.yml');
+    expect(url.searchParams.get('problem')).toContain('page');
   }
 };

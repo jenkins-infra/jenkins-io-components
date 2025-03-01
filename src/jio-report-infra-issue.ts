@@ -45,6 +45,9 @@ export class ReportInfraIssue extends LitElement {
   @property()
   githubBranch = 'master';
 
+  @property({type: String})
+  template = '';
+
   get locationHref() {
     const _location = typeof location !== 'undefined' ? location : {href: 'http://unknown'};
     return _location.href;
@@ -64,15 +67,35 @@ export class ReportInfraIssue extends LitElement {
   }
 
   get reportUrl() {
-    const queryParams = new URLSearchParams();
-    queryParams.append('labels', 'infra');
-    queryParams.append('template', 'infra-issue.yml'); // Use a specific template for infra issues
-    let problem = `[${this.derivedTitle}](${this.derivedUrl}) page`;
-    if (this.sourcePath) {
-      problem += `[source file](https://github.com/${this.githubRepo}/tree/${this.githubBranch}/${this.sourcePath})`;
+    if (this.template && (this.template.endsWith('.yml') || this.template.endsWith('.yaml'))) {
+      const queryParams = new URLSearchParams();
+      queryParams.append('labels', 'infra');
+      queryParams.append('template', this.template);
+      let problem = `[${this.derivedTitle}](${this.derivedUrl}) page`;
+      if (this.sourcePath) {
+        problem += ` [source file](https://github.com/${this.githubRepo}/tree/${this.githubBranch}/${this.sourcePath})`;
+      }
+      queryParams.append('problem', problem);
+      return `https://github.com/jenkins-infra/helpdesk/issues/new?${queryParams.toString()}`;
+    } else {
+      const queryParams = new URLSearchParams();
+      queryParams.append('labels', 'infra');
+      queryParams.append('template', 'infra-issue.yml');
+      queryParams.append('title', `${this.derivedTitle} page - TODO: Put a summary here`);
+      let problem = `Problem with the [${this.derivedTitle}](${this.derivedUrl}) page`;
+      if (this.sourcePath) {
+        problem += ` [source file](https://github.com/${this.githubRepo}/tree/${this.githubBranch}/${this.sourcePath})`;
+      }
+      problem += `
+        TODO: Describe the expected and actual behavior here
+        # Screenshots
+        TODO: Add screenshots if possible
+        # Possible Solution
+        <!-- If you have suggestions on a fix for the bug, please describe it here. -->
+        N/A`;
+      queryParams.append('body', outdent`${problem.split('\n').map(line => line.trim()).join('\n')}`);
+      return `https://github.com/jenkins-infra/helpdesk/issues/new?${queryParams.toString()}`;
     }
-    queryParams.append('problem', problem);
-    return `https://github.com/jenkins-infra/helpdesk/issues/new?${queryParams.toString()}`;
   }
 
   override render() {
