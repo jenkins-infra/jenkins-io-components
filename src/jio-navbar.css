@@ -117,7 +117,7 @@ button.nav-link {
 .nav-link {
   color: rgba(255, 255, 255, 0.55);
   display: block;
-  padding: 0.5em 0;
+  padding: 0.5em 0.5rem;
   text-decoration: none;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
     border-color 0.15s ease-in-out;
