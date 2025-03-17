@@ -68,6 +68,9 @@ export class Footer extends LitElement {
    @property({type: String})
    reportAProblemTemplate = "";
 
+   @property({ type: Boolean })
+   skipReportIssue = false;
+
    override render() {
       return html`
 <footer>
@@ -200,7 +203,8 @@ export class Footer extends LitElement {
 
    private isADownloadsPage() {
       // Check if the current page is /download or /download/mirrors
-      return this.sourcePath.includes('/download/') || this.sourcePath.includes('/download/mirrors/');
+      this.skipReportIssue = this.sourcePath.includes('/download/') || this.sourcePath.includes('/download/mirrors/');
+      return this.skipReportIssue;
    }
 }
 
