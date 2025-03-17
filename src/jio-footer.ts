@@ -69,16 +69,13 @@ export class Footer extends LitElement {
    reportAProblemTemplate = "";
 
    override render() {
-      // Check if the current page is /download or /download/mirrors
-      const isADownloadsPage = this.sourcePath.includes('/download/') || this.sourcePath.includes('/download/mirrors/');
-
       return html`
 <footer>
    <div class="container">
       <div class="row">
          <div class="col-md-4 col1">
             <p class="box">
-               ${isADownloadsPage
+               ${this.isADownloadsPage()
                   ? html`<jio-report-infra-issue sourcePath=${this.sourcePath} githubRepo=${this.githubRepo} .githubBranch=${ifDefined(this.githubBranch)}></jio-report-infra-issue>`
                   : nothing
                }
@@ -199,6 +196,11 @@ export class Footer extends LitElement {
    </div>
 </footer>
     `;
+   }
+
+   private isADownloadsPage() {
+      // Check if the current page is /download or /download/mirrors
+      return this.sourcePath.includes('/download/') || this.sourcePath.includes('/download/mirrors/');
    }
 }
 
