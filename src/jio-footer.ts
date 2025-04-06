@@ -69,7 +69,11 @@ export class Footer extends LitElement {
    reportAProblemTemplate = "";
 
    @property({ type: Boolean })
-   skipReportIssue = false;
+   skipReportIssue = true;
+
+   private isADownloadsPage() {
+     this.skipReportIssue = !(this.sourcePath.includes('/download/') || this.sourcePath.includes('/download/mirrors/'));
+   }
 
    override render() {
       return html`
