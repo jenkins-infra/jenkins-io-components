@@ -71,6 +71,7 @@ export class Footer extends LitElement {
    @property({ type: Boolean })
    skipReportIssue = false;
 
+   /** Change to include the report infra issue link */
    private get isADownloadsPage() {
      return this.sourcePath.includes('/download/') || this.sourcePath.includes('/download/mirrors/');
    }
