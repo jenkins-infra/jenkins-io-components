@@ -71,13 +71,17 @@ export class Footer extends LitElement {
    @property({ type: Boolean })
    skipReportIssue = false;
 
+   private get isADownloadsPage() {
+     return this.sourcePath.includes('/download/') || this.sourcePath.includes('/download/mirrors/');
+   }
+
    override render() {
       return html`
 <footer>
    <div class="container">
       <div class="row">
          <div class="col-md-4 col1">
-            ${!this.skipReportIssue
+            ${this.isADownloadsPage && !this.skipReportIssue
                ? html`<p class="box"><jio-report-infra-issue sourcePath=${this.sourcePath} githubRepo=${this.githubRepo} .githubBranch=${ifDefined(this.githubBranch)}></jio-report-infra-issue></p>`
                : nothing
             }
