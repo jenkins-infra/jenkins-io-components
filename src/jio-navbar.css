@@ -4,8 +4,7 @@ a:focus-visible {
 
 .navbar-toggler {
   background-color: transparent;
-  border: 1px solid transparent;
-  border-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 0.25rem;
   color: rgba(255, 255, 255, 0.5);
   display: none;
@@ -54,14 +53,11 @@ button:not(:disabled) {
 
   /* FIXME - should this stay generic fonts? */
   font-family: Georgia, Times, "Times New Roman", serif;
-  font-size: 1.25rem;
   font-size: 20px;
   font-weight: 600;
   line-height: inherit;
   margin-right: 1rem;
-  padding: 2px 0;
-  padding-bottom: 0.3125rem;
-  padding-top: 0.3125rem;
+  padding: 0.3125rem 0;
   text-decoration: none;
   white-space: nowrap;
 }
@@ -121,9 +117,7 @@ button.nav-link {
 .nav-link {
   color: rgba(255, 255, 255, 0.55);
   display: block;
-  padding: 0.5em 0;
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
+  padding: 0.5em 0.5rem;
   text-decoration: none;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
     border-color 0.15s ease-in-out;
