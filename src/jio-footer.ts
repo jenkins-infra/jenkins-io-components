@@ -76,6 +76,7 @@ export class Footer extends LitElement {
    }
 
    override render() {
+      this.isADownloadsPage();
       return html`
 <footer>
    <div class="container">
