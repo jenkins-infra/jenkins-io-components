@@ -201,7 +201,7 @@ export class Footer extends LitElement {
       </div>
    </div>
    <div class="container">
-     <div class="footer-content">
+     <div class="row">
         <p>
            Copyright © 2025 CD Foundation The Linux Foundation®. All rights reserved.
            The Linux Foundation has registered trademarks and uses trademarks. For a list of trademarks of The Linux Foundation, please see our 
