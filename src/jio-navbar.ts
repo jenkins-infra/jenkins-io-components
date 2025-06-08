@@ -88,7 +88,7 @@ export class Navbar extends LitElement {
 
   private getDocsUrl(originalPath: string): string {
 
-    const cleanPath = originalPath.replace(/^https?:\/\/[^\/]+/, '').split(/[#?]/)[0];
+    const cleanPath = originalPath.replace(/^https?:\/\/[^/]+/, '').split(/[#?]/)[0];
     const docMappings: Record<string, {path: string, versioned: boolean}> = {
       // User Guide sections (versioned)
       '/doc/book': {path: '/user-docs', versioned: true},
