@@ -83,6 +83,83 @@ export class Navbar extends LitElement {
   handleDocumentClick() {
     this.visibleMenu = -1;
   }
+  private isDocsSite = window.location.hostname === 'docs.jenkins.io';
+  private docsVersion = '2.504.x';
+
+  private getDocsUrl(originalPath: string): string {
+
+    const cleanPath = originalPath.replace(/^https?:\/\/[^\/]+/, '').split(/[#?]/)[0];
+    const docMappings: Record<string, {path: string, versioned: boolean}> = {
+      // User Guide sections (versioned)
+      '/doc/book': {path: '/user-docs', versioned: true},
+      '/doc/book/installing': {path: '/user-docs/installing-jenkins', versioned: true},
+      '/doc/book/pipeline': {path: '/user-docs/pipeline', versioned: true},
+      '/doc/book/managing': {path: '/user-docs/managing', versioned: true},
+      '/doc/book/security': {path: '/user-docs/security', versioned: true},
+      '/doc/book/system-administration': {path: '/user-docs/system-administration', versioned: true},
+      '/doc/book/troubleshooting': {path: '/user-docs/troubleshooting', versioned: true},
+      '/doc/book/glossary': {path: '/user-docs/glossary', versioned: true},
+      
+      // Solutions (versioned)
+      '/solutions': {path: '/solutions', versioned: true},
+      
+      // Tutorials (versioned)
+      '/doc/tutorials': {path: '/tutorials', versioned: true},
+      
+      // Developer Guide (not versioned)
+      '/doc/developer': {path: '/dev-docs', versioned: false},
+      
+      // Community sections
+      '/participate': {path: '/community', versioned: false},
+      '/chat': {path: '/community/chat', versioned: false},
+      '/projects/jam': {path: '/community/meet', versioned: false},
+      '/events': {path: '/events', versioned: false},
+      '/mailing-lists': {path: '/community/mailing-lists', versioned: false},
+      
+      // Subprojects
+      '/sigs/docs/gsod/2020/projects/document-jenkins-on-kubernetes': {
+        path: '/sigs/docs/gsod/2020/projects/document-jenkins-on-kubernetes', 
+        versioned: false
+      },
+      
+      // Security
+      '/security/reporting': {path: '/security/reporting', versioned: false},
+      
+      // About sections
+      '/project/roadmap': {path: '/about', versioned: false},
+      '/project/conduct': {path: '/project/conduct', versioned: false},
+      '/artwork': {path: '/images', versioned: false}
+    };
+
+    const mappingEntry = Object.entries(docMappings).find(([original]) => 
+      cleanPath.startsWith(original)
+    );
+  
+    if (mappingEntry && this.isDocsSite) {
+      const [original, {path: replacement, versioned}] = mappingEntry;
+      let newPath = cleanPath.replace(original, replacement);
+      
+      if (versioned) {
+        const pathParts = newPath.split('/').filter(part => part !== '');
+        if (pathParts.length >= 1) {
+          pathParts.splice(1, 0, this.docsVersion);
+          newPath = '/' + pathParts.join('/');
+        } else {
+          newPath = `/${this.docsVersion}`;
+        }
+      }
+      
+      if (!newPath.endsWith('index.html')) {
+        newPath = newPath.replace(/(\/)?$/, '/') + 'index.html';
+      }
+  
+      return `https://docs.jenkins.io${newPath}`;
+    }
+
+    return this.isDocsSite 
+    ? `https://docs.jenkins.io${cleanPath}` 
+    : `https://www.jenkins.io${cleanPath}`;
+  }
 
   override render() {
     const cdfMenuItems = [
