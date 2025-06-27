@@ -74,7 +74,7 @@ export class Footer extends LitElement {
    private docsVersion = '2.504.x';
 
    private getDocsUrl(originalPath: string): string {
-     const [cleanPath, query, hash] = originalPath.replace(/^https?:\/\/[^\/]+/, '').split(/[?#]/);
+     const [cleanPath, query, hash] = originalPath.replace(/^https?:\/\/[^/]+/, '').split(/[?#]/);
      const docMappings: Record<string, {path: string, versioned: boolean}> = {
        // User Guide sections (versioned)
        '/doc/book': {path: '/user-docs', versioned: true},
