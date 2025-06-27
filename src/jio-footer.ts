@@ -3,8 +3,6 @@ import {ifDefined} from 'lit/directives/if-defined.js';
 import {customElement, property} from 'lit/decorators.js';
 import {msg, localized} from '@lit/localize';
 
-import {relOrAbsoluteLink} from './jio-navbar-link';
-
 import './jio-improve-this-page';
 import './jio-report-a-problem';
 import './jio-report-infra-issue';
@@ -44,6 +42,7 @@ export class Footer extends LitElement {
 
    @property()
    property = 'https://www.jenkins.io';
+
    /**
     * Github source path relative to $githubRepo
     */
@@ -70,6 +69,85 @@ export class Footer extends LitElement {
 
    @property({ type: Boolean })
    skipReportIssue = true;
+
+   private isDocsSite = window.location.hostname === 'docs.jenkins.io';
+   private docsVersion = '2.504.x';
+
+   private getDocsUrl(originalPath: string): string {
+     const [cleanPath, query, hash] = originalPath.replace(/^https?:\/\/[^\/]+/, '').split(/[?#]/);
+     const docMappings: Record<string, {path: string, versioned: boolean}> = {
+       // User Guide sections (versioned)
+       '/doc/book': {path: '/user-docs', versioned: true},
+       '/doc/book/installing': {path: '/user-docs/installing-jenkins', versioned: true},
+       '/doc/book/pipeline': {path: '/user-docs/pipeline', versioned: true},
+       '/doc/book/managing': {path: '/user-docs/managing', versioned: true},
+       '/doc/book/security': {path: '/user-docs/security', versioned: true},
+       '/doc/book/system-administration': {path: '/user-docs/system-administration', versioned: true},
+       '/doc/book/troubleshooting': {path: '/user-docs/troubleshooting', versioned: true},
+       '/doc/book/glossary': {path: '/user-docs/glossary', versioned: true},
+       
+       // Solutions (versioned)
+       '/solutions': {path: '/solutions', versioned: true},
+       
+       // Tutorials (versioned)
+       '/doc/tutorials': {path: '/tutorials', versioned: true},
+       
+       // Developer Guide (not versioned)
+       '/doc/developer': {path: '/dev-docs', versioned: false},
+       
+       // Community sections
+       '/participate': {path: '/community', versioned: false},
+       '/chat': {path: '/community/chat', versioned: false},
+       '/projects/jam': {path: '/community/meet', versioned: false},
+       '/events': {path: '/events', versioned: false},
+       '/mailing-lists': {path: '/community/mailing-lists', versioned: false},
+       
+       // Subprojects
+       '/sigs/docs/gsod/2020/projects/document-jenkins-on-kubernetes': {
+         path: '/sigs/docs/gsod/2020/projects/document-jenkins-on-kubernetes', 
+         versioned: false
+       },
+       
+       // Security
+       '/security/reporting': {path: '/security/reporting', versioned: false},
+       
+       // About sections
+       '/project/roadmap': {path: '/about', versioned: false},
+       '/project/conduct': {path: '/project/conduct', versioned: false},
+       '/artwork': {path: '/images', versioned: false}
+     };
+
+     const mappingEntry = Object.entries(docMappings).find(([original]) => 
+       cleanPath.startsWith(original)
+     );
+   
+     if (mappingEntry && this.isDocsSite) {
+       const [original, {path: replacement, versioned}] = mappingEntry;
+       let newPath = cleanPath.replace(original, replacement);
+       
+       if (versioned) {
+         const pathParts = newPath.split('/').filter(part => part !== '');
+         if (pathParts.length >= 1) {
+           pathParts.splice(1, 0, this.docsVersion);
+           newPath = '/' + pathParts.join('/');
+         } else {
+           newPath = `/${this.docsVersion}`;
+         }
+       }
+       
+       if (!newPath.endsWith('index.html')) {
+         newPath = newPath.replace(/(\/)?$/, '/') + 'index.html';
+       }
+
+       let finalUrl = `https://docs.jenkins.io${newPath}`;
+       if (query) finalUrl += `?${query}`;
+       if (hash) finalUrl += `#${hash}`;
+       return finalUrl;
+     }
+
+     const baseUrl = this.isDocsSite ? 'https://docs.jenkins.io' : 'https://www.jenkins.io';
+     return `${baseUrl}${cleanPath}`;
+   }
 
    private isADownloadsPage() {
      this.skipReportIssue = !(this.sourcePath.includes('/download/') || this.sourcePath.includes('/download/mirrors/'));
@@ -100,22 +178,22 @@ export class Footer extends LitElement {
                         <h5>Resources</h5>
                         <ul class="resources">
                            <li>
-                              <a href=${relOrAbsoluteLink('/download/', this.property).href}>${msg('Downloads')}</a>
+                              <a href=${this.getDocsUrl('/download/')}>${msg('Downloads')}</a>
                            </li>
                            <li>
-                              <a href=${relOrAbsoluteLink('/blog/', this.property).href}>${msg('Blog')}</a>
+                              <a href=${this.getDocsUrl('/blog/')}>${msg('Blog')}</a>
                            </li>
                            <li>
-                              <a href=${relOrAbsoluteLink('/doc/', this.property).href}>${msg('Documentation')}</a>
+                              <a href=${this.getDocsUrl('/doc/')}>${msg('Documentation')}</a>
                            </li>
                            <li>
-                              <a href=${relOrAbsoluteLink('https://plugins.jenkins.io/', this.property).href}>${msg('Plugins')}</a>
+                              <a href=${this.getDocsUrl('https://plugins.jenkins.io/')}>${msg('Plugins')}</a>
                            </li>
                            <li>
-                              <a href=${relOrAbsoluteLink('/security/', this.property).href}>${msg('Security')}</a>
+                              <a href=${this.getDocsUrl('/security/')}>${msg('Security')}</a>
                            </li>
                            <li>
-                              <a href=${relOrAbsoluteLink('/participate/', this.property).href}>${msg('Contributing')}</a>
+                              <a href=${this.getDocsUrl('/participate/')}>${msg('Contributing')}</a>
                            </li>
                         </ul>
                      </div>
@@ -125,22 +203,22 @@ export class Footer extends LitElement {
                         <h5>Project</h5>
                         <ul class="project">
                            <li>
-                              <a href=${relOrAbsoluteLink('/project/', this.property).href}>${msg('Structure and governance')}</a>
+                              <a href=${this.getDocsUrl('/project/')}>${msg('Structure and governance')}</a>
                            </li>
                            <li>
-                              <a href=${relOrAbsoluteLink('https://issues.jenkins.io', this.property).href}>${msg('Issue tracker')}</a>
+                              <a href=${this.getDocsUrl('https://issues.jenkins.io')}>${msg('Issue tracker')}</a>
                            </li>
                            <li>
-                              <a href=${relOrAbsoluteLink('/project/roadmap/', this.property).href}>${msg('Roadmap')}</a>
+                              <a href=${this.getDocsUrl('/project/roadmap/')}>${msg('Roadmap')}</a>
                            </li>
                            <li>
-                              <a href=${relOrAbsoluteLink('https://github.com/jenkinsci', this.property).href}>${msg('GitHub')}</a>
+                              <a href=${this.getDocsUrl('https://github.com/jenkinsci')}>${msg('GitHub')}</a>
                            </li>
                            <li>
-                              <a href=${relOrAbsoluteLink('https://ci.jenkins.io', this.property).href}>${msg('Jenkins on Jenkins')}</a>
+                              <a href=${this.getDocsUrl('https://ci.jenkins.io')}>${msg('Jenkins on Jenkins')}</a>
                            </li>
                            <li>
-                              <a href=${relOrAbsoluteLink('https://stats.jenkins.io', this.property).href}>${msg('Statistics')}</a>
+                              <a href=${this.getDocsUrl('https://stats.jenkins.io')}>${msg('Statistics')}</a>
                            </li>
                         </ul>
                      </div>
@@ -150,25 +228,25 @@ export class Footer extends LitElement {
                         <h5>Community</h5>
                         <ul class="community">
                            <li>
-                              <a href=${relOrAbsoluteLink('https://community.jenkins.io', this.property).href}>${msg('Forum')}</a>
+                              <a href=${this.getDocsUrl('https://community.jenkins.io')}>${msg('Forum')}</a>
                            </li>
                            <li>
-                              <a href=${relOrAbsoluteLink('/events/', this.property).href}>${msg('Events')}</a>
+                              <a href=${this.getDocsUrl('/events/')}>${msg('Events')}</a>
                            </li>
                            <li>
-                              <a href=${relOrAbsoluteLink('/mailing-lists/', this.property).href}>${msg('Mailing lists')}</a>
+                              <a href=${this.getDocsUrl('/mailing-lists/')}>${msg('Mailing lists')}</a>
                            </li>
                            <li>
-                              <a href=${relOrAbsoluteLink('/chat/', this.property).href}>${msg('Chats')}</a>
+                              <a href=${this.getDocsUrl('/chat/')}>${msg('Chats')}</a>
                            </li>
                            <li>
-                              <a href=${relOrAbsoluteLink('/sigs/', this.property).href}>${msg('Special Interest Groups')}</a>
+                              <a href=${this.getDocsUrl('/sigs/')}>${msg('Special Interest Groups')}</a>
                            </li>
                            <li>
-                              <a href=${relOrAbsoluteLink('https://twitter.com/jenkinsci', this.property).href}>${msg('𝕏 (formerly Twitter)')}</a>
+                              <a href=${this.getDocsUrl('https://twitter.com/jenkinsci')}>${msg('𝕏 (formerly Twitter)')}</a>
                            </li>
                            <li>
-                              <a href=${relOrAbsoluteLink('https://reddit.com/r/jenkinsci', this.property).href}>${msg('Reddit')}</a>
+                              <a href=${this.getDocsUrl('https://reddit.com/r/jenkinsci')}>${msg('Reddit')}</a>
                            </li>
                         </ul>
                      </div>
@@ -178,19 +256,19 @@ export class Footer extends LitElement {
                         <h5>Other</h5>
                         <ul class="other">
                            <li>
-                              <a href=${relOrAbsoluteLink('/project/conduct/', this.property).href}>${msg('Code of Conduct')}</a>
+                              <a href=${this.getDocsUrl('/project/conduct/')}>${msg('Code of Conduct')}</a>
                            </li>
                            <li>
-                              <a href=${relOrAbsoluteLink('/press/', this.property).href}>${msg('Press information')}</a>
+                              <a href=${this.getDocsUrl('/press/')}>${msg('Press information')}</a>
                            </li>
                            <li>
-                              <a href=${relOrAbsoluteLink('/merchandise/', this.property).href}>${msg('Merchandise')}</a>
+                              <a href=${this.getDocsUrl('/merchandise/')}>${msg('Merchandise')}</a>
                            </li>
                            <li>
-                              <a href=${relOrAbsoluteLink('/artwork/', this.property).href}>${msg('Artwork')}</a>
+                              <a href=${this.getDocsUrl('/artwork/')}>${msg('Artwork')}</a>
                            </li>
                            <li>
-                              <a href=${relOrAbsoluteLink('/awards/', this.property).href}>${msg('Awards')}</a>
+                              <a href=${this.getDocsUrl('/awards/')}>${msg('Awards')}</a>
                            </li>
                         </ul>
                      </div>
