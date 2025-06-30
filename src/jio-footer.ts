@@ -246,6 +246,18 @@ export class Footer extends LitElement {
                               <a href=${this.getDocsUrl('https://twitter.com/jenkinsci')}>${msg('𝕏 (formerly Twitter)')}</a>
                            </li>
                            <li>
+                              <a href=${this.getDocsUrl('https://www.linkedin.com/company/jenkins-project/')}>${msg('LinkedIn')}</a>
+                           </li>
+                           <li>
+                              <a href=${this.getDocsUrl('https://bsky.app/profile/jenkinsci.bsky.social')}>${msg('Bluesky')}</a>
+                           </li>
+                           <li>
+                              <a href=${this.getDocsUrl('https://mastodon.social/@Jenkinsci')}>${msg('Mastodon')}</a>
+                           </li>
+                           <li>
+                              <a href=${this.getDocsUrl('https://www.youtube.com/@jenkinscicd')}>${msg('Youtube')}</a>
+                           </li>
+                           <li>
                               <a href=${this.getDocsUrl('https://reddit.com/r/jenkinsci')}>${msg('Reddit')}</a>
                            </li>
                         </ul>
