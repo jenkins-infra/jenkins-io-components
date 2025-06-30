@@ -168,6 +168,18 @@ export class Footer extends LitElement {
                               <a href=${relOrAbsoluteLink('https://twitter.com/jenkinsci', this.property).href}>${msg('𝕏 (formerly Twitter)')}</a>
                            </li>
                            <li>
+                              <a href=${relOrAbsoluteLink('https://www.linkedin.com/company/jenkins-project/', this.property).href}>${msg('LinkedIn')}</a>
+                           </li>
+                           <li>
+                              <a href=${relOrAbsoluteLink('https://bsky.app/profile/jenkinsci.bsky.social', this.property).href}>${msg('Bluesky')}</a>
+                           </li>
+                           <li>
+                              <a href=${relOrAbsoluteLink('https://mastodon.social/@Jenkinsci', this.property).href}>${msg('Mastodon')}</a>
+                           </li>
+                           <li>
+                              <a href=${relOrAbsoluteLink('https://www.youtube.com/@jenkinscicd', this.property).href}>${msg('Youtube')}</a>
+                           </li>
+                           <li>
                               <a href=${relOrAbsoluteLink('https://reddit.com/r/jenkinsci', this.property).href}>${msg('Reddit')}</a>
                            </li>
                         </ul>
@@ -198,6 +210,18 @@ export class Footer extends LitElement {
                </div>
             </div>
          </div>
+      </div>
+   </div>
+   <div class="container">
+     <div class="row">
+        <p>
+           Copyright © 2025 CD Foundation The Linux Foundation®. All rights reserved.
+           The Linux Foundation has registered trademarks and uses trademarks. For a list of trademarks of The Linux Foundation, please see our 
+            <a href="https://www.linuxfoundation.org/legal/trademark-usage" target="_blank">Trademark Usage</a> page.
+           Linux is a registered trademark of Linus Torvalds. 
+            <a href="https://www.linuxfoundation.org/legal/privacy-policy" target="_blank">Privacy Policy</a> and 
+            <a href="https://www.linuxfoundation.org/legal/terms" target="_blank">Terms of Use</a>.
+         </p>
       </div>
    </div>
 </footer>
