@@ -87,7 +87,7 @@ export const OverridePageTitle: StoryObj<ReportInfraIssue> = {
   render,
   args: {
     ...RepoAndSourcePath.args,
-    pageTitle: 'thingie'
+    pageTitle: 'thingy'
   },
   play: async ({canvasElement, args}) => {
     const reportInfraIssue = canvasElement.querySelector('jio-report-infra-issue') as ReportInfraIssue;
@@ -105,7 +105,7 @@ export const OverrideURL: StoryObj<ReportInfraIssue> = {
   render,
   args: {
     ...RepoAndSourcePath.args,
-    pageTitle: 'thingie',
+    pageTitle: 'thingy',
     url: 'https://google.com/'
   },
   play: async ({canvasElement, args}) => {
