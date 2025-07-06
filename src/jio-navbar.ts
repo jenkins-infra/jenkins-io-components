@@ -40,7 +40,7 @@ export class Navbar extends LitElement {
   @property()
   locationPathname: string = location.pathname;
 
-  
+
   /**
    * Header theme (light/dark/auto)
    */
@@ -370,12 +370,12 @@ export class Navbar extends LitElement {
     const assignedElements = slotElement.assignedElements();
     const container = slotElement.parentNode as HTMLElement;
     for (const element of assignedElements) {
+      //if (element.slot === "rightMenuItems") {
+      //  const divider = document.createElement('li');
+      //  divider.className = "divider";
+      //  container.appendChild(divider);
+      //}
       for (const link of element.querySelectorAll('jio-navbar-link')) {
-        //if (element.slot === "rightMenuItems") {
-        //  const divider = document.createElement('li');
-        //  divider.className = "divider";
-        //  container.appendChild(divider);
-        //}
         const wrapper = document.createElement('li');
         wrapper.className = "nav-item";
         wrapper.appendChild(link);
