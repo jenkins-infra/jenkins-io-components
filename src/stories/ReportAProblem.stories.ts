@@ -99,7 +99,7 @@ export const OverridePageTitle: StoryObj<ReportAProblem> = {
   render,
   args: {
     ...RepoAndSourcePath.args,
-    pageTitle: 'thingie'
+    pageTitle: 'thingy'
   },
   play: async ({canvasElement, args}) => {
     const reportAProblem = canvasElement.querySelector('jio-report-a-problem') as ReportAProblem;
@@ -111,7 +111,7 @@ export const OverridePageTitle: StoryObj<ReportAProblem> = {
 
     expectToBeUrlEncoded(
       reportAProblem.shadowRoot.querySelector('a').getAttribute('href'),
-      {url: '', title: 'thingie page', githubRepo: args.githubRepo}
+      {url: '', title: 'thingy page', githubRepo: args.githubRepo}
     );
   }
 };
@@ -120,7 +120,7 @@ export const OverrideURL: StoryObj<ReportAProblem> = {
   render,
   args: {
     ...RepoAndSourcePath.args,
-    pageTitle: 'thingie',
+    pageTitle: 'thingy',
     url: 'https://google.com/'
   },
   play: async ({canvasElement, args}) => {
@@ -133,7 +133,7 @@ export const OverrideURL: StoryObj<ReportAProblem> = {
 
     expectToBeUrlEncoded(
       reportAProblem.shadowRoot.querySelector('a').getAttribute('href'),
-      {url: 'https://google.com/', title: 'thingie page', githubRepo: args.githubRepo}
+      {url: 'https://google.com/', title: 'thingy page', githubRepo: args.githubRepo}
     );
   }
 };
