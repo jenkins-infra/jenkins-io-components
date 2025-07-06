@@ -191,6 +191,17 @@ export class Navbar extends LitElement {
     }
   }
 
+  private renderVersionOptions() {
+    return this.docVersions.map(version => html`
+      <option 
+        value=${version.version}
+        ?selected=${version.version === this.currentDocVersion}
+      >
+        ${version.label} (${version.version})
+      </option>
+    `);
+  }
+
   override render() {
     const cdfMenuItems = [
       {label: msg("What is CDF?"), link: "https://cd.foundation/"},
@@ -308,20 +319,11 @@ export class Navbar extends LitElement {
       return html`<li class="nav-item">${this.renderNavItemLink(menuItem)}</li>`;
     });
 
+    const versionOptions = this.renderVersionOptions();
     const versionSelector = this.docVersions.length > 1 ? html`
       <div class="version-selector">
         <select @change=${this._handleVersionChange}>
-          ${this.docVersions.map(version => ({
-            version,
-            html: html`
-              <option 
-                value=${version.version}
-                ?selected=${version.version === this.currentDocVersion}
-              >
-                ${version.label} (${version.version})
-              </option>
-            `
-          })).map(v => v.html)}
+          ${versionOptions}
         </select>
       </div>
     ` : nothing;
