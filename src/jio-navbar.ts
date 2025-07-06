@@ -40,7 +40,6 @@ export class Navbar extends LitElement {
   @property()
   locationPathname: string = location.pathname;
 
-
   /**
    * Header theme (light/dark/auto)
    */
@@ -48,9 +47,22 @@ export class Navbar extends LitElement {
   theme = 'light';
 
   /**
+   * Supported documentation versions with labels
+   * @example [{version: '2.504.x', label: 'Stable'}, {version: 'latest', label: 'Nightly'}]
+   */
+  @property({type: Array})
+  docVersions: Array<{version: string, label: string}> = [
+    {version: '2.504.x', label: 'Stable'}
+  ];
+
+  /**
+   * Currently active documentation version
+   */
+  @property({type: String})
+  currentDocVersion = '2.504.x';
+
+  /**
    * Keeps track of what menu is opened.
-   *
-   * Never to be set externally, though storybook shows it.
    * @private
    */
   @state()
@@ -58,12 +70,12 @@ export class Navbar extends LitElement {
 
   /**
    * Keeps track if the collapsed (mobile) menu is shown or not
-   *
-   * Never to be set externally, though storybook shows it.
    * @private
    */
   @state()
   private menuToggled = false;
+
+  private isDocsSite = window.location.hostname === 'docs.jenkins.io';
 
   constructor() {
     super();
@@ -73,6 +85,11 @@ export class Navbar extends LitElement {
   override connectedCallback() {
     super.connectedCallback();
     document.addEventListener('click', this.handleDocumentClick);
+    
+    // Initialize current version from first available if not set
+    if (!this.currentDocVersion && this.docVersions.length > 0) {
+      this.currentDocVersion = this.docVersions[0].version;
+    }
   }
 
   override disconnectedCallback() {
@@ -83,12 +100,10 @@ export class Navbar extends LitElement {
   handleDocumentClick() {
     this.visibleMenu = -1;
   }
-  private isDocsSite = window.location.hostname === 'docs.jenkins.io';
-  private docsVersion = '2.504.x';
 
   private getDocsUrl(originalPath: string): string {
-
-    const cleanPath = originalPath.replace(/^https?:\/\/[^/]+/, '').split(/[#?]/)[0];
+    const [cleanPath, query, hash] = originalPath.replace(/^https?:\/\/[^\/]+/, '').split(/[?#]/);
+    
     const docMappings: Record<string, {path: string, versioned: boolean}> = {
       // User Guide sections (versioned)
       '/doc/book': {path: '/user-docs', versioned: true},
@@ -142,23 +157,38 @@ export class Navbar extends LitElement {
       if (versioned) {
         const pathParts = newPath.split('/').filter(part => part !== '');
         if (pathParts.length >= 1) {
-          pathParts.splice(1, 0, this.docsVersion);
+          pathParts.splice(1, 0, this.currentDocVersion);
           newPath = '/' + pathParts.join('/');
         } else {
-          newPath = `/${this.docsVersion}`;
+          newPath = `/${this.currentDocVersion}`;
         }
       }
       
       if (!newPath.endsWith('index.html')) {
         newPath = newPath.replace(/(\/)?$/, '/') + 'index.html';
       }
-  
-      return `https://docs.jenkins.io${newPath}`;
+
+      // Reconstruct URL with query/hash if they existed
+      let finalUrl = `https://docs.jenkins.io${newPath}`;
+      if (query) finalUrl += `?${query}`;
+      if (hash) finalUrl += `#${hash}`;
+      return finalUrl;
     }
 
-    return this.isDocsSite 
-    ? `https://docs.jenkins.io${cleanPath}` 
-    : `https://www.jenkins.io${cleanPath}`;
+    // For all other paths, use standard behavior
+    const baseUrl = this.isDocsSite ? 'https://docs.jenkins.io' : 'https://www.jenkins.io';
+    return `${baseUrl}${cleanPath}`;
+  }
+
+  private _handleVersionChange(e: Event) {
+    const newVersion = (e.target as HTMLSelectElement).value;
+    if (newVersion !== this.currentDocVersion) {
+      this.currentDocVersion = newVersion;
+      // Dispatch event to notify parent of version change
+      this.dispatchEvent(new CustomEvent('version-changed', {
+        detail: { version: this.currentDocVersion }
+      }));
+    }
   }
 
   override render() {
@@ -168,6 +198,7 @@ export class Navbar extends LitElement {
       {label: msg("Tekton"), link: "https://tekton.dev/"},
       {label: msg("Spinnaker"), link: "https://www.spinnaker.io/"},
     ];
+    
     const menuItems = [
       {label: msg("Blog"), link: "/blog/"},
       {label: msg("Success Stories"), link: "https://stories.jenkins.io/"},
@@ -175,103 +206,129 @@ export class Navbar extends LitElement {
       {
         label: msg("Documentation"), link: [
           {
-            label: msg("User Guide"), link: "/doc/book", header: true
+            label: msg("User Guide"), 
+            link: this.getDocsUrl("/doc/book"),
+            header: true
           },
-          {label: "- " + msg("Installing Jenkins"), link: "/doc/book/installing/"},
-          {label: "- " + msg("Jenkins Pipeline"), link: "/doc/book/pipeline/"},
-          {label: "- " + msg("Managing Jenkins"), link: "/doc/book/managing/"},
-          {label: "- " + msg("Securing Jenkins"), link: "/doc/book/security/"},
-          {label: "- " + msg("System Administration"), link: "/doc/book/system-administration/"},
-          {label: "- " + msg("Troubleshooting Jenkins"), link: "/doc/book/troubleshooting/"},
-          {label: "- " + msg("Terms and Definitions"), link: "/doc/book/glossary/"},
-          {label: msg("Solution Pages"), link: "/solutions", header: true},
+          {label: "- " + msg("Installing Jenkins"), link: this.getDocsUrl("/doc/book/installing/")},
+          {label: "- " + msg("Jenkins Pipeline"), link: this.getDocsUrl("/doc/book/pipeline/")},
+          {label: "- " + msg("Managing Jenkins"), link: this.getDocsUrl("/doc/book/managing/")},
+          {label: "- " + msg("Securing Jenkins"), link: this.getDocsUrl("/doc/book/security/")},
+          {label: "- " + msg("System Administration"), link: this.getDocsUrl("/doc/book/system-administration/")},
+          {label: "- " + msg("Troubleshooting Jenkins"), link: this.getDocsUrl("/doc/book/troubleshooting/")},
+          {label: "- " + msg("Terms and Definitions"), link: this.getDocsUrl("/doc/book/glossary/")},
+          
+          {label: msg("Solution Pages"), link: this.getDocsUrl("/solutions"), header: true},
+          
           {
-            label: msg("Tutorials"), link: "/doc/tutorials", header: true
+            label: msg("Tutorials"), 
+            link: this.getDocsUrl("/doc/tutorials"), 
+            header: true
           },
+          
           {
-            label: msg("Developer Guide"), link: "/doc/developer", header: true
+            label: msg("Developer Guide"), 
+            link: this.getDocsUrl("/doc/developer"), 
+            header: true
           },
-          {label: msg("Contributor Guide"), link: "/participate", header: true},
-          {label: msg("Books"), link: "/books", header: true},
+          
+          {label: msg("Contributor Guide"), link: this.getDocsUrl("/participate"), header: true},
+          {label: msg("Books"), link: this.getDocsUrl("/books"), header: true},
         ]
       },
       {label: msg("Plugins"), link: "https://plugins.jenkins.io/"},
       {
         label: msg("Community"), link: [
           {
-            label: msg("Overview"), link: "/participate/"
+            label: msg("Overview"), link: this.getDocsUrl("/participate/")
           },
           {
-            label: msg("Chat"), link: "/chat/", title: "Chat with the rest of the Jenkins community on IRC"
+            label: msg("Chat"), link: this.getDocsUrl("/chat/"), title: "Chat with the rest of the Jenkins community on IRC"
           },
-          {label: msg("Meet"), link: "/projects/jam/"},
+          {label: msg("Meet"), link: this.getDocsUrl("/projects/jam/")},
           {
-            label: msg("Events"), link: "/events/"
+            label: msg("Events"), link: this.getDocsUrl("/events/")
           },
           {label: msg("Forum"), link: "https://community.jenkins.io/"},
           {label: msg("Issue Tracker"), link: "https://issues.jenkins.io/"},
-          {label: msg("Mailing Lists"), link: "/mailing-lists/", title: "Browse Jenkins mailing list archives and/ or subscribe to lists"},
-          {label: msg("Roadmap"), link: "/project/roadmap/"},
+          {label: msg("Mailing Lists"), link: this.getDocsUrl("/mailing-lists/"), title: "Browse Jenkins mailing list archives and/ or subscribe to lists"},
+          {label: msg("Roadmap"), link: this.getDocsUrl("/project/roadmap/")},
           {label: msg("Account Management"), link: "https://accounts.jenkins.io/", title: "Create/manage your account for accessing wiki, issue tracker, etc"},
           {
-            label: msg("Special Interest Groups"), link: "/sigs/", header: true
+            label: msg("Special Interest Groups"), link: this.getDocsUrl("/sigs/"), header: true
           },
-          {label: "- " + msg("Advocacy and Outreach"), link: "/sigs/advocacy-and-outreach/"},
-          {label: "- " + msg("Documentation"), link: "/sigs/docs/"},
-          {label: "- " + msg("Google Summer of Code"), link: "/sigs/gsoc/"},
-          {label: "- " + msg("Platform"), link: "/sigs/platform/"},
-          {label: "- " + msg("User Experience"), link: "/sigs/ux/"},
+          {label: "- " + msg("Advocacy and Outreach"), link: this.getDocsUrl("/sigs/advocacy-and-outreach/")},
+          {label: "- " + msg("Documentation"), link: this.getDocsUrl("/sigs/docs/")},
+          {label: "- " + msg("Google Summer of Code"), link: this.getDocsUrl("/sigs/gsoc/")},
+          {label: "- " + msg("Platform"), link: this.getDocsUrl("/sigs/platform/")},
+          {label: "- " + msg("User Experience"), link: this.getDocsUrl("/sigs/ux/")},
         ]
       },
       {
         label: msg("Subprojects"), link: [
           {
-            label: msg("Overview"), link: "/projects/"
+            label: msg("Overview"), link: this.getDocsUrl("/projects/")
           },
-          {label: msg("Google Summer of Code in Jenkins"), link: "/projects/gsoc/"},
-          {label: msg("Infrastructure"), link: "/projects/infrastructure/"},
-          {label: msg("CI/CD and Jenkins Area Meetups"), link: "/projects/jam/"},
-          {label: msg("Jenkins Configuration as Code"), link: "/projects/jcasc/"},
-          {label: msg("Jenkins Operator"), link: "/projects/jenkins-operator/"},
-          {label: msg("Jenkins Remoting"), link: "/projects/remoting/"},
-          {label: msg("Document Jenkins on Kubernetes"), link: "/sigs/docs/gsod/2020/projects/document-jenkins-on-kubernetes/"},
+          {label: msg("Google Summer of Code in Jenkins"), link: this.getDocsUrl("/projects/gsoc/")},
+          {label: msg("Infrastructure"), link: this.getDocsUrl("/projects/infrastructure/")},
+          {label: msg("CI/CD and Jenkins Area Meetups"), link: this.getDocsUrl("/projects/jam/")},
+          {label: msg("Jenkins Configuration as Code"), link: this.getDocsUrl("/projects/jcasc/")},
+          {label: msg("Jenkins Operator"), link: this.getDocsUrl("/projects/jenkins-operator/")},
+          {label: msg("Jenkins Remoting"), link: this.getDocsUrl("/projects/remoting/")},
+          {label: msg("Document Jenkins on Kubernetes"), link: this.getDocsUrl("/sigs/docs/gsod/2020/projects/document-jenkins-on-kubernetes/")},
         ]
       },
       {
         label: msg("Security"), link: [
           {
-            label: msg("Overview"), link: "/security/"
+            label: msg("Overview"), link: this.getDocsUrl("/security/")
           },
-          {label: msg("Security Advisories"), link: "/security/advisories/"},
-          {label: msg("Reporting Vulnerabilities"), link: "/security/reporting/"},
+          {label: msg("Security Advisories"), link: this.getDocsUrl("/security/advisories/")},
+          {label: msg("Reporting Vulnerabilities"), link: this.getDocsUrl("/security/reporting/")},
         ]
       },
       {
         label: msg("About"), link: [
-          {label: msg("Roadmap"), link: "/project/roadmap/"},
+          {label: msg("Roadmap"), link: this.getDocsUrl("/project/roadmap/")},
           {
-            label: msg("Press"), link: "/press/"
+            label: msg("Press"), link: this.getDocsUrl("/press/")
           },
           {
-            label: msg("Awards"), link: "/awards/"
+            label: msg("Awards"), link: this.getDocsUrl("/awards/")
           },
-          {label: msg("Conduct"), link: "/project/conduct/"},
-          {label: msg("Artwork"), link: "/artwork/"},
+          {label: msg("Conduct"), link: this.getDocsUrl("/project/conduct/")},
+          {label: msg("Artwork"), link: this.getDocsUrl("/artwork/")},
         ]
       }
     ] as Array<NavbarItemLink>;
+
     const menuItemsHtml = menuItems.map((menuItem, idx) => {
       let body;
       if (menuItem.link && Array.isArray(menuItem.link)) {
-        // eslint-disable-next-line lit/no-this-assign-in-render
         body = this.renderNavItemDropdown(menuItem, idx, this.visibleMenu === idx);
       } else {
-        // eslint-disable-next-line lit/no-this-assign-in-render
         body = html`<li class="nav-item">${this.renderNavItemLink(menuItem)}</li>`;
       }
       return body;
     });
+
+    const versionSelector = this.docVersions.length > 1 ? html`
+      <div class="version-selector">
+        <select @change=${this._handleVersionChange}>
+          ${this.docVersions.map(v => html`
+            <option 
+              value=${v.version}
+              ?selected=${v.version === this.currentDocVersion}
+            >
+              ${v.label} (${v.version})
+            </option>
+          `)}
+        </select>
+      </div>
+    ` : nothing;
+
     const searchboxHtml = !this.showSearchBox ? nothing : html`<jio-searchbox @click=${this._handleSearchboxClick}></jio-searchbox>`;
+    
     return html`
       <nav class="navbar" data-theme=${this.theme}>
         <span class="navbar-brand">
@@ -279,6 +336,9 @@ export class Navbar extends LitElement {
             <a href="/">Jenkins</a>
           </slot>
         </span>
+        
+        ${versionSelector}
+        
         <button
           class="navbar-toggler collapsed btn"
           type="button"
@@ -288,6 +348,7 @@ export class Navbar extends LitElement {
           aria-label="Toggle navigation">
           <ion-icon name=${this.menuToggled ? "close-outline" : "menu-outline"} title="Toggle Menu Visible"></ion-icon>
         </button>
+        
         <div class="navbar-menu collapse ${this.menuToggled ? "show" : ""}">
           <ul class="nav navbar-nav mr-auto">
             ${this.renderNavItemDropdown({label: html`<jio-cdf-logo></jio-cdf-logo>`, link: cdfMenuItems}, 99, this.visibleMenu === 99)}
@@ -310,11 +371,6 @@ export class Navbar extends LitElement {
     const assignedElements = slotElement.assignedElements();
     const container = slotElement.parentNode as HTMLElement;
     for (const element of assignedElements) {
-      //if (element.slot === "rightMenuItems") {
-      //  const divider = document.createElement('li');
-      //  divider.className = "divider";
-      //  container.appendChild(divider);
-      //}
       for (const link of element.querySelectorAll('jio-navbar-link')) {
         const wrapper = document.createElement('li');
         wrapper.className = "nav-item";
@@ -389,5 +445,3 @@ declare global {
     'jio-navbar': Navbar;
   }
 }
-
-
