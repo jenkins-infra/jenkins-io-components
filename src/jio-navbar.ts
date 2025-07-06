@@ -40,16 +40,13 @@ export class Navbar extends LitElement {
   @property()
   locationPathname: string = location.pathname;
 
+  
   /**
    * Header theme (light/dark/auto)
    */
   @property()
   theme = 'light';
 
-  /**
-   * Supported documentation versions with labels
-   * @example [{version: '2.504.x', label: 'Stable'}, {version: 'latest', label: 'Nightly'}]
-   */
   @property({type: Array})
   docVersions: Array<{version: string, label: string}> = [
     {version: '2.504.x', label: 'Stable'}
@@ -63,6 +60,8 @@ export class Navbar extends LitElement {
 
   /**
    * Keeps track of what menu is opened.
+   *
+   * Never to be set externally, though storybook shows it.
    * @private
    */
   @state()
@@ -70,6 +69,8 @@ export class Navbar extends LitElement {
 
   /**
    * Keeps track if the collapsed (mobile) menu is shown or not
+   *
+   * Never to be set externally, though storybook shows it.
    * @private
    */
   @state()
@@ -86,7 +87,6 @@ export class Navbar extends LitElement {
     super.connectedCallback();
     document.addEventListener('click', this.handleDocumentClick);
     
-    // Initialize current version from first available if not set
     if (!this.currentDocVersion && this.docVersions.length > 0) {
       this.currentDocVersion = this.docVersions[0].version;
     }
@@ -198,7 +198,6 @@ export class Navbar extends LitElement {
       {label: msg("Tekton"), link: "https://tekton.dev/"},
       {label: msg("Spinnaker"), link: "https://www.spinnaker.io/"},
     ];
-    
     const menuItems = [
       {label: msg("Blog"), link: "/blog/"},
       {label: msg("Success Stories"), link: "https://stories.jenkins.io/"},
@@ -372,6 +371,11 @@ export class Navbar extends LitElement {
     const container = slotElement.parentNode as HTMLElement;
     for (const element of assignedElements) {
       for (const link of element.querySelectorAll('jio-navbar-link')) {
+        //if (element.slot === "rightMenuItems") {
+        //  const divider = document.createElement('li');
+        //  divider.className = "divider";
+        //  container.appendChild(divider);
+        //}
         const wrapper = document.createElement('li');
         wrapper.className = "nav-item";
         wrapper.appendChild(link);
