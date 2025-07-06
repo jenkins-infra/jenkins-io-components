@@ -102,7 +102,7 @@ export class Navbar extends LitElement {
   }
 
   private getDocsUrl(originalPath: string): string {
-    const [cleanPath, query, hash] = originalPath.replace(/^https?:\/\/[^\/]+/, '').split(/[?#]/);
+    const [cleanPath, query, hash] = originalPath.replace(/^https?:\/\/[^/]+/, '').split(/[?#]/);
     
     const docMappings: Record<string, {path: string, versioned: boolean}> = {
       // User Guide sections (versioned)
@@ -303,26 +303,26 @@ export class Navbar extends LitElement {
     ] as Array<NavbarItemLink>;
 
     const menuItemsHtml = menuItems.map((menuItem, idx) => {
-      let body;
       if (menuItem.link && Array.isArray(menuItem.link)) {
-        body = this.renderNavItemDropdown(menuItem, idx, this.visibleMenu === idx);
-      } else {
-        body = html`<li class="nav-item">${this.renderNavItemLink(menuItem)}</li>`;
+        return this.renderNavItemDropdown(menuItem, idx, this.visibleMenu === idx);
       }
-      return body;
+      return html`<li class="nav-item">${this.renderNavItemLink(menuItem)}</li>`;
     });
 
     const versionSelector = this.docVersions.length > 1 ? html`
       <div class="version-selector">
         <select @change=${this._handleVersionChange}>
-          ${this.docVersions.map(v => html`
-            <option 
-              value=${v.version}
-              ?selected=${v.version === this.currentDocVersion}
-            >
-              ${v.label} (${v.version})
-            </option>
-          `)}
+          ${this.docVersions.map(version => ({
+            version,
+            html: html`
+              <option 
+                value=${version.version}
+                ?selected=${version.version === this.currentDocVersion}
+              >
+                ${version.label} (${version.version})
+              </option>
+            `
+          })).map(v => v.html)}
         </select>
       </div>
     ` : nothing;
