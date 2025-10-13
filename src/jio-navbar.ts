@@ -20,6 +20,12 @@ export type NavbarItemLink = {
 
 export type Theme = 'dark' | 'light' | 'auto';
 
+export type DocVersion = {
+  version: string;
+  label: string;
+  url?: string;
+};
+
 @localized()
 @customElement('jio-navbar')
 export class Navbar extends LitElement {
@@ -40,23 +46,29 @@ export class Navbar extends LitElement {
   @property()
   locationPathname: string = location.pathname;
 
-
   /**
    * Header theme (light/dark/auto)
    */
   @property()
   theme = 'light';
 
+  /**
+   * Documentation versions data URL - can be local or remote JSON file
+   */
+  @property({type: String})
+  docVersionsUrl = '/doc-versions.json';
+
+  /**
+   * Documentation versions
+   */
   @property({type: Array})
-  docVersions: Array<{version: string, label: string}> = [
-    {version: '2.504.x', label: 'Stable'}
-  ];
+  docVersions: Array<DocVersion> = [];
 
   /**
    * Currently active documentation version
    */
   @property({type: String})
-  currentDocVersion = '2.504.x';
+  currentDocVersion = '';
 
   /**
    * Keeps track of what menu is opened.
@@ -76,6 +88,13 @@ export class Navbar extends LitElement {
   @state()
   private menuToggled = false;
 
+  /**
+   * Loading state for versions
+   * @private
+   */
+  @state()
+  private versionsLoading = false;
+
   private isDocsSite = window.location.hostname === 'docs.jenkins.io';
 
   constructor() {
@@ -87,14 +106,49 @@ export class Navbar extends LitElement {
     super.connectedCallback();
     document.addEventListener('click', this.handleDocumentClick);
     
-    if (!this.currentDocVersion && this.docVersions.length > 0) {
-      this.currentDocVersion = this.docVersions[0].version;
-    }
+    this.loadDocVersions();
   }
 
   override disconnectedCallback() {
     super.disconnectedCallback();
     document.removeEventListener('click', this.handleDocumentClick);
+  }
+
+  async loadDocVersions() {
+    if (!this.isDocsSite) return;
+
+    this.versionsLoading = true;
+    try {
+      const response = await fetch(this.docVersionsUrl);
+      if (response.ok) {
+        const versionsData = await response.json();
+        this.docVersions = versionsData.versions || [];
+        
+        if (!this.currentDocVersion && this.docVersions.length > 0) {
+          const stableVersion = this.docVersions.find(v => v.label === 'Stable') || this.docVersions[0];
+          this.currentDocVersion = stableVersion.version;
+        }
+      } else {
+        console.warn('Failed to load doc versions, using fallback');
+        this.setFallbackVersions();
+      }
+    } catch (error) {
+      console.warn('Error loading doc versions, using fallback:', error);
+      this.setFallbackVersions();
+    } finally {
+      this.versionsLoading = false;
+    }
+  }
+
+  private setFallbackVersions() {
+    this.docVersions = [
+      {version: '2.504.x', label: 'Stable'},
+      {version: '2.503.x', label: 'Previous'},
+      {version: 'latest', label: 'Latest'}
+    ];
+    if (!this.currentDocVersion) {
+      this.currentDocVersion = '2.504.x';
+    }
   }
 
   handleDocumentClick() {
@@ -184,10 +238,27 @@ export class Navbar extends LitElement {
     const newVersion = (e.target as HTMLSelectElement).value;
     if (newVersion !== this.currentDocVersion) {
       this.currentDocVersion = newVersion;
-      // Dispatch event to notify parent of version change
+      
+      const selectedVersion = this.docVersions.find(v => v.version === newVersion);
+      if (selectedVersion?.url) {
+        window.location.href = selectedVersion.url;
+        return;
+      }
+      
       this.dispatchEvent(new CustomEvent('version-changed', {
         detail: { version: this.currentDocVersion }
       }));
+
+      if (this.isDocsSite) {
+        const currentPath = window.location.pathname;
+        const pathParts = currentPath.split('/').filter(part => part !== '');
+        
+        if (pathParts.length > 0 && this.docVersions.some(v => v.version === pathParts[0])) {
+          pathParts[0] = this.currentDocVersion;
+          const newPath = '/' + pathParts.join('/');
+          window.location.href = newPath + window.location.search + window.location.hash;
+        }
+      }
     }
   }
 
@@ -209,6 +280,7 @@ export class Navbar extends LitElement {
       {label: msg("Tekton"), link: "https://tekton.dev/"},
       {label: msg("Spinnaker"), link: "https://www.spinnaker.io/"},
     ];
+    
     const menuItems = [
       {label: msg("Blog"), link: "/blog/"},
       {label: msg("Success Stories"), link: "https://stories.jenkins.io/"},
@@ -216,7 +288,11 @@ export class Navbar extends LitElement {
       {
         label: msg("Documentation"), link: [
           {
-            label: msg("User Guide"), 
+            label: msg("All Versions"), 
+            link: this.isDocsSite ? "/versions/" : "https://docs.jenkins.io/versions/",
+            header: true
+          },
+          {label: msg("User Guide"), 
             link: this.getDocsUrl("/doc/book"),
             header: true
           },
@@ -320,10 +396,10 @@ export class Navbar extends LitElement {
     });
 
     const versionOptions = this.renderVersionOptions();
-    const versionSelector = this.docVersions.length > 1 ? html`
+    const versionSelector = this.isDocsSite && this.docVersions.length > 1 ? html`
       <div class="version-selector">
-        <select @change=${this._handleVersionChange}>
-          ${versionOptions}
+        <select @change=${this._handleVersionChange} ?disabled=${this.versionsLoading}>
+          ${this.versionsLoading ? html`<option>Loading...</option>` : versionOptions}
         </select>
       </div>
     ` : nothing;
@@ -372,11 +448,6 @@ export class Navbar extends LitElement {
     const assignedElements = slotElement.assignedElements();
     const container = slotElement.parentNode as HTMLElement;
     for (const element of assignedElements) {
-      //if (element.slot === "rightMenuItems") {
-      //  const divider = document.createElement('li');
-      //  divider.className = "divider";
-      //  container.appendChild(divider);
-      //}
       for (const link of element.querySelectorAll('jio-navbar-link')) {
         const wrapper = document.createElement('li');
         wrapper.className = "nav-item";
