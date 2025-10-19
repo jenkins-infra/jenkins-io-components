@@ -53,10 +53,10 @@ export class Navbar extends LitElement {
   theme = 'light';
 
   /**
-   * Documentation versions data URL - can be local or remote JSON file
+   * Documentation versions data URL - can be local or remote text file
    */
   @property({type: String})
-  docVersionsUrl = '/doc-versions.json';
+  docVersionsUrl = '/doc-versions.txt';
 
   /**
    * Documentation versions
@@ -121,8 +121,8 @@ export class Navbar extends LitElement {
     try {
       const response = await fetch(this.docVersionsUrl);
       if (response.ok) {
-        const versionsData = await response.json();
-        this.docVersions = versionsData.versions || [];
+        const text = await response.text();
+        this.docVersions = this.parseVersionsText(text);
         
         if (!this.currentDocVersion && this.docVersions.length > 0) {
           const stableVersion = this.docVersions.find(v => v.label === 'Stable') || this.docVersions[0];
@@ -140,11 +140,34 @@ export class Navbar extends LitElement {
     }
   }
 
+  private parseVersionsText(text: string): DocVersion[] {
+    const versions: DocVersion[] = [];
+    const lines = text.split('\n').filter(line => line.trim() !== '' && !line.startsWith('#'));
+
+    for (const line of lines) {
+      const parts = line.split('|').map(part => part.trim());
+      if (parts.length >= 2) {
+        const version = parts[0];
+        const label = parts[1];
+        const url = parts[2] || `/${version}/`;
+        
+        versions.push({
+          version,
+          label,
+          url
+        });
+      }
+    }
+
+    return versions;
+  }
+
   private setFallbackVersions() {
+    // Fallback to current versions if loading fails
     this.docVersions = [
-      {version: '2.504.x', label: 'Stable'},
-      {version: '2.503.x', label: 'Previous'},
-      {version: 'latest', label: 'Latest'}
+      {version: '2.504.x', label: 'Stable', url: '/2.504.x/'},
+      {version: '2.516.x', label: 'Latest', url: '/2.516.x/'},
+      {version: 'main', label: 'Development', url: '/main/'}
     ];
     if (!this.currentDocVersion) {
       this.currentDocVersion = '2.504.x';
