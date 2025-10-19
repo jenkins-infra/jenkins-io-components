@@ -1,6 +1,6 @@
 import {LitElement, html, nothing, TemplateResult} from 'lit';
 import {ifDefined} from 'lit/directives/if-defined.js';
-import {customElement, property} from 'lit/decorators.js';
+import {customElement, property, state} from 'lit/decorators.js';
 import {msg, localized} from '@lit/localize';
 
 import './jio-improve-this-page';
@@ -67,11 +67,17 @@ export class Footer extends LitElement {
    @property({type: String})
    reportAProblemTemplate = "";
 
+   /**
+    * Currently active documentation version
+    */
+   @property({type: String})
+   currentDocVersion = '2.504.x';
+
    @property({ type: Boolean })
    skipReportIssue = true;
 
+   @state()
    private isDocsSite = window.location.hostname === 'docs.jenkins.io';
-   private docsVersion = '2.504.x';
 
    private getDocsUrl(originalPath: string): string {
      const [cleanPath, query, hash] = originalPath.replace(/^https?:\/\/[^/]+/, '').split(/[?#]/);
@@ -128,10 +134,10 @@ export class Footer extends LitElement {
        if (versioned) {
          const pathParts = newPath.split('/').filter(part => part !== '');
          if (pathParts.length >= 1) {
-           pathParts.splice(1, 0, this.docsVersion);
+           pathParts.splice(1, 0, this.currentDocVersion);
            newPath = '/' + pathParts.join('/');
          } else {
-           newPath = `/${this.docsVersion}`;
+           newPath = `/${this.currentDocVersion}`;
          }
        }
        
