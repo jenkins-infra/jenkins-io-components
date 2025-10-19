@@ -408,7 +408,8 @@ export class Navbar extends LitElement {
           {label: msg("Conduct"), link: this.getDocsUrl("/project/conduct/")},
           {label: msg("Artwork"), link: this.getDocsUrl("/artwork/")},
         ]
-      }
+      },
+      {label: msg("Support"), link: "/support/"}
     ] as Array<NavbarItemLink>;
 
     const menuItemsHtml = menuItems.map((menuItem, idx) => {
