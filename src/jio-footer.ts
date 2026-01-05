@@ -215,7 +215,7 @@ export class Footer extends LitElement {
    <div class="container">
      <div class="row">
         <p>
-           Copyright © 2025 CD Foundation The Linux Foundation®. All rights reserved.
+           Copyright © ${new Date().getFullYear()} CD Foundation The Linux Foundation®. All rights reserved.
            The Linux Foundation has registered trademarks and uses trademarks. For a list of trademarks of The Linux Foundation, please see our 
             <a href="https://www.linuxfoundation.org/legal/trademark-usage" target="_blank">Trademark Usage</a> page.
            Linux is a registered trademark of Linus Torvalds. 
