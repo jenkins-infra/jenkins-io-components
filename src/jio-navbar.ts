@@ -20,6 +20,12 @@ export type NavbarItemLink = {
 
 export type Theme = 'dark' | 'light' | 'auto';
 
+export type DocVersion = {
+  version: string;
+  label: string;
+  url?: string;
+};
+
 @localized()
 @customElement('jio-navbar')
 export class Navbar extends LitElement {
@@ -40,12 +46,29 @@ export class Navbar extends LitElement {
   @property()
   locationPathname: string = location.pathname;
 
-
   /**
    * Header theme (light/dark/auto)
    */
   @property()
   theme = 'light';
+
+  /**
+   * Documentation versions data URL - can be local or remote text file
+   */
+  @property({type: String})
+  docVersionsUrl = '/doc-versions.txt';
+
+  /**
+   * Documentation versions
+   */
+  @property({type: Array})
+  docVersions: Array<DocVersion> = [];
+
+  /**
+   * Currently active documentation version
+   */
+  @property({type: String})
+  currentDocVersion = '';
 
   /**
    * Keeps track of what menu is opened.
@@ -65,6 +88,15 @@ export class Navbar extends LitElement {
   @state()
   private menuToggled = false;
 
+  /**
+   * Loading state for versions
+   * @private
+   */
+  @state()
+  private versionsLoading = false;
+
+  private isDocsSite = window.location.hostname === 'docs.jenkins.io';
+
   constructor() {
     super();
     this.handleDocumentClick = this.handleDocumentClick.bind(this);
@@ -73,6 +105,8 @@ export class Navbar extends LitElement {
   override connectedCallback() {
     super.connectedCallback();
     document.addEventListener('click', this.handleDocumentClick);
+    
+    this.loadDocVersions();
   }
 
   override disconnectedCallback() {
@@ -80,8 +114,186 @@ export class Navbar extends LitElement {
     document.removeEventListener('click', this.handleDocumentClick);
   }
 
+  async loadDocVersions() {
+    if (!this.isDocsSite) return;
+
+    this.versionsLoading = true;
+    try {
+      const response = await fetch(this.docVersionsUrl);
+      if (response.ok) {
+        const text = await response.text();
+        this.docVersions = this.parseVersionsText(text);
+        
+        if (!this.currentDocVersion && this.docVersions.length > 0) {
+          const stableVersion = this.docVersions.find(v => v.label === 'Stable') || this.docVersions[0];
+          this.currentDocVersion = stableVersion.version;
+        }
+      } else {
+        console.warn('Failed to load doc versions, using fallback');
+        this.setFallbackVersions();
+      }
+    } catch (error) {
+      console.warn('Error loading doc versions, using fallback:', error);
+      this.setFallbackVersions();
+    } finally {
+      this.versionsLoading = false;
+    }
+  }
+
+  private parseVersionsText(text: string): DocVersion[] {
+    const versions: DocVersion[] = [];
+    const lines = text.split('\n').filter(line => line.trim() !== '' && !line.startsWith('#'));
+
+    for (const line of lines) {
+      const parts = line.split('|').map(part => part.trim());
+      if (parts.length >= 2) {
+        const version = parts[0];
+        const label = parts[1];
+        const url = parts[2] || `/${version}/`;
+        
+        versions.push({
+          version,
+          label,
+          url
+        });
+      }
+    }
+
+    return versions;
+  }
+
+  private setFallbackVersions() {
+    // Fallback to current versions if loading fails
+    this.docVersions = [
+      {version: '2.504.x', label: 'Stable', url: '/2.504.x/'},
+      {version: '2.516.x', label: 'Latest', url: '/2.516.x/'},
+      {version: 'main', label: 'Development', url: '/main/'}
+    ];
+    if (!this.currentDocVersion) {
+      this.currentDocVersion = '2.504.x';
+    }
+  }
+
   handleDocumentClick() {
     this.visibleMenu = -1;
+  }
+
+  private getDocsUrl(originalPath: string): string {
+    const [cleanPath, query, hash] = originalPath.replace(/^https?:\/\/[^/]+/, '').split(/[?#]/);
+    
+    const docMappings: Record<string, {path: string, versioned: boolean}> = {
+      // User Guide sections (versioned)
+      '/doc/book': {path: '/user-docs', versioned: true},
+      '/doc/book/installing': {path: '/user-docs/installing-jenkins', versioned: true},
+      '/doc/book/pipeline': {path: '/user-docs/pipeline', versioned: true},
+      '/doc/book/managing': {path: '/user-docs/managing', versioned: true},
+      '/doc/book/security': {path: '/user-docs/security', versioned: true},
+      '/doc/book/system-administration': {path: '/user-docs/system-administration', versioned: true},
+      '/doc/book/troubleshooting': {path: '/user-docs/troubleshooting', versioned: true},
+      '/doc/book/glossary': {path: '/user-docs/glossary', versioned: true},
+      
+      // Solutions (versioned)
+      '/solutions': {path: '/solutions', versioned: true},
+      
+      // Tutorials (versioned)
+      '/doc/tutorials': {path: '/tutorials', versioned: true},
+      
+      // Developer Guide (not versioned)
+      '/doc/developer': {path: '/dev-docs', versioned: false},
+      
+      // Community sections
+      '/participate': {path: '/community', versioned: false},
+      '/chat': {path: '/community/chat', versioned: false},
+      '/projects/jam': {path: '/community/meet', versioned: false},
+      '/events': {path: '/events', versioned: false},
+      '/mailing-lists': {path: '/community/mailing-lists', versioned: false},
+      
+      // Subprojects
+      '/sigs/docs/gsod/2020/projects/document-jenkins-on-kubernetes': {
+        path: '/sigs/docs/gsod/2020/projects/document-jenkins-on-kubernetes', 
+        versioned: false
+      },
+      
+      // Security
+      '/security/reporting': {path: '/security/reporting', versioned: false},
+      
+      // About sections
+      '/project/roadmap': {path: '/about', versioned: false},
+      '/project/conduct': {path: '/project/conduct', versioned: false},
+      '/artwork': {path: '/images', versioned: false}
+    };
+
+    const mappingEntry = Object.entries(docMappings).find(([original]) => 
+      cleanPath.startsWith(original)
+    );
+  
+    if (mappingEntry && this.isDocsSite) {
+      const [original, {path: replacement, versioned}] = mappingEntry;
+      let newPath = cleanPath.replace(original, replacement);
+      
+      if (versioned) {
+        const pathParts = newPath.split('/').filter(part => part !== '');
+        if (pathParts.length >= 1) {
+          pathParts.splice(1, 0, this.currentDocVersion);
+          newPath = '/' + pathParts.join('/');
+        } else {
+          newPath = `/${this.currentDocVersion}`;
+        }
+      }
+      
+      if (!newPath.endsWith('index.html')) {
+        newPath = newPath.replace(/(\/)?$/, '/') + 'index.html';
+      }
+
+      // Reconstruct URL with query/hash if they existed
+      let finalUrl = `https://docs.jenkins.io${newPath}`;
+      if (query) finalUrl += `?${query}`;
+      if (hash) finalUrl += `#${hash}`;
+      return finalUrl;
+    }
+
+    // For all other paths, use standard behavior
+    const baseUrl = this.isDocsSite ? 'https://docs.jenkins.io' : 'https://www.jenkins.io';
+    return `${baseUrl}${cleanPath}`;
+  }
+
+  private _handleVersionChange(e: Event) {
+    const newVersion = (e.target as HTMLSelectElement).value;
+    if (newVersion !== this.currentDocVersion) {
+      this.currentDocVersion = newVersion;
+      
+      const selectedVersion = this.docVersions.find(v => v.version === newVersion);
+      if (selectedVersion?.url) {
+        window.location.href = selectedVersion.url;
+        return;
+      }
+      
+      this.dispatchEvent(new CustomEvent('version-changed', {
+        detail: { version: this.currentDocVersion }
+      }));
+
+      if (this.isDocsSite) {
+        const currentPath = window.location.pathname;
+        const pathParts = currentPath.split('/').filter(part => part !== '');
+        
+        if (pathParts.length > 0 && this.docVersions.some(v => v.version === pathParts[0])) {
+          pathParts[0] = this.currentDocVersion;
+          const newPath = '/' + pathParts.join('/');
+          window.location.href = newPath + window.location.search + window.location.hash;
+        }
+      }
+    }
+  }
+
+  private renderVersionOptions() {
+    return this.docVersions.map(version => html`
+      <option 
+        value=${version.version}
+        ?selected=${version.version === this.currentDocVersion}
+      >
+        ${version.label} (${version.version})
+      </option>
+    `);
   }
 
   override render() {
@@ -91,6 +303,7 @@ export class Navbar extends LitElement {
       {label: msg("Tekton"), link: "https://tekton.dev/"},
       {label: msg("Spinnaker"), link: "https://www.spinnaker.io/"},
     ];
+    
     const menuItems = [
       {label: msg("Blog"), link: "/blog/"},
       {label: msg("Success Stories"), link: "https://stories.jenkins.io/"},
@@ -98,104 +311,125 @@ export class Navbar extends LitElement {
       {
         label: msg("Documentation"), link: [
           {
-            label: msg("User Guide"), link: "/doc/book", header: true
+            label: msg("All Versions"), 
+            link: this.isDocsSite ? "/versions/" : "https://docs.jenkins.io/versions/",
+            header: true
           },
-          {label: "- " + msg("Installing Jenkins"), link: "/doc/book/installing/"},
-          {label: "- " + msg("Jenkins Pipeline"), link: "/doc/book/pipeline/"},
-          {label: "- " + msg("Managing Jenkins"), link: "/doc/book/managing/"},
-          {label: "- " + msg("Securing Jenkins"), link: "/doc/book/security/"},
-          {label: "- " + msg("System Administration"), link: "/doc/book/system-administration/"},
-          {label: "- " + msg("Troubleshooting Jenkins"), link: "/doc/book/troubleshooting/"},
-          {label: "- " + msg("Terms and Definitions"), link: "/doc/book/glossary/"},
-          {label: msg("Solution Pages"), link: "/solutions", header: true},
+          {label: msg("User Guide"), 
+            link: this.getDocsUrl("/doc/book"),
+            header: true
+          },
+          {label: "- " + msg("Installing Jenkins"), link: this.getDocsUrl("/doc/book/installing/")},
+          {label: "- " + msg("Jenkins Pipeline"), link: this.getDocsUrl("/doc/book/pipeline/")},
+          {label: "- " + msg("Managing Jenkins"), link: this.getDocsUrl("/doc/book/managing/")},
+          {label: "- " + msg("Securing Jenkins"), link: this.getDocsUrl("/doc/book/security/")},
+          {label: "- " + msg("System Administration"), link: this.getDocsUrl("/doc/book/system-administration/")},
+          {label: "- " + msg("Troubleshooting Jenkins"), link: this.getDocsUrl("/doc/book/troubleshooting/")},
+          {label: "- " + msg("Terms and Definitions"), link: this.getDocsUrl("/doc/book/glossary/")},
+          
+          {label: msg("Solution Pages"), link: this.getDocsUrl("/solutions"), header: true},
+          
           {
-            label: msg("Tutorials"), link: "/doc/tutorials", header: true
+            label: msg("Tutorials"), 
+            link: this.getDocsUrl("/doc/tutorials"), 
+            header: true
           },
+          
           {
-            label: msg("Developer Guide"), link: "/doc/developer", header: true
+            label: msg("Developer Guide"), 
+            link: this.getDocsUrl("/doc/developer"), 
+            header: true
           },
-          {label: msg("Contributor Guide"), link: "/participate", header: true},
-          {label: msg("Books"), link: "/books", header: true},
+          
+          {label: msg("Contributor Guide"), link: this.getDocsUrl("/participate"), header: true},
+          {label: msg("Books"), link: this.getDocsUrl("/books"), header: true},
         ]
       },
       {label: msg("Plugins"), link: "https://plugins.jenkins.io/"},
       {
         label: msg("Community"), link: [
           {
-            label: msg("Overview"), link: "/participate/"
+            label: msg("Overview"), link: this.getDocsUrl("/participate/")
           },
           {
-            label: msg("Chat"), link: "/chat/", title: "Chat with the rest of the Jenkins community on IRC"
+            label: msg("Chat"), link: this.getDocsUrl("/chat/"), title: "Chat with the rest of the Jenkins community on IRC"
           },
-          {label: msg("Meet"), link: "/projects/jam/"},
+          {label: msg("Meet"), link: this.getDocsUrl("/projects/jam/")},
           {
-            label: msg("Events"), link: "/events/"
+            label: msg("Events"), link: this.getDocsUrl("/events/")
           },
           {label: msg("Forum"), link: "https://community.jenkins.io/"},
           {label: msg("Issue Tracker"), link: "https://issues.jenkins.io/"},
-          {label: msg("Mailing Lists"), link: "/mailing-lists/", title: "Browse Jenkins mailing list archives and/ or subscribe to lists"},
-          {label: msg("Roadmap"), link: "/project/roadmap/"},
+          {label: msg("Mailing Lists"), link: this.getDocsUrl("/mailing-lists/"), title: "Browse Jenkins mailing list archives and/ or subscribe to lists"},
+          {label: msg("Roadmap"), link: this.getDocsUrl("/project/roadmap/")},
           {label: msg("Account Management"), link: "https://accounts.jenkins.io/", title: "Create/manage your account for accessing wiki, issue tracker, etc"},
           {
-            label: msg("Special Interest Groups"), link: "/sigs/", header: true
+            label: msg("Special Interest Groups"), link: this.getDocsUrl("/sigs/"), header: true
           },
-          {label: "- " + msg("Advocacy and Outreach"), link: "/sigs/advocacy-and-outreach/"},
-          {label: "- " + msg("Documentation"), link: "/sigs/docs/"},
-          {label: "- " + msg("Google Summer of Code"), link: "/sigs/gsoc/"},
-          {label: "- " + msg("Platform"), link: "/sigs/platform/"},
-          {label: "- " + msg("User Experience"), link: "/sigs/ux/"},
+          {label: "- " + msg("Advocacy and Outreach"), link: this.getDocsUrl("/sigs/advocacy-and-outreach/")},
+          {label: "- " + msg("Documentation"), link: this.getDocsUrl("/sigs/docs/")},
+          {label: "- " + msg("Google Summer of Code"), link: this.getDocsUrl("/sigs/gsoc/")},
+          {label: "- " + msg("Platform"), link: this.getDocsUrl("/sigs/platform/")},
+          {label: "- " + msg("User Experience"), link: this.getDocsUrl("/sigs/ux/")},
         ]
       },
       {
         label: msg("Subprojects"), link: [
           {
-            label: msg("Overview"), link: "/projects/"
+            label: msg("Overview"), link: this.getDocsUrl("/projects/")
           },
-          {label: msg("Google Summer of Code in Jenkins"), link: "/projects/gsoc/"},
-          {label: msg("Infrastructure"), link: "/projects/infrastructure/"},
-          {label: msg("CI/CD and Jenkins Area Meetups"), link: "/projects/jam/"},
-          {label: msg("Jenkins Configuration as Code"), link: "/projects/jcasc/"},
-          {label: msg("Jenkins Operator"), link: "/projects/jenkins-operator/"},
-          {label: msg("Jenkins Remoting"), link: "/projects/remoting/"},
-          {label: msg("Document Jenkins on Kubernetes"), link: "/sigs/docs/gsod/2020/projects/document-jenkins-on-kubernetes/"},
+          {label: msg("Google Summer of Code in Jenkins"), link: this.getDocsUrl("/projects/gsoc/")},
+          {label: msg("Infrastructure"), link: this.getDocsUrl("/projects/infrastructure/")},
+          {label: msg("CI/CD and Jenkins Area Meetups"), link: this.getDocsUrl("/projects/jam/")},
+          {label: msg("Jenkins Configuration as Code"), link: this.getDocsUrl("/projects/jcasc/")},
+          {label: msg("Jenkins Operator"), link: this.getDocsUrl("/projects/jenkins-operator/")},
+          {label: msg("Jenkins Remoting"), link: this.getDocsUrl("/projects/remoting/")},
+          {label: msg("Document Jenkins on Kubernetes"), link: this.getDocsUrl("/sigs/docs/gsod/2020/projects/document-jenkins-on-kubernetes/")},
         ]
       },
       {
         label: msg("Security"), link: [
           {
-            label: msg("Overview"), link: "/security/"
+            label: msg("Overview"), link: this.getDocsUrl("/security/")
           },
-          {label: msg("Security Advisories"), link: "/security/advisories/"},
-          {label: msg("Reporting Vulnerabilities"), link: "/security/reporting/"},
+          {label: msg("Security Advisories"), link: this.getDocsUrl("/security/advisories/")},
+          {label: msg("Reporting Vulnerabilities"), link: this.getDocsUrl("/security/reporting/")},
         ]
       },
       {
         label: msg("About"), link: [
-          {label: msg("Roadmap"), link: "/project/roadmap/"},
+          {label: msg("Roadmap"), link: this.getDocsUrl("/project/roadmap/")},
           {
-            label: msg("Press"), link: "/press/"
+            label: msg("Press"), link: this.getDocsUrl("/press/")
           },
           {
-            label: msg("Awards"), link: "/awards/"
+            label: msg("Awards"), link: this.getDocsUrl("/awards/")
           },
-          {label: msg("Conduct"), link: "/project/conduct/"},
-          {label: msg("Artwork"), link: "/artwork/"},
+          {label: msg("Conduct"), link: this.getDocsUrl("/project/conduct/")},
+          {label: msg("Artwork"), link: this.getDocsUrl("/artwork/")},
         ]
       },
       {label: msg("Support"), link: "/support/"}
     ] as Array<NavbarItemLink>;
+
     const menuItemsHtml = menuItems.map((menuItem, idx) => {
-      let body;
       if (menuItem.link && Array.isArray(menuItem.link)) {
-        // eslint-disable-next-line lit/no-this-assign-in-render
-        body = this.renderNavItemDropdown(menuItem, idx, this.visibleMenu === idx);
-      } else {
-        // eslint-disable-next-line lit/no-this-assign-in-render
-        body = html`<li class="nav-item">${this.renderNavItemLink(menuItem)}</li>`;
+        return this.renderNavItemDropdown(menuItem, idx, this.visibleMenu === idx);
       }
-      return body;
+      return html`<li class="nav-item">${this.renderNavItemLink(menuItem)}</li>`;
     });
+
+    const versionOptions = this.renderVersionOptions();
+    const versionSelector = this.isDocsSite && this.docVersions.length > 1 ? html`
+      <div class="version-selector">
+        <select @change=${this._handleVersionChange} ?disabled=${this.versionsLoading}>
+          ${this.versionsLoading ? html`<option>Loading...</option>` : versionOptions}
+        </select>
+      </div>
+    ` : nothing;
+
     const searchboxHtml = !this.showSearchBox ? nothing : html`<jio-searchbox @click=${this._handleSearchboxClick}></jio-searchbox>`;
+    
     return html`
       <nav class="navbar" data-theme=${this.theme}>
         <span class="navbar-brand">
@@ -203,6 +437,9 @@ export class Navbar extends LitElement {
             <a href="/">Jenkins</a>
           </slot>
         </span>
+        
+        ${versionSelector}
+        
         <button
           class="navbar-toggler collapsed btn"
           type="button"
@@ -212,6 +449,7 @@ export class Navbar extends LitElement {
           aria-label="Toggle navigation">
           <ion-icon name=${this.menuToggled ? "close-outline" : "menu-outline"} title="Toggle Menu Visible"></ion-icon>
         </button>
+        
         <div class="navbar-menu collapse ${this.menuToggled ? "show" : ""}">
           <ul class="nav navbar-nav mr-auto">
             ${this.renderNavItemDropdown({label: html`<jio-cdf-logo></jio-cdf-logo>`, link: cdfMenuItems}, 99, this.visibleMenu === 99)}
@@ -234,11 +472,6 @@ export class Navbar extends LitElement {
     const assignedElements = slotElement.assignedElements();
     const container = slotElement.parentNode as HTMLElement;
     for (const element of assignedElements) {
-      //if (element.slot === "rightMenuItems") {
-      //  const divider = document.createElement('li');
-      //  divider.className = "divider";
-      //  container.appendChild(divider);
-      //}
       for (const link of element.querySelectorAll('jio-navbar-link')) {
         const wrapper = document.createElement('li');
         wrapper.className = "nav-item";
@@ -313,5 +546,3 @@ declare global {
     'jio-navbar': Navbar;
   }
 }
-
-
