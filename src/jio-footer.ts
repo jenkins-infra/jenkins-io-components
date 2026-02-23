@@ -63,10 +63,22 @@ export class Footer extends LitElement {
    githubBranch = 'master';
 
    /**
-    * The name of the bug report template to use
+    * GitHub issue template filename
     */
    @property({type: String})
-   reportAProblemTemplate = "";
+   reportAProblemTemplate = '';
+
+   /**
+   * GitHub issue template field to fill
+   */
+   @property({type: String})
+   reportAProblemTemplateField = 'problem';
+
+   /**
+   * List of label(s) to add to the issue (comma separated)
+   */
+   @property({type: String})
+   reportAProblemLabels = 'bug';
 
    @property({ type: Boolean })
    skipReportIssue = true;
