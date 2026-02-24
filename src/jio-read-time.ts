@@ -1,46 +1,46 @@
-import {LitElement, html, css} from 'lit';
-import {customElement, property} from 'lit/decorators.js';
+import { LitElement, html, css } from 'lit';
+import { customElement, property } from 'lit/decorators.js';
 
-function estimateReadTime(paragraphs: Array<string | {html?: string}> = [], wordsPerMinute = 200): number {
-  if (!Array.isArray(paragraphs) || paragraphs.length === 0) {
+function estimateReadTime(
+  content = '',
+  wordsPerMinute = 200
+): number {
+  if (!content || typeof content !== 'string') {
     return 1;
   }
 
-  const fullText = paragraphs
-    .map(p => (typeof p === 'string' ? p : p.html || ''))
-    .join(' ');
+  const temp = document.createElement('div');
+  temp.innerHTML = content;
 
-  const cleanedText = fullText
-    .replace(/<[^>]*>/g, ' ') // remove HTML tags
-    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '$1') // remove markdown links
-    .replace(/https?:\/\/\S+/g, '') // remove raw URLs
-    .replace(/[`*_>#-]/g, '') // remove markdown symbols
-    .replace(/\s+/g, ' ')
-    .trim();
+  const text = temp.textContent
+      ?.replace(/\s+/g, ' ') // ensure no extra white space 
+      .trim() || '';
 
-  if (!cleanedText) return 1;
+  if (!text) return 1;
 
-  const words = cleanedText.split(' ').filter(Boolean).length;
-  const minutes = Math.max(1, Math.ceil(words / wordsPerMinute));
-  return minutes;
+  const wordCount = text.split(' ').length;
+  return Math.max(1, Math.ceil(wordCount / wordsPerMinute));
 }
 
 @customElement('jio-read-time-estimation')
 export class ReadTimeEstimation extends LitElement {
   static override styles = css``;
 
-  @property({type: Array})
-  paragraphs: Array<string | {html?: string}> = [];
+  @property({ type: String })
+  content = '';
 
-  @property({type: Number})
+  @property({ type: Number })
   wordsPerMinute = 200;
 
   override render() {
-    const readTime = estimateReadTime(this.paragraphs, this.wordsPerMinute);
+    const readTime = estimateReadTime(
+      this.content,
+      this.wordsPerMinute
+    );
+
     return html`${readTime} min read`;
   }
 }
-
 declare global {
   interface HTMLElementTagNameMap {
     'jio-read-time-estimation': ReadTimeEstimation;
