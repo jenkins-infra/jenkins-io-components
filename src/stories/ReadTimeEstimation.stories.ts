@@ -5,7 +5,7 @@ import {expect} from '@storybook/jest';
 import {ReadTimeEstimation} from '../jio-read-time';
 import '../jio-read-time';
 
-const shortContent = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit';
+const shortContent = '<h1>Lorem ipsum dolor sit amet, consectetur adipiscing elit</h1>';
 
 const mediumContent = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur. Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur. At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.';
 
@@ -16,14 +16,24 @@ export default {
   component: 'jio-read-time-estimation',
 } as Meta;
 
-const render = ({content, wordsPerMinute}: ReadTimeEstimation) => html`
-  <jio-read-time-estimation 
-    .content=${content}
-    .wordsPerMinute=${wordsPerMinute}>
-  </jio-read-time-estimation>
-`;
+const createContentElement = (text: string): HTMLElement | null => {
+  if (!text) return null;
+  const div = document.createElement('div');
+  div.innerHTML = text; 
+  return div;
+};
 
-export const ShortContent: StoryObj<ReadTimeEstimation> = {
+const render = ({content, wordsPerMinute}: {content: string, wordsPerMinute: number}) => {
+  const contentElement = createContentElement(content);
+  return html`
+    <jio-read-time-estimation 
+      .content=${contentElement}
+      .wordsPerMinute=${wordsPerMinute}>
+    </jio-read-time-estimation>
+  `;
+};
+
+export const ShortContent: StoryObj<{content: string, wordsPerMinute: number}> = {
   render,
   args: {
     content: shortContent,
@@ -37,7 +47,7 @@ export const ShortContent: StoryObj<ReadTimeEstimation> = {
   }
 };
 
-export const MediumContent: StoryObj<ReadTimeEstimation> = {
+export const MediumContent: StoryObj<{content: string, wordsPerMinute: number}> = {
   render,
   args: {
     content: mediumContent,
@@ -51,7 +61,7 @@ export const MediumContent: StoryObj<ReadTimeEstimation> = {
   }
 };
 
-export const LongContent: StoryObj<ReadTimeEstimation> = {
+export const LongContent: StoryObj<{content: string, wordsPerMinute: number}> = {
   render,
   args: {
     content: longContent,
@@ -65,7 +75,7 @@ export const LongContent: StoryObj<ReadTimeEstimation> = {
   }
 };
 
-export const CustomWordsPerMinute: StoryObj<ReadTimeEstimation> = {
+export const CustomWordsPerMinute: StoryObj<{content: string, wordsPerMinute: number}> = {
   render,
   args: {
     content: '',
