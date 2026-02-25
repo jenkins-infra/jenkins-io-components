@@ -2,20 +2,19 @@ import { LitElement, html, css } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 function estimateReadTime(
-  content = '',
+  contentElement: HTMLElement | null,
   wordsPerMinute = 200
 ): number {
-  if (!content || typeof content !== 'string') {
+  if (!contentElement || !(contentElement instanceof HTMLElement)) {
     return 1;
   }
 
-  const temp = document.createElement('div');
-  temp.innerHTML = content;
-
-  const text = temp.textContent
+  const text = contentElement.textContent
       ?.replace(/\s+/g, ' ') // ensure no extra white space 
       .trim() || '';
 
+      console.log(text)
+      
   if (!text) return 1;
 
   const wordCount = text.split(' ').length;
@@ -26,8 +25,8 @@ function estimateReadTime(
 export class ReadTimeEstimation extends LitElement {
   static override styles = css``;
 
-  @property({ type: String })
-  content = '';
+  @property({ type: Object })
+  content: HTMLElement | null = null;
 
   @property({ type: Number })
   wordsPerMinute = 200;
