@@ -13,7 +13,6 @@ function estimateReadTime(
       ?.replace(/\s+/g, ' ') // ensure no extra white space 
       .trim() || '';
 
-      console.log(text)
       
   if (!text) return 1;
 
