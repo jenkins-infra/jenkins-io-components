@@ -1,28 +1,28 @@
-import { LitElement, html, css } from 'lit';
+import { LitElement, html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 function estimateReadTime(
   contentElement: HTMLElement | null,
   wordsPerMinute = 200
-): number {
+): String {
   if (!contentElement || !(contentElement instanceof HTMLElement)) {
-    return 1;
+    return "";
   }
 
   const text = contentElement.textContent
       ?.replace(/\s+/g, ' ') // ensure no extra white space 
       .trim() || '';
 
-      
-  if (!text) return 1;
+  if (!text) return "";
 
   const wordCount = text.split(' ').length;
-  return Math.max(1, Math.ceil(wordCount / wordsPerMinute));
+  const min = Math.max(1, Math.ceil(wordCount / wordsPerMinute));
+
+  return min.toString() + " min read";
 }
 
 @customElement('jio-read-time-estimation')
 export class ReadTimeEstimation extends LitElement {
-  static override styles = css``;
 
   @property({ type: Object })
   content: HTMLElement | null = null;
@@ -36,7 +36,7 @@ export class ReadTimeEstimation extends LitElement {
       this.wordsPerMinute
     );
 
-    return html`${readTime} min read`;
+    return html`${readTime}`;
   }
 }
 declare global {
