@@ -11,11 +11,13 @@ export class NavbarLink extends LitElement {
   padding-left: 0.5rem;
   padding-right: 0.5rem;
   text-decoration: none;
+  border-radius: 0.375rem;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
 }
 .nav-link:hover {
-  text-decoration: underline;
-  color: rgba(255, 255, 255, 0.55);
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(255, 255, 255, 0.08);
 }
 .dropdown-item {
   background-color: transparent;
