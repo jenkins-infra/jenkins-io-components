@@ -9,7 +9,10 @@ export class ImproveThisPage extends LitElement {
   static override styles = [
     ionIconText,
     css`
-      ion-icon { color: black; }
+      ion-icon {
+        color: black;
+        margin-right: 0.25rem;
+      }
     `
   ];
 
