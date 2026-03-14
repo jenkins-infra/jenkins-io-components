@@ -46,10 +46,22 @@ export class ReportAProblem extends LitElement {
   githubBranch = 'master';
 
   /**
-   * The name of the bug report template to use
+   * GitHub issue template filename
    */
   @property({type: String})
   template = '';
+
+  /**
+   * GitHub issue template field to fill
+   */
+  @property({type: String})
+  templateField = 'problem';
+
+  /**
+   * List of label(s) to add to the issue (comma separated)
+   */
+  @property({type: String})
+  labels = 'bug';
 
   get locationHref() {
     const _location = typeof location !== 'undefined' ? location : {href: 'http://unknown'};
@@ -73,13 +85,13 @@ export class ReportAProblem extends LitElement {
     if (this.template && (this.template.endsWith('.yml') || this.template.endsWith('.yaml'))) {
       // custom fields version
       const queryParams = new URLSearchParams();
-      queryParams.append('labels', 'bug');
+      queryParams.append('labels', this.labels);
       queryParams.append('template', this.template);
       let problem = `[${this.derivedTitle}](${this.derivedUrl}) page`;
       if (this.sourcePath) {
         problem += `[source file](https://github.com/${this.githubRepo}/tree/${this.githubBranch}/${this.sourcePath})`;
       }
-      queryParams.append('problem', problem);
+      queryParams.append(this.templateField, problem);
       return `https://github.com/${this.githubRepo}/issues/new?${queryParams.toString()}`;
     } else {
       // legacy template (if available)
