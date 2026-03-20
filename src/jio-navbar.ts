@@ -98,7 +98,7 @@ export class Navbar extends LitElement {
       {
         label: msg("Documentation"), link: [
           {
-            label: msg("User Guide"), link: "/doc/book", header: true
+            label: msg("User Guide"), link: "https://www.jenkins.io/doc/book/", header: true
           },
           {label: "- " + msg("Installing Jenkins"), link: "/doc/book/installing/"},
           {label: "- " + msg("Jenkins Pipeline"), link: "/doc/book/pipeline/"},
@@ -109,10 +109,10 @@ export class Navbar extends LitElement {
           {label: "- " + msg("Terms and Definitions"), link: "/doc/book/glossary/"},
           {label: msg("Solution Pages"), link: "/solutions", header: true},
           {
-            label: msg("Tutorials"), link: "/doc/tutorials", header: true
+            label: msg("Tutorials"), link: "https://www.jenkins.io/doc/tutorials/", header: true
           },
           {
-            label: msg("Developer Guide"), link: "/doc/developer", header: true
+            label: msg("Developer Guide"), link: "https://www.jenkins.io/doc/developer/", header: true
           },
           {label: msg("Contributor Guide"), link: "/participate", header: true},
           {label: msg("Books"), link: "/books", header: true},
