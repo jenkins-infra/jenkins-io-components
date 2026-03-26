@@ -18,7 +18,7 @@ export class ReportAProblem extends LitElement {
         align-items: center;
         gap: 0.25rem;
       }
-`
+    `
   ];
 
   /**

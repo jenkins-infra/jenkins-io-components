@@ -16,7 +16,7 @@ export class ImproveThisPage extends LitElement {
         align-items: center;
         gap: 0.25rem;
       }
-`
+    `
 
   ];
 
