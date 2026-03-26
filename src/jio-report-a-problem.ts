@@ -12,6 +12,12 @@ export class ReportAProblem extends LitElement {
     ionIconText,
     css`
       ion-icon { color: #FFA91B; }
+
+      a {
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+      }
     `
   ];
 
