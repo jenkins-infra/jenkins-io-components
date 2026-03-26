@@ -22,12 +22,14 @@ export default {
   }
 } as Meta;
 
-const render = ({property, sourcePath, githubRepo, githubBranch, reportAProblemTemplate}) => html`<jio-footer
+const render = ({property, sourcePath, githubRepo, githubBranch, reportAProblemTemplate, reportAProblemTemplateField, reportAProblemLabels}) => html`<jio-footer
   property=${ifDefined(property)}
   sourcePath=${ifDefined(sourcePath)}
   githubRepo=${ifDefined(githubRepo)}
   githubBranch=${ifDefined(githubBranch)}
   reportAProblemTemplate=${ifDefined(reportAProblemTemplate)}
+  reportAProblemTemplateField=${ifDefined(reportAProblemTemplateField)}
+  reportAProblemLabels=${ifDefined(reportAProblemLabels)}
 ></jio-footer>`;
 
 export const Default: StoryObj<Footer> = {
