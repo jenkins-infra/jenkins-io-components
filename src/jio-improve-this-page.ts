@@ -17,7 +17,6 @@ export class ImproveThisPage extends LitElement {
         gap: 0.25rem;
       }
     `
-
   ];
 
   /**
