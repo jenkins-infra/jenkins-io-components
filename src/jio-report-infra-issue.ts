@@ -14,7 +14,7 @@ export class ReportInfraIssue extends LitElement {
   a {
     display: flex;
     align-items: center;
-    gap: 10rem;
+    gap: 0.25rem;
   }
 
   ion-icon { color: #FFA91B; }
