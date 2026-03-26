@@ -11,8 +11,11 @@ export class ReportInfraIssue extends LitElement {
   static override styles = [
     ionIconText,
     css`
-      ion-icon { color: #FFA91B; }
-    `
+  ion-icon {
+    color: #FFA91B;
+    margin-right: 0.25rem;
+  }
+`
   ];
 
   /**
