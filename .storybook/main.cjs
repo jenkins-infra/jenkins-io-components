@@ -3,25 +3,19 @@ const postcss = require('postcss');
 const processor = postcss(require('../postcss.config.cjs'));
 
 module.exports = {
-  core: {
-    builder: "webpack5",
-    manager: "webpack5",
-  },
+ 
   "stories": [
-    "../src/**/*.stories.mdx",
     "../src/**/*.stories.@(js|jsx|ts|tsx)"
   ],
   "addons": [
     "storybook-dark-mode",
-    "@storybook/addon-interactions",
     "@storybook/addon-a11y",
     "@storybook/addon-links",
-    "@storybook/addon-essentials",
     "@storybook/addon-coverage",
-    "../sb-addons/locale-selector"
+    
   ],
   "framework": {
-    "name": "@storybook/web-components-webpack5",
+    "name": "@storybook/web-components-vite",
     "options": {}
   },
   features: {
