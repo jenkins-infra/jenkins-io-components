@@ -12,4 +12,5 @@ export {Navbar} from './jio-navbar';
 export {NavbarLink} from './jio-navbar-link';
 export {Footer} from './jio-footer';
 export {Searchbox} from './jio-searchbox';
+export {ReadTimeEstimation} from './jio-read-time';
 
