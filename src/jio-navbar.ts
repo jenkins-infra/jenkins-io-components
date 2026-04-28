@@ -87,7 +87,7 @@ export class Navbar extends LitElement {
   override render() {
     const cdfMenuItems = [
       {label: msg("What is CDF?"), link: "https://cd.foundation/"},
-      {label: msg("Jenkins X"), link: "https://jenkins-x.io/"},
+      {label: msg("JayeX"), link: "https://jayex.io/"},
       {label: msg("Tekton"), link: "https://tekton.dev/"},
       {label: msg("Spinnaker"), link: "https://www.spinnaker.io/"},
     ];
