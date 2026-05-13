@@ -29,12 +29,18 @@ pipeline {
       }
     }
 
+    stage('Check Tooling') {
+      steps {
+        sh 'node --version'
+        sh 'npm --version'
+      }
+    }
+
     stage('Install Dependencies') {
       environment {
         NODE_ENV = 'development'
       }
       steps {
-        sh 'asdf install'
         sh 'npm ci'
         sh 'npx playwright install'
       }
