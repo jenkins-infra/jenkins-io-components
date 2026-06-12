@@ -42,7 +42,6 @@ pipeline {
       }
       steps {
         sh 'npm ci'
-        sh 'npx playwright install'
       }
     }
 
