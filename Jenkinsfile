@@ -87,6 +87,7 @@ pipeline {
       }
       steps {
         sh '''
+          playwright install --list
           npx test-storybook --maxWorkers=2 --coverage --junit --ci
         '''
       }
