@@ -1,5 +1,5 @@
 function managerEntries(entry = []) {
-  return [...entry, require.resolve('./register')];
+  return [...entry, require.resolve('./manager')];
 }
 
 const config = (entry = [], _options) => {

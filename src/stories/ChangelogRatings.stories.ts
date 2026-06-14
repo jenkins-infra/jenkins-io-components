@@ -1,9 +1,8 @@
-import {StoryObj, Meta} from '@storybook/web-components';
-import {action} from '@storybook/addon-actions';
+import {StoryObj, Meta} from '@storybook/web-components-vite';
+import {action} from 'storybook/actions';
 import {html} from 'lit';
 import {ifDefined} from 'lit/directives/if-defined.js';
-import {expect, jest} from '@storybook/jest';
-import {userEvent} from '@storybook/testing-library';
+import {expect, spyOn, userEvent} from 'storybook/test';
 
 import {ChangelogRatings} from '../jio-changelog-ratings';
 import '../jio-components';
@@ -83,9 +82,9 @@ export const Good: StoryObj<ChangelogRatings> = {
   name: 'triggers event when good without asking for issue',
   args: AllArgs.args,
   play: async ({canvasElement}) => {
-    const spy = jest.spyOn(window, 'prompt');
+    const spy = spyOn(window, 'prompt');
 
-    jest.mocked(window.prompt).mockImplementation(() => {return undefined;});
+    spy.mockImplementation(() => {return undefined;});
 
     const wc = canvasElement.querySelector('jio-changelog-ratings') as ChangelogRatings;
 
@@ -108,9 +107,9 @@ export const NoLikeNoValueEntered: StoryObj<ChangelogRatings> = {
   name: 'click no like/emit event when no issue provided',
   args: AllArgs.args,
   play: async ({canvasElement}) => {
-    const spy = jest.spyOn(window, 'prompt');
+    const spy = spyOn(window, 'prompt');
 
-    jest.mocked(window.prompt)
+    spy
       .mockImplementationOnce(() => {return '';})
       .mockImplementationOnce(() => {return '';});
 
@@ -133,9 +132,9 @@ export const NoLikeOneValueEntered: StoryObj<ChangelogRatings> = {
   name: 'click no like/emit event when issue provided second time',
   args: AllArgs.args,
   play: async ({canvasElement}) => {
-    const spy = jest.spyOn(window, 'prompt');
+    const spy = spyOn(window, 'prompt');
 
-    jest.mocked(window.prompt)
+    spy
       .mockImplementationOnce(() => {return '';})
       .mockImplementationOnce(() => {return 'JENKINS-123';});
 
@@ -158,9 +157,9 @@ export const NoLikeFirstValueEntered: StoryObj<ChangelogRatings> = {
   name: 'click no like/emit event when issue provided first time',
   args: AllArgs.args,
   play: async ({canvasElement}) => {
-    const spy = jest.spyOn(window, 'prompt');
+    const spy = spyOn(window, 'prompt');
 
-    jest.mocked(window.prompt)
+    spy
       .mockImplementationOnce(() => {return 'JENKINS-123';});
 
     const wc = canvasElement.querySelector('jio-changelog-ratings') as ChangelogRatings;
@@ -184,9 +183,9 @@ export const RollbackNoValueEntered: StoryObj<ChangelogRatings> = {
   name: 'click rollback/emit event when no issue provided',
   args: AllArgs.args,
   play: async ({canvasElement}) => {
-    const spy = jest.spyOn(window, 'prompt');
+    const spy = spyOn(window, 'prompt');
 
-    jest.mocked(window.prompt)
+    spy
       .mockImplementationOnce(() => {return '';})
       .mockImplementationOnce(() => {return '';});
 
@@ -209,9 +208,9 @@ export const RollbackOneValueEntered: StoryObj<ChangelogRatings> = {
   name: 'click rollback/emit event when issue provided second time',
   args: AllArgs.args,
   play: async ({canvasElement}) => {
-    const spy = jest.spyOn(window, 'prompt');
+    const spy = spyOn(window, 'prompt');
 
-    jest.mocked(window.prompt)
+    spy
       .mockImplementationOnce(() => {return '';})
       .mockImplementationOnce(() => {return 'JENKINS-123';});
 
@@ -234,9 +233,9 @@ export const RollbackFirstValueEntered: StoryObj<ChangelogRatings> = {
   name: 'click rollback/emit event when issue provided first time',
   args: AllArgs.args,
   play: async ({canvasElement}) => {
-    const spy = jest.spyOn(window, 'prompt');
+    const spy = spyOn(window, 'prompt');
 
-    jest.mocked(window.prompt)
+    spy
       .mockImplementationOnce(() => {return 'JENKINS-123';});
 
     const wc = canvasElement.querySelector('jio-changelog-ratings') as ChangelogRatings;

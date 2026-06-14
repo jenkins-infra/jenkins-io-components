@@ -1,7 +1,7 @@
-import {expect} from '@storybook/jest';
-import {StoryObj, Meta} from '@storybook/web-components';
-import {MINIMAL_VIEWPORTS} from '@storybook/addon-viewport';
-import {within, waitFor, userEvent} from '@storybook/testing-library';
+import {expect} from 'storybook/test';
+import {StoryObj, Meta} from '@storybook/web-components-vite';
+import {MINIMAL_VIEWPORTS} from 'storybook/viewport';
+import {within, waitFor, userEvent} from 'storybook/test';
 
 import {deepQuerySelectorAll} from "shadow-dom-testing-library";
 import {html} from 'lit';
