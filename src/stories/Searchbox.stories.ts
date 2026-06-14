@@ -1,6 +1,6 @@
-import {expect} from '@storybook/jest';
-import {StoryObj, Meta} from '@storybook/web-components';
-import {userEvent} from '@storybook/testing-library';
+import {expect} from 'storybook/test';
+import {StoryObj, Meta} from '@storybook/web-components-vite';
+import {userEvent} from 'storybook/test';
 
 import {html} from 'lit';
 import {deepQuerySelector} from "shadow-dom-testing-library";

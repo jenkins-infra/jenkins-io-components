@@ -1,6 +1,6 @@
-import {StoryObj, Meta} from '@storybook/web-components';
+import {StoryObj, Meta} from '@storybook/web-components-vite';
 import {html} from 'lit';
-import {expect} from '@storybook/jest';
+import {expect} from 'storybook/test';
 
 import {ReadTimeEstimation} from '../jio-read-time';
 import '../jio-read-time';
