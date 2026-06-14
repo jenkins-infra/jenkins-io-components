@@ -1,9 +1,9 @@
-import {StoryObj, Meta} from '@storybook/web-components';
+import {StoryObj, Meta} from '@storybook/web-components-vite';
 
 import {html} from 'lit';
 import {ifDefined} from 'lit/directives/if-defined.js';
 import {deepQuerySelectorAll} from "shadow-dom-testing-library";
-import {expect} from '@storybook/jest';
+import {expect} from 'storybook/test';
 
 import {Footer} from '../jio-footer';
 import {ImproveThisPage} from '../jio-improve-this-page';

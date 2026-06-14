@@ -1,5 +1,5 @@
-import {expect} from '@storybook/jest';
-import {StoryObj, Meta} from '@storybook/web-components';
+import {expect} from 'storybook/test';
+import {StoryObj, Meta} from '@storybook/web-components-vite';
 import {html} from 'lit';
 import {ifDefined} from 'lit/directives/if-defined.js';
 
