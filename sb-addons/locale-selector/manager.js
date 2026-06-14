@@ -1,13 +1,10 @@
 import * as React from 'react';
-import {useParameter} from '@storybook/api';
-import {GLOBALS_UPDATED} from '@storybook/core-events';
-import {addons, types} from '@storybook/addons';
-import {Icons, IconButton, WithTooltip, TooltipLinkList} from '@storybook/components';
+import {useParameter, addons, types} from 'storybook/manager-api';
+import {IconButton, WithTooltip, TooltipLinkList} from 'storybook/internal/components';
 import {getByTag} from 'locale-codes';
 
 
 addons.register('jenkins-io-components/locale-selector', (api) => {
-  const chan = addons.getChannel();
   addons.add('jenkins-io-components/toolbar', {
     title: 'Example Storybook toolbar',
     //👇 Sets the type of UI element in Storybook
@@ -31,13 +28,6 @@ addons.register('jenkins-io-components/locale-selector', (api) => {
                 bubbles: true,
                 detail: {locale}
               }));
-              /*
-              const parsed = new URL(iframe.src);
-              const usp = new URLSearchParams(parsed.searchParams);
-              usp.set('locale', locale);
-              parsed.search = usp.toString();
-              iframe.src = parsed.toString();
-              */
             }
           }
         };
@@ -55,14 +45,10 @@ addons.register('jenkins-io-components/locale-selector', (api) => {
           closeOnClick
         >
           <IconButton active={active} title="Choose a language">
-            <Icons icon="globe" />
+            🌐
           </IconButton>
         </WithTooltip>
       );
     }
-  });
-
-  chan.on(GLOBALS_UPDATED, ({globals: {locale}}) => {
-    console.log('locale', locale);
   });
 });

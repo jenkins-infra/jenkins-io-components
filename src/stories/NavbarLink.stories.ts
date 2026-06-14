@@ -1,7 +1,7 @@
-import {StoryObj, Meta} from '@storybook/web-components';
+import {StoryObj, Meta} from '@storybook/web-components-vite';
 import {html} from 'lit';
 import {ifDefined} from 'lit/directives/if-defined.js';
-import {expect} from '@storybook/jest';
+import {expect} from 'storybook/test';
 
 import {NavbarLink} from '../jio-navbar-link';
 import '../jio-navbar-link';
