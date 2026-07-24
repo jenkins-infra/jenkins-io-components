@@ -1,5 +1,6 @@
 // Do not trigger daily if not on the principal branch (e.g. not on PR, not on other branches, not on tags)
-String cronPattern = env.BRANCH_IS_PRIMARY ? '@daily' : ''
+final String cronPattern = env.BRANCH_IS_PRIMARY ? '@daily' : ''
+final String agentLabel = infra.isInfra() ? 'jnlp-linux-arm64' : 'maven-25'
 
 pipeline {
   triggers {
@@ -13,7 +14,7 @@ pipeline {
   }
 
   agent {
-    label 'linux-arm64-docker || arm64linux'
+    label agentLabel
   }
 
   environment {
