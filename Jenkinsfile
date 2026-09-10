@@ -1,7 +1,13 @@
-// Do not trigger daily if not on the principal branch (e.g. not on PR, not on other branches, not on tags)
-final String cronPattern = env.BRANCH_IS_PRIMARY ? '@daily' : ''
-final String agentLabel = infra.isInfra() ? 'jnlp-linux-arm64' : 'maven-25'
+@Library('pipeline-library@pull/1055/head') _
 
+buildWebsite([
+  deployFolder: 'storybook-static',
+  junitResultsPattern: 'junit.xml',
+  coveragePath: 'coverage/storybook/cobertura-coverage.xml',
+  releaseToNpmFromBranches: ['main', 'beta'],
+])
+
+/*
 pipeline {
   triggers {
     cron(cronPattern)
@@ -59,7 +65,7 @@ pipeline {
       steps {
         sh '''
           npx eslint --format checkstyle . > eslint-results.json
-          npx stylelint --custom-formatter ./node_modules/stylelint-checkstyle-formatter src/**/*.css -o stylelint-results.json
+          npx stylelint --custom-formatter ./node_modules/stylelint-checkstyle-formatter src / * * / *.css -o stylelint-results.json
         '''
       }
       post {
@@ -199,3 +205,4 @@ pipeline {
     }
   }
 }
+*/
