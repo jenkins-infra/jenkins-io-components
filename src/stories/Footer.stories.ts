@@ -70,6 +70,27 @@ export const NoSourcePath: StoryObj<Footer> = {
   }
 };
 
+export const SourcePathUnset: StoryObj<Footer> = {
+  render,
+  args: {
+    property: 'https://www.jenkins.io',
+    githubRepo: 'jenkins-infra/jenkins-io-components',
+    sourcePath: 'src/stories/Footer.stories.ts',
+  },
+  play: async ({canvasElement}) => {
+    const wc = canvasElement.querySelector("jio-footer") as Footer;
+    const improveThisPage = wc.shadowRoot.querySelector('jio-improve-this-page') as ImproveThisPage;
+    await improveThisPage.updateComplete;
+    expect(improveThisPage.shadowRoot.querySelector('a')).not.toBeNull();
+
+    // React sets the property to undefined when the prop is not passed
+    wc.sourcePath = undefined;
+    await wc.updateComplete;
+    await improveThisPage.updateComplete;
+    expect(improveThisPage.shadowRoot.querySelector('a')).toBeNull();
+  }
+};
+
 export const ExternalProperty: StoryObj<Footer> = {
   render,
   args: {
