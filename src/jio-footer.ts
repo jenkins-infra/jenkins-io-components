@@ -84,7 +84,8 @@ export class Footer extends LitElement {
    skipReportIssue = true;
 
    private isADownloadsPage() {
-     this.skipReportIssue = !(this.sourcePath.includes('/download/') || this.sourcePath.includes('/download/mirrors/'));
+     const sourcePath = this.sourcePath ?? '';
+     this.skipReportIssue = !(sourcePath.includes('/download/') || sourcePath.includes('/download/mirrors/'));
    }
 
    override render() {
