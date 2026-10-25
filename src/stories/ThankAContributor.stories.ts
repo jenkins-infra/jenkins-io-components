@@ -45,11 +45,6 @@ const expectText = async (canvasElement: HTMLElement, text: string) => {
 
 export const Default: StoryObj<ThankAContributor> = {
   render,
-  args: {},
-};
-
-export const SeveralRepositories: StoryObj<ThankAContributor> = {
-  render,
   args: {
     dataUrl: csvUrl(HEADER, row(sample)),
   },

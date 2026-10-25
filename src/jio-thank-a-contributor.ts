@@ -100,6 +100,8 @@ export class ThankAContributor extends LitElement {
 
   private refreshTimer?: number;
 
+  private latestRequest = 0;
+
   override connectedCallback() {
     super.connectedCallback();
     this.refreshTimer = window.setInterval(() => this.load(), REFRESH_INTERVAL);
@@ -118,13 +120,16 @@ export class ThankAContributor extends LitElement {
 
   private async load() {
     const url = this.dataUrl;
+    const request = ++this.latestRequest;
     try {
       const response = await fetch(url);
       if (!response.ok) {
         return;
       }
       const contributor = parseHonoredContributor(await response.text());
-      if (url === this.dataUrl) {
+      // Only the newest request may update the note, so a slow response
+      // can't replace data that arrived after it.
+      if (request === this.latestRequest && url === this.dataUrl) {
         this.contributor = contributor;
       }
     } catch {
