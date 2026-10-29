@@ -170,11 +170,13 @@ export class ThankAContributor extends LitElement {
     const repos = this.renderRepositories(repositories);
 
     return html`
-      <img part="avatar" src=${contributor.GH_HANDLE_AVATAR} alt="" width="96" height="96" loading="lazy">
-      <p part="text">${pullRequests === 1
-        ? msg(html`Thank you ${name} for making 1 pull request to ${repos} in ${month}.`)
-        : msg(html`Thank you ${name} for making ${pullRequests} pull requests to ${repos} in ${month}.`)
-      }</p>
+      <div class="note" part="note">
+        <img part="avatar" src=${contributor.GH_HANDLE_AVATAR} alt="" width="96" height="96" loading="lazy">
+        <p part="text">${pullRequests === 1
+          ? msg(html`Thank you ${name} for making 1 pull request to ${repos} in ${month}!`)
+          : msg(html`Thank you ${name} for making ${pullRequests} pull requests to ${repos} in ${month}!`)
+        }</p>
+      </div>
     `;
   }
 }

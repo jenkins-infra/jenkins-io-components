@@ -49,7 +49,7 @@ export const Default: StoryObj<ThankAContributor> = {
     dataUrl: csvUrl(HEADER, row(sample)),
   },
   play: async ({canvasElement}) => {
-    const wc = await expectText(canvasElement, 'Thank you Jane Doe for making 4 pull requests to the jenkins, git-plugin and plugin-site repositories in September 2026.');
+    const wc = await expectText(canvasElement, 'Thank you Jane Doe for making 4 pull requests to the jenkins, git-plugin and plugin-site repositories in September 2026!');
 
     const links = Array.from(wc.shadowRoot?.querySelectorAll('a') ?? []).map(a => a.getAttribute('href'));
     expect(links).toEqual([
@@ -59,6 +59,10 @@ export const Default: StoryObj<ThankAContributor> = {
       'https://github.com/jenkins-infra/plugin-site',
     ]);
     expect(wc.shadowRoot?.querySelector('img')).toHaveAttribute('src', sample.GH_HANDLE_AVATAR);
+
+    const note = wc.shadowRoot?.querySelector('.note') as HTMLElement;
+    expect(getComputedStyle(note).borderTopStyle).toEqual('solid');
+    expect(getComputedStyle(note).maxWidth).toEqual('544px');
   }
 };
 
@@ -68,7 +72,7 @@ export const OnePullRequest: StoryObj<ThankAContributor> = {
     dataUrl: csvUrl(HEADER, row({...sample, NBR_PR: '1', REPOSITORIES: 'jenkinsci/jenkins'})),
   },
   play: async ({canvasElement}) => {
-    await expectText(canvasElement, 'Thank you Jane Doe for making 1 pull request to the jenkins repository in September 2026.');
+    await expectText(canvasElement, 'Thank you Jane Doe for making 1 pull request to the jenkins repository in September 2026!');
   }
 };
 
@@ -78,7 +82,7 @@ export const ManyRepositories: StoryObj<ThankAContributor> = {
     dataUrl: csvUrl(HEADER, row({...sample, NBR_PR: '9', REPOSITORIES: 'a/one a/two a/three a/four a/five a/six'})),
   },
   play: async ({canvasElement}) => {
-    await expectText(canvasElement, 'Thank you Jane Doe for making 9 pull requests to 6 Jenkins repositories in September 2026.');
+    await expectText(canvasElement, 'Thank you Jane Doe for making 9 pull requests to 6 Jenkins repositories in September 2026!');
   }
 };
 
