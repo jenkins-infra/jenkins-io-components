@@ -1,0 +1,48 @@
+:host {
+  display: block;
+}
+
+/* The box sits on an inner element so nothing shows until there is a note. */
+.note {
+  align-items: center;
+  background: var(--jio-thank-a-contributor-background, rgba(218, 209, 198, 0.3));
+  border: var(--jio-thank-a-contributor-border, 1px solid rgba(218, 209, 198, 0.8));
+  border-radius: 10.5px;
+  box-sizing: border-box;
+  display: flex;
+  gap: 1.5rem;
+  margin-inline: auto;
+  max-width: var(--jio-thank-a-contributor-max-width, 34rem);
+  padding: 1.5rem;
+}
+
+img {
+  border-radius: 50%;
+  flex: none;
+  height: 96px;
+  object-fit: cover;
+  width: 96px;
+}
+
+p {
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Darker than the usual #007bff, which is under 4.5:1 on the box. */
+a {
+  color: var(--jio-a-color, #0056b3);
+}
+
+@media (max-width: 600px) {
+  .note {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+
+  img {
+    height: 72px;
+    width: 72px;
+  }
+}
