@@ -29,8 +29,9 @@ p {
   margin: 0;
 }
 
+/* Darker than the usual #007bff, which is under 4.5:1 on the box. */
 a {
-  color: var(--jio-a-color, #007bff);
+  color: var(--jio-a-color, #0056b3);
 }
 
 @media (max-width: 600px) {

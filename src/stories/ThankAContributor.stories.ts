@@ -63,6 +63,7 @@ export const Default: StoryObj<ThankAContributor> = {
     const note = wc.shadowRoot?.querySelector('.note') as HTMLElement;
     expect(getComputedStyle(note).borderTopStyle).toEqual('solid');
     expect(getComputedStyle(note).maxWidth).toEqual('544px');
+    expect(getComputedStyle(wc.shadowRoot?.querySelector('a') as HTMLElement).color).toEqual('rgb(0, 86, 179)');
   }
 };
 
