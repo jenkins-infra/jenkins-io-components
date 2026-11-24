@@ -1,3 +1,10 @@
+:host {
+  display: block;
+  position: sticky;
+  top: 0;
+  z-index: 1020;
+}
+
 a:focus-visible {
   outline: 2px solid hsl(212, 100%, 5%);
 }
